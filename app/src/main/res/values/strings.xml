@@ -1,3 +1,105 @@
 <resources>
     <string name="app_name">Heat</string>
+    <string name="app_desc">Healthier Eat</string>
+
+    <!--Intro Sliders-->
+    <!--TODO change intro texts-->
+    <string name="skip">skip</string>
+    <string name="First_intro_headline">Have a healthier \nlifestyle with</string>
+    <string name="First_intro_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
+    <string name="Second_intro_headline">How does HEAT Work?</string>
+    <string name="Second_intro_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
+    <string name="Third_intro_headline">Ready to \nGet Started?</string>
+    <string name="Third_intro_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
+
+    <!--login-->
+    <string name="login">Login</string>
+    <string name="login_intro">Login to your account and \nhaving healthy diet</string>
+    <string name="your_username">your Username</string>
+    <string name="your_email">your Email</string>
+    <string name="your_password">your Password</string>
+    <string name="do_not_have_an_account">Do not have an account?</string>
+    <!--register-->
+    <string name="register">Register</string>
+    <string name="register_intro">Do not waist any more time \nstart a healthier life</string>
+    <string name="already_have_an_account">Already have an account?</string>
+
+    <!--survey-->
+
+    <string name="First_page_text">Enter Your Personal Data</string>
+    <string name="First_page_height">Height</string>
+    <string name="First_page_weight">Weight</string>
+    <string name="First_page_age">age</string>
+    <string name="First_page_sex">Sex</string>
+    <string name="First_page_male">Male</string>
+    <string name="First_page_female">Female</string>
+
+    <string name="Second_page_text">How Active Are You?</string>
+    <string name="Second_page_sedentary">Sedentary = 1.2 (little or no exercise, desk job)</string>
+    <string name="Second_page_lightly">Lightly active = 1.375 (light exercise/sports 1–3 days/week)</string>
+    <string name="Second_page_moderately">Moderately active = 1.55 (moderate exercise/sports 6–7 days)</string>
+    <string name="Second_page_very">Very active = 1.725 (hard exercise every day, or 2 xs/day)</string>
+    <string name="Second_page_extra">Extra active = 1.9 (hard exercise 2 or more times per day)</string>
+
+    <string name="Third_page_text">What Is Your Abstract Goal?</string>
+    <string name="Third_page_lose">Lose Weight</string>
+    <string name="Third_page_maintain">Maintain Weight</string>
+    <string name="Third_page_gain">Gain Weight</string>
+    <string name="Third_page_target_weight">Your target weight (optional)</string>
+
+    <string name="Forth_page_text">Choose Your Diet Type</string>
+    <string name="Forth_page_any_thin">Any Thing</string>
+    <string name="Forth_page_any_thing_exclude">Exclude: Nothing</string>
+    <string name="Forth_page_vegetarian">Vegetarian</string>
+    <string name="Forth_page_vegetarian_exclude">Exclude: read meat, fish, shellfill</string>
+    <string name="Forth_page_vegan">Vegan</string>
+    <string name="Forth_page_vegan_exclude">Exclude: red meat, fish, shellfish, diary, egg, honey</string>
+    <string name="Forth_page_kosher">Kosher</string>
+    <string name="Forth_page_kosher_exclude">Exclude: pork, rabbit, horse meat, bear, shellfish, shark, eel, octopus, octopuses, frog</string>
+    <string name="Forth_page_muslim">Muslim</string>
+    <string name="Forth_page_muslin_exclude">Exclude: pork, blood sausage, blood, blood pudding, alcohol, grain alcohol, pure grain alcohol, ethyl alcohol</string>
+
+    <string name="Fifth_page_text">Do You Have Any Ingredient Allergies?</string>
+    <string name="Fifth_page_gluten">Gluten</string>
+    <string name="Fifth_page_peanuts">Peanuts</string>
+    <string name="Fifth_page_egg">Egg</string>
+    <string name="Fifth_page_fish">fish</string>
+    <string name="Fifth_page_shellfish">Shellfish</string>
+    <string name="Fifth_page_diary">Diary</string>
+    <string name="Fifth_page_more">Type any more ingredient you wish(optional)</string>
+
+    <string name="Sixth_page_text">Do You Have Any Of The Following Disease?</string>
+    <string name="Sixth_page_diabetes">Diabetes</string>
+    <string name="Sixth_page_osteoporosis">Osteoporosis</string>
+    <string name="Sixth_page_heart_disease">Heart disease</string>
+    <string name="Sixth_page_blood_pressure">High Blood Pressure</string>
+    <string name="Sixth_page_kidney_disease">Kidney disease</string>
+    <string name="Sixth_page_anemia">Anemia</string>
+
+    <!--Bottom Nav-->
+    <string name="home">Home</string>
+    <string name="recipes">Recipes</string>
+    <string name="profile">Profile</string>
+
+    <!--Home -->
+    <string name="today_meals">Today Meals</string>
+    <string name="track_foods">Track Foods</string>
+
+    <!--TODO change to days progress or remove this part entirely-->
+    <string name="weeks_progress">Weeks Progress</string>
+    <string name="current">current</string>
+    <string name="carbohydrates">Carbohydrates</string>
+    <string name="fat">Fat</string>
+    <string name="protein">Protein</string>
+    <string name="calories">Calories</string>
+
+
+    <string name="breakfast">Breakfast</string>
+    <string name="lunch">Lunch</string>
+    <string name="snack">Snack</string>
+    <string name="dinner">Dinner</string>
+
+    <!--Search-->
+    <string name="see_all">See All</string>
+    <string name="search_recipes">Search Recipes</string>
 </resources>
