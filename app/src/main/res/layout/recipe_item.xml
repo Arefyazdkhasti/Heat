@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/_150sdp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/standard_margin">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_15sdp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/recipe_image"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:adjustViewBounds="true"
+                android:background="@drawable/round_outline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@drawable/breakfast_sample" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/recipe_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/recipe_image"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/standard_margin"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/black"
+                android:textSize="@dimen/large_font"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/recipe_image"
+                app:layout_constraintStart_toStartOf="@+id/recipe_image"
+                app:layout_constraintTop_toBottomOf="@id/recipe_image"
+                tools:text="Pancake" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/recipe_cal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/recipe_image"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/standard_margin"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:visibility="gone"
+                android:textColor="@color/gray500"
+                android:textSize="@dimen/standard_font"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/recipe_name"
+                app:layout_constraintStart_toStartOf="@+id/recipe_name"
+                app:layout_constraintTop_toBottomOf="@id/recipe_name"
+                tools:text="144 kcal" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</FrameLayout>

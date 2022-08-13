@@ -101,5 +101,31 @@
 
     <!--Search-->
     <string name="see_all">See All</string>
-    <string name="search_recipes">Search Recipes</string>
+    <string name="search_recipes">Search Recipes</string>+
+
+    <!--profile-->
+    <string name="your_profile">Your Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="your_preferences">Your Preferences</string>
+    <string name="active_level">Active Level</string>
+    <string name="diet_type">Diet Type</string>
+    <string name="abstract_goal">Abstract Goal</string>
+    <string name="Ingredient_allergy">Ingredient Allergy</string>
+    <string name="disease">disease</string>
+    <string name="your_Account">Your Account</string>
+    <string name="upgrade_to_premium">Upgrade to Premium for more features</string>
+    <string name="Logout">Logout</string>
+
+    <!--Recipes detail-->
+    <string name="detail_ingredients">Ingredients</string>
+    <string name="detail_instruction">Instruction</string>
+    <string name="detail_full_instruction">full instruction</string>
+
+    <!--Today Foods-->
+    <string name="today_foods">Today Foods</string>
+
+    <!--Analytics-->
+    <string name="analytics">Analytics</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

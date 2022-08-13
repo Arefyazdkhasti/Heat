@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+        android:id="@+id/recipe_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout"
+        android:layout_marginTop="-1dp"
+        android:layout_marginBottom="9dp"
+        app:shimmer_demo_angle="20"
+        app:shimmer_demo_child_count="5"
+        app:shimmer_demo_layout_manager_type="linear_horizontal"
+        tools:itemCount="5"
+        tools:listitem="@layout/recipe_item" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_margin">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/recipe_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/extra_font"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Popular"
+            android:layout_margin="@dimen/small_margin"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/recipe_type_see_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="@string/see_all"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/large_font"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="@dimen/small_margin"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
