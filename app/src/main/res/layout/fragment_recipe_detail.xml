@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/recipe_detail_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/recipe_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/pizza" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_margin="@dimen/standard_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_back" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="-35dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recipe_image"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/recipe_detail_bg" />
+
+
+        <RelativeLayout
+            android:id="@+id/recipe_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginEnd="@dimen/mega_margin"
+            android:orientation="horizontal"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipe_image">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/recipe_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="start"
+                android:layout_toStartOf="@id/recipe_like_icon"
+                android:textColor="@color/gray900"
+                android:textSize="@dimen/mega_font"
+                android:textStyle="bold"
+                tools:text="Pepperoni Pizza Pepperoni Pdddd" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/recipe_like_icon"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center_vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/recipe_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/recipe_title"
+                app:srcCompat="@drawable/ic_like" />
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/recipe_min_and_cal_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/large_margin"
+            android:textColor="@color/gray100"
+            android:textSize="@dimen/large_font"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipe_layout"
+            tools:text="15 min 650 calories per serving" />
+
+
+        <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+            android:id="@+id/recipe_nutrition_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recipe_min_and_cal_information"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/large_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipe_min_and_cal_information"
+            app:shimmer_demo_angle="20"
+            app:shimmer_demo_child_count="5"
+            app:shimmer_demo_layout="@layout/nutrition_item_shimmer"
+            app:shimmer_demo_layout_manager_type="linear_horizontal"
+            tools:itemCount="5"
+            tools:listitem="@layout/nutrition_item" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/ingredient_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/mega_margin"
+            android:text="@string/detail_ingredients"
+            android:textColor="@color/gray900"
+            android:textSize="@dimen/twenty_font"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipe_nutrition_recyclerView" />
+
+        <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+            android:id="@+id/recipe_ingredient_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recipe_min_and_cal_information"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/large_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ingredient_title"
+            app:shimmer_demo_angle="20"
+            app:shimmer_demo_child_count="5"
+            app:shimmer_demo_layout="@layout/ingredient_item_shimmer"
+            app:shimmer_demo_layout_manager_type="linear_horizontal"
+            tools:itemCount="5"
+            tools:listitem="@layout/ingredient_item" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/instruction_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/mega_margin"
+            android:text="@string/detail_instruction"
+            android:textColor="@color/gray900"
+            android:textSize="@dimen/twenty_font"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipe_ingredient_recyclerView" />
+
+        <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+            android:id="@+id/recipe_instruction_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recipe_min_and_cal_information"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/large_margin"
+            android:layout_marginEnd="@dimen/mega_margin"
+            android:layout_marginBottom="@dimen/large_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/instruction_title"
+            app:shimmer_demo_angle="20"
+            app:shimmer_demo_child_count="3"
+            app:shimmer_demo_layout_manager_type="linear_vertical"
+            tools:itemCount="3"
+            tools:listitem="@layout/instruction_item" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView><!--<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+     <com.google.android.material.appbar.AppBarLayout
+         android:id="@+id/appBarLayout"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+         <com.google.android.material.appbar.CollapsingToolbarLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             app:contentScrim="@color/colorPrimary"
+             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+             app:expandedTitleTextColor="@color/white"
+             app:collapsedTitleTextColor="@color/gray900"
+             app:title="Pepperoni Pizza"
+             >
+
+             <androidx.appcompat.widget.AppCompatImageView
+                 android:layout_width="match_parent"
+                 android:layout_height="@dimen/_250sdp"
+                 android:scaleType="centerCrop"
+                 tools:srcCompat="@drawable/pizza"
+                 app:layout_collapseMode="parallax" />
+
+             <androidx.appcompat.widget.Toolbar
+                 android:layout_width="match_parent"
+                 android:layout_height="?attr/actionBarSize"
+                 app:layout_collapseMode="pin"
+                 app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+
+         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+     </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/recipe_detail_bg" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>-->
+

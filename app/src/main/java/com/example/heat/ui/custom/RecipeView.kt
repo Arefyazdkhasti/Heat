@@ -11,6 +11,8 @@ import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.example.heat.R
 import com.example.heat.data.datamodel.recipeList.RecipeListItem
 import com.example.heat.ui.itemRecyclerView.RecipeItemRecyclerView
+import com.example.heat.ui.search.SearchFragmentDirections
+import com.example.heat.util.UiUtils
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
@@ -40,13 +42,11 @@ class  RecipeView(
 
         listTitle.text = title
 
-        movieRecycleView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
-
+        movieRecycleView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
 
     }
 
-    private fun List<RecipeListItem>.toMovieItems(): List<RecipeItemRecyclerView> = this.map {
+    private fun List<RecipeListItem>.toRecipeListItems(): List<RecipeItemRecyclerView> = this.map {
         RecipeItemRecyclerView(it)
     }
 
@@ -59,7 +59,7 @@ class  RecipeView(
         }
 
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
-            addAll(data.toMovieItems())
+            addAll(data.toRecipeListItems())
         }
 
         movieRecycleView.apply {
@@ -69,8 +69,8 @@ class  RecipeView(
 
         groupAdapter.setOnItemClickListener { item, view ->
             (item as? RecipeItemRecyclerView)?.let {
-                //val actionDetailHome = HomeFragmentDirections.sendMovieId(it.movieItem.id)
-                //Navigation.findNavController(view).navigate(actionDetailHome)
+                val actionRecipeDetail = SearchFragmentDirections.sendRecipeId(it.recipeItem.id)
+                Navigation.findNavController(view).navigate(actionRecipeDetail)
             }
         }
 

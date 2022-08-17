@@ -1,4 +1,4 @@
-package com.example.armovie.utility
+package com.example.heat.util
 
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule

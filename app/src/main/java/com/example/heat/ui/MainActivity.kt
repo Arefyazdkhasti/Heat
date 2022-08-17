@@ -33,9 +33,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNav.setupWithNavController(navController)
 
-        NavigationUI.setupActionBarWithNavController(this, navController)
+        //NavigationUI.setupActionBarWithNavController(this, navController)
 
-        setupActionBarWithNavController(navController)
+        //setupActionBarWithNavController(navController)
 
         checkForInternet()
     }
@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         }.build()
     }
 
-    override fun onSupportNavigateUp(): Boolean =
-        navController.navigateUp()
+    /*override fun onSupportNavigateUp(): Boolean =
+        navController.navigateUp()*/
 
 }

@@ -137,4 +137,7 @@ dependencies {
 
     //app slider
     implementation 'com.github.AppIntro:AppIntro:6.2.0'
+
+    //search view
+    //implementation "com.paulrybitskyi.persistentsearchview:persistentsearchview:1.1.4"
 }

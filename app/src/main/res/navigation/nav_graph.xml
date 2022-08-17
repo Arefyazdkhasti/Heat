@@ -18,5 +18,21 @@
         android:id="@+id/searchFragment"
         android:name="com.example.heat.ui.search.SearchFragment"
         android:label="@string/recipes"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/send_Recipe_id"
+            app:destination="@id/recipeDetailFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="com.example.heat.ui.recipeDetail.RecipeDetailFragment"
+        android:label="RecipeDetailFragment" >
+
+        <argument
+            android:name="recipeID"
+            app:argType="integer" />
+
+    </fragment>
 </navigation>

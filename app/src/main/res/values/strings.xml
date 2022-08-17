@@ -98,6 +98,7 @@
     <string name="lunch">Lunch</string>
     <string name="snack">Snack</string>
     <string name="dinner">Dinner</string>
+    <string name="main_course">Main Course</string>
 
     <!--Search-->
     <string name="see_all">See All</string>
@@ -111,7 +112,7 @@
     <string name="diet_type">Diet Type</string>
     <string name="abstract_goal">Abstract Goal</string>
     <string name="Ingredient_allergy">Ingredient Allergy</string>
-    <string name="disease">disease</string>
+    <string name="disease">Disease</string>
     <string name="your_Account">Your Account</string>
     <string name="upgrade_to_premium">Upgrade to Premium for more features</string>
     <string name="Logout">Logout</string>
@@ -120,7 +121,7 @@
     <string name="detail_ingredients">Ingredients</string>
     <string name="detail_instruction">Instruction</string>
     <string name="detail_full_instruction">full instruction</string>
-
+    <string name="detail_sample_instruction">Beat the cream cheese and mayo in a bowl with a hand mixer until creamy and spreadable, and then mix in the peanuts.</string>
     <!--Today Foods-->
     <string name="today_foods">Today Foods</string>
 

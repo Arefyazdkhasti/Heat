@@ -4,10 +4,12 @@ import com.bumptech.glide.Glide
 import com.example.heat.R
 import com.example.heat.data.datamodel.recipeList.RecipeListItem
 import com.example.heat.databinding.RecipeItemBinding
+import com.example.heat.util.UiUtils
+import com.example.heat.util.UiUtils.Companion.setImageWithGlideWithView
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 
-class RecipeItemRecyclerView(val recipeItem: RecipeListItem): Item<GroupieViewHolder>() {
+class RecipeItemRecyclerView(val recipeItem: RecipeListItem) : Item<GroupieViewHolder>() {
 
 
     override fun getLayout(): Int = R.layout.recipe_item
@@ -15,13 +17,15 @@ class RecipeItemRecyclerView(val recipeItem: RecipeListItem): Item<GroupieViewHo
 
         val binding = RecipeItemBinding.bind(viewHolder.itemView)
 
-        Glide.with(viewHolder.itemView)
+      /*  Glide.with(viewHolder.itemView)
             .load(recipeItem.image)
             .placeholder(R.drawable.load)
-            .into(binding.recipeImage)
-
-        binding.recipeImage.clipToOutline = true
-        binding.recipeName.text = recipeItem.title
+            .into(binding.recipeImage)*/
+        setImageWithGlideWithView(viewHolder.itemView, recipeItem.image, binding.recipeImage)
+        binding.apply {
+            recipeImage.clipToOutline = true
+            recipeName.text = recipeItem.title
+        }
 
     }
 }

@@ -1,14 +1,420 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileFragment">
+    tools:context=".ui.profile.ProfileFragment"
+    tools:layout_editor_absoluteX="-31dp"
+    tools:layout_editor_absoluteY="-445dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profile_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/profile" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/your_profile_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:text="@string/your_profile"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/mega_font"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/_65sdp"
+            android:layout_height="@dimen/_65sdp"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/large_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/your_profile_title"
+            app:srcCompat="@drawable/avatar" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/large_margin"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/avatar"
+            app:layout_constraintStart_toEndOf="@+id/avatar"
+            app:layout_constraintTop_toTopOf="@+id/avatar">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:textColor="@color/gray900"
+                android:textSize="@dimen/extra_font"
+                tools:text="Aref Yazdkhasti" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/edit_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit_profile"
+                android:textColor="@color/gray100"
+                android:textSize="@dimen/large_font" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/right_arrow_icon"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_margin="@dimen/mega_margin"
+            app:layout_constraintBottom_toBottomOf="@+id/avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/avatar"
+            app:srcCompat="@drawable/ic_arrow_right" />
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/mega_margin"
+            android:background="@color/gray100"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/avatar" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/your_preferences_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/mega_margin"
+            android:text="@string/your_preferences"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/mega_font"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line1" />
+
+        <!--Active Level-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/active_level_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/mega_margin"
+            android:layout_marginEnd="@dimen/mega_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/your_preferences_title">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/active_level_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/active_level"
+                android:textColor="@color/gray900"
+                android:textSize="@dimen/extra_font"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/active_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/standard_margin"
+                android:textColor="@color/gray100"
+                android:textSize="@dimen/standard_font"
+                app:layout_constraintBottom_toBottomOf="@id/active_level_title"
+                app:layout_constraintEnd_toStartOf="@id/ic_arrow_right_active_level"
+                app:layout_constraintTop_toTopOf="@id/active_level_title"
+                tools:text="Moderately" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ic_arrow_right_active_level"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/active_level_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/active_level_title"
+                app:srcCompat="@drawable/ic_arrow_right" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--Diet Type-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/diet_type_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/extra_margin"
+            android:layout_marginEnd="@dimen/mega_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/active_level_layout">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/diet_type_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/diet_type"
+                android:textColor="@color/gray900"
+                android:textSize="@dimen/extra_font"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/diet_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/standard_margin"
+                android:textColor="@color/gray100"
+                android:textSize="@dimen/standard_font"
+                app:layout_constraintBottom_toBottomOf="@id/diet_type_title"
+                app:layout_constraintEnd_toStartOf="@id/ic_arrow_right_diet_type"
+                app:layout_constraintTop_toTopOf="@id/diet_type_title"
+                tools:text="Muslim" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ic_arrow_right_diet_type"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/diet_type_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/diet_type_title"
+                app:srcCompat="@drawable/ic_arrow_right" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--Abstract Goal-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/abstract_goal_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/extra_margin"
+            android:layout_marginEnd="@dimen/mega_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/diet_type_layout">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/abstract_goal_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/abstract_goal"
+                android:textColor="@color/gray900"
+                android:textSize="@dimen/extra_font"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/abstract_goal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/standard_margin"
+                android:textColor="@color/gray100"
+                android:textSize="@dimen/standard_font"
+                app:layout_constraintBottom_toBottomOf="@id/abstract_goal_title"
+                app:layout_constraintEnd_toStartOf="@id/ic_arrow_right_abstract_goal"
+                app:layout_constraintTop_toTopOf="@id/abstract_goal_title"
+                tools:text="Maintain" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ic_arrow_right_abstract_goal"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/abstract_goal_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/abstract_goal_title"
+                app:srcCompat="@drawable/ic_arrow_right" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--Ingredients Allergy-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ingredient_allergy_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/extra_margin"
+            android:layout_marginEnd="@dimen/mega_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/abstract_goal_layout">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/ingredient_allergy_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Ingredient_allergy"
+                android:textColor="@color/gray900"
+                android:textSize="@dimen/extra_font"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/ingredient_allergy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/standard_margin"
+                android:textColor="@color/gray100"
+                android:textSize="@dimen/standard_font"
+                app:layout_constraintBottom_toBottomOf="@id/ingredient_allergy_title"
+                app:layout_constraintEnd_toStartOf="@id/ic_arrow_right_ingredient_allergy"
+                app:layout_constraintTop_toTopOf="@id/ingredient_allergy_title"
+                tools:text="None" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ic_arrow_right_ingredient_allergy"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/ingredient_allergy_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ingredient_allergy_title"
+                app:srcCompat="@drawable/ic_arrow_right" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--Disease-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/disease_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/extra_margin"
+            android:layout_marginEnd="@dimen/mega_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ingredient_allergy_layout">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/disease_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/disease"
+                android:textColor="@color/gray900"
+                android:textSize="@dimen/extra_font"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                 />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/disease"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/standard_margin"
+                android:textColor="@color/gray100"
+                android:textSize="@dimen/standard_font"
+                app:layout_constraintBottom_toBottomOf="@id/disease_title"
+                app:layout_constraintEnd_toStartOf="@id/ic_arrow_right_disease"
+                app:layout_constraintTop_toTopOf="@id/disease_title"
+                tools:text="Maintain" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ic_arrow_right_disease"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/disease_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/disease_title"
+                app:srcCompat="@drawable/ic_arrow_right" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/mega_margin"
+            android:background="@color/gray100"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/disease_layout" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/your_account_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/mega_margin"
+            android:text="@string/your_Account"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/mega_font"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line2" />
+
+        <!--Upgrade to Premium-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/upgrade_to_premium_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/extra_margin"
+            android:layout_marginEnd="@dimen/mega_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/your_account_title">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/upgrade_to_premium_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upgrade_to_premium"
+                android:textColor="@color/gray900"
+                android:textSize="@dimen/large_font"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ic_arrow_right_upgrade_to_premium"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                app:layout_constraintBottom_toBottomOf="@id/upgrade_to_premium_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/upgrade_to_premium_title"
+                app:srcCompat="@drawable/ic_premium" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <!--Logout-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/logout_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/extra_margin"
+            android:layout_marginEnd="@dimen/mega_margin"
+            android:layout_marginBottom="@dimen/mega_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/upgrade_to_premium_layout"
+            app:layout_goneMarginEnd="@dimen/mega_margin">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/logout_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Logout"
+                android:textColor="@color/gray900"
+                android:textSize="@dimen/large_font"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ic_arrow_right_logout"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                app:layout_constraintBottom_toBottomOf="@id/logout_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/logout_title"
+                app:srcCompat="@drawable/ic_logout" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

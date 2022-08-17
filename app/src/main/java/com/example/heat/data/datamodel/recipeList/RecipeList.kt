@@ -3,7 +3,7 @@ package com.example.heat.data.datamodel.recipeList
 
 import com.google.gson.annotations.SerializedName
 
-data class RecipieList(
+data class RecipeList(
     @SerializedName("number")
     val number: Int,
     @SerializedName("offset")
