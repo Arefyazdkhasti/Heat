@@ -4,19 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/_150sdp"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/standard_margin">
+    >
 
     <androidx.cardview.widget.CardView
         android:layout_width="@dimen/_150sdp"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/_15sdp"
+        android:layout_margin="@dimen/standard_margin"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="@dimen/_150sdp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_margin="@dimen/small_margin">
+            >
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/recipe_image"
@@ -25,6 +26,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
                 android:adjustViewBounds="true"
+                android:scaleType="fitXY"
                 android:background="@drawable/round_outline"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

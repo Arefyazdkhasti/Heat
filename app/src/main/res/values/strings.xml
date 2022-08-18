@@ -27,19 +27,20 @@
     <!--survey-->
 
     <string name="First_page_text">Enter Your Personal Data</string>
+    <string name="First_page_name">Name</string>
     <string name="First_page_height">Height</string>
     <string name="First_page_weight">Weight</string>
-    <string name="First_page_age">age</string>
-    <string name="First_page_sex">Sex</string>
+    <string name="First_page_age">Age</string>
+    <string name="First_page_sex">Gender</string>
     <string name="First_page_male">Male</string>
     <string name="First_page_female">Female</string>
 
     <string name="Second_page_text">How Active Are You?</string>
-    <string name="Second_page_sedentary">Sedentary = 1.2 (little or no exercise, desk job)</string>
-    <string name="Second_page_lightly">Lightly active = 1.375 (light exercise/sports 1–3 days/week)</string>
-    <string name="Second_page_moderately">Moderately active = 1.55 (moderate exercise/sports 6–7 days)</string>
-    <string name="Second_page_very">Very active = 1.725 (hard exercise every day, or 2 xs/day)</string>
-    <string name="Second_page_extra">Extra active = 1.9 (hard exercise 2 or more times per day)</string>
+    <string name="Second_page_sedentary">Sedentary active</string>
+    <string name="Second_page_lightly">Lightly active</string>
+    <string name="Second_page_moderately">Moderately active</string>
+    <string name="Second_page_very">Very active</string>
+    <string name="Second_page_extra">Extra active</string>
 
     <string name="Third_page_text">What Is Your Abstract Goal?</string>
     <string name="Third_page_lose">Lose Weight</string>
@@ -127,6 +128,7 @@
 
     <!--Analytics-->
     <string name="analytics">Analytics</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="next_page">Next page</string>
+    <string name="previous_page">Previous page</string>
 </resources>

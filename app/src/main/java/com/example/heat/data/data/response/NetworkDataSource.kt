@@ -7,14 +7,17 @@ import com.example.heat.data.datamodel.recipeList.RecipeList
 interface NetworkDataSource {
 
     //Recipes
+    val recipesList: LiveData<RecipeList>
+    suspend fun fetchRecipesList(offset: Int)
+
     val breakfastRecipesList: LiveData<RecipeList>
-    suspend fun fetchBreakfastRecipesList(type:String)
+    suspend fun fetchBreakfastRecipesList(type:String, offset: Int)
 
     val snackRecipesList: LiveData<RecipeList>
-    suspend fun fetchSnackRecipesList(type:String)
+    suspend fun fetchSnackRecipesList(type:String, offset: Int)
 
     val mainCourseRecipesList: LiveData<RecipeList>
-    suspend fun fetchMainCourseRecipesList(type:String)
+    suspend fun fetchMainCourseRecipesList(type:String, offset: Int)
 
     val recipeDetail : LiveData<Recipe>
     suspend fun fetchRecipeDetail(id :Int)

@@ -9,28 +9,36 @@ class RecipesRepositoryImpl(
     private val networkDataSource: NetworkDataSource
 ) : RecipesRepository {
 
-    override suspend fun getBreakfastRecipesList(type: String): LiveData<RecipeList> {
-        fetchBreakfastRecipesList(type)
+    override suspend fun getRecipesList(offset: Int): LiveData<RecipeList> {
+        fetchRecipesList(offset)
         return networkDataSource.breakfastRecipesList
     }
-    private suspend fun fetchBreakfastRecipesList(type:String) {
-        networkDataSource.fetchBreakfastRecipesList(type)
+    private suspend fun fetchRecipesList(offset: Int) {
+        networkDataSource.fetchRecipesList(offset)
     }
 
-    override suspend fun getSnackRecipesList(type: String): LiveData<RecipeList> {
-        fetchSnackRecipesList(type)
+    override suspend fun getBreakfastRecipesList(type: String, offset: Int): LiveData<RecipeList> {
+        fetchBreakfastRecipesList(type,offset)
+        return networkDataSource.breakfastRecipesList
+    }
+    private suspend fun fetchBreakfastRecipesList(type:String, offset: Int) {
+        networkDataSource.fetchBreakfastRecipesList(type,offset)
+    }
+
+    override suspend fun getSnackRecipesList(type: String, offset: Int): LiveData<RecipeList> {
+        fetchSnackRecipesList(type, offset)
         return networkDataSource.snackRecipesList
     }
-    private suspend fun fetchSnackRecipesList(type:String) {
-        networkDataSource.fetchSnackRecipesList(type)
+    private suspend fun fetchSnackRecipesList(type:String, offset: Int) {
+        networkDataSource.fetchSnackRecipesList(type,offset)
     }
 
-    override suspend fun getMainCourseRecipesList(type: String): LiveData<RecipeList> {
-        fetchMainCourseRecipesList(type)
+    override suspend fun getMainCourseRecipesList(type: String, offset: Int): LiveData<RecipeList> {
+        fetchMainCourseRecipesList(type,offset)
         return networkDataSource.mainCourseRecipesList
     }
-    private suspend fun fetchMainCourseRecipesList(type:String) {
-        networkDataSource.fetchMainCourseRecipesList(type)
+    private suspend fun fetchMainCourseRecipesList(type:String, offset: Int) {
+        networkDataSource.fetchMainCourseRecipesList(type, offset)
     }
 
 

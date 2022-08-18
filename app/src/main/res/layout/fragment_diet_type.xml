@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.survay.DietTypeFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_margin="@dimen/standard_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back_black" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/title_diet_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/mega_margin"
+        android:text="@string/Forth_page_text"
+        android:textColor="@color/black"
+        android:textSize="@dimen/big_font"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf = "@id/back_arrow" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/anything_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/mega_margin"
+        android:layout_marginTop="@dimen/mega_margin"
+        android:layout_marginEnd="@dimen/mega_margin"
+        app:cardCornerRadius="@dimen/small_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_diet_type"
+        app:cardBackgroundColor="@color/gray">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/anything_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/anything_icon"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_margin="@dimen/small_margin"
+                android:src="@drawable/anything"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/anything_icon"
+                app:layout_constraintStart_toEndOf="@+id/anything_icon"
+                app:layout_constraintTop_toTopOf="@+id/anything_icon"
+                android:layout_marginStart="@dimen/standard_margin">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/anything_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Forth_page_any_thin"
+                    android:textColor="@color/gray900"
+                    android:textSize="@dimen/twenty_font"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/anything_exclude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Forth_page_any_thing_exclude"
+                    android:textColor="@color/gray100"
+                    android:textSize="@dimen/large_font"
+                    />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/vegetarian_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/mega_margin"
+        android:layout_marginTop="@dimen/large_margin"
+        android:layout_marginEnd="@dimen/mega_margin"
+        app:cardCornerRadius="@dimen/small_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/anything_card_view">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/vegetarian_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/vegetarian_icon"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_margin="@dimen/small_margin"
+                android:src="@drawable/vegetarian"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/vegetarian_icon"
+                app:layout_constraintStart_toEndOf="@+id/vegetarian_icon"
+                app:layout_constraintTop_toTopOf="@+id/vegetarian_icon"
+                android:layout_marginStart="@dimen/standard_margin">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/vegetarian_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Forth_page_vegetarian"
+                    android:textColor="@color/gray900"
+                    android:textSize="@dimen/twenty_font"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/vegetarian_exclude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Forth_page_vegetarian_exclude"
+                    android:textColor="@color/gray100"
+                    android:textSize="@dimen/large_font"
+                    />
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/vegan_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/mega_margin"
+        android:layout_marginTop="@dimen/large_margin"
+        android:layout_marginEnd="@dimen/mega_margin"
+        app:cardCornerRadius="@dimen/small_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vegetarian_card_view">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/vegan_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/vegan_icon"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_margin="@dimen/small_margin"
+                android:src="@drawable/vegan"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/vegan_icon"
+                app:layout_constraintStart_toEndOf="@+id/vegan_icon"
+                app:layout_constraintTop_toTopOf="@+id/vegan_icon">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/vegan_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Forth_page_vegan"
+                    android:textColor="@color/gray900"
+                    android:textSize="@dimen/twenty_font" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/vegan_exclude"
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Forth_page_vegan_exclude"
+                    android:textColor="@color/gray100"
+                    android:textSize="@dimen/large_font" />
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/kosher_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/mega_margin"
+        android:layout_marginTop="@dimen/large_margin"
+        android:layout_marginEnd="@dimen/mega_margin"
+        app:cardCornerRadius="@dimen/small_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vegan_card_view">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/kosher_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/kosher_icon"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_margin="@dimen/small_margin"
+                android:src="@drawable/kosher"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/kosher_icon"
+                app:layout_constraintStart_toEndOf="@+id/kosher_icon"
+                app:layout_constraintTop_toTopOf="@+id/kosher_icon">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/kosher_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Forth_page_kosher"
+                    android:textColor="@color/gray900"
+                    android:textSize="@dimen/twenty_font" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/kosher_exclude"
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Forth_page_kosher_exclude"
+                    android:textColor="@color/gray100"
+                    android:textSize="@dimen/large_font" />
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/muslim_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/mega_margin"
+        android:layout_marginTop="@dimen/large_margin"
+        android:layout_marginEnd="@dimen/mega_margin"
+        app:cardCornerRadius="@dimen/small_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/kosher_card_view">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/muslim_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/muslim_icon"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_margin="@dimen/small_margin"
+                android:src="@drawable/muslem"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/muslim_icon"
+                app:layout_constraintStart_toEndOf="@+id/muslim_icon"
+                app:layout_constraintTop_toTopOf="@+id/muslim_icon">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/muslim_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Forth_page_muslim"
+                    android:textColor="@color/gray900"
+                    android:textSize="@dimen/twenty_font" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/muslim_exclude"
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Forth_page_muslin_exclude"
+                    android:textColor="@color/gray100"
+                    android:textSize="@dimen/large_font" />
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

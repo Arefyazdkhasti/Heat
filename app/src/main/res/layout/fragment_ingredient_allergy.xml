@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.survay.IngredientAllergyFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_margin="@dimen/standard_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back_black" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/title_ingredient_allergy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/mega_margin"
+        android:text="@string/Fifth_page_text"
+        android:textColor="@color/black"
+        android:textSize="@dimen/big_font"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back_arrow"/>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/allergy_chip_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/mega_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf= "@id/title_ingredient_allergy">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_gluten"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/large_font"
+            android:text="@string/Fifth_page_gluten"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_peanut"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/large_font"
+            android:text="@string/Fifth_page_peanuts"/>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_egg"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/large_font"
+            android:text="@string/Fifth_page_egg"/>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_fish"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/large_font"
+
+            android:text="@string/Fifth_page_fish"/>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_shellfish"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/large_font"
+            android:text="@string/Fifth_page_shellfish"/>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_diary"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/large_font"
+            android:text="@string/Fifth_page_diary"/>
+
+    </com.google.android.material.chip.ChipGroup>
+</androidx.constraintlayout.widget.ConstraintLayout>

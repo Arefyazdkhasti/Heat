@@ -12,14 +12,29 @@ class NetworkDataSourceImpl(
     private val recipesApiService: RecipesApiService
 ) : NetworkDataSource {
 
+    private val _recipesList = MutableLiveData<RecipeList>()
+    override val recipesList: LiveData<RecipeList>
+        get() = _recipesList
+
+
+    override suspend fun fetchRecipesList(offset: Int){
+        try {
+            val fetchRecipes = recipesApiService.getRecipesListAsync(null,offset).await()
+            _recipesList.postValue(fetchRecipes)
+
+        } catch (e: NoConnectivityException) {
+            Log.e("Connectivity", "No internet connection", e)
+        }
+    }
+
     private val _breakfastRecipesList = MutableLiveData<RecipeList>()
     override val breakfastRecipesList: LiveData<RecipeList>
         get() = _breakfastRecipesList
 
 
-    override suspend fun fetchBreakfastRecipesList(type: String) {
+    override suspend fun fetchBreakfastRecipesList(type: String, offset: Int) {
         try {
-            val fetchRecipes = recipesApiService.getRecipesListAsync(type).await()
+            val fetchRecipes = recipesApiService.getRecipesListAsync(type,offset).await()
             _breakfastRecipesList.postValue(fetchRecipes)
 
         } catch (e: NoConnectivityException) {
@@ -32,9 +47,9 @@ class NetworkDataSourceImpl(
         get() = _snackRecipesList
 
 
-    override suspend fun fetchSnackRecipesList(type: String) {
+    override suspend fun fetchSnackRecipesList(type: String,offset: Int) {
         try {
-            val fetchRecipes = recipesApiService.getRecipesListAsync(type).await()
+            val fetchRecipes = recipesApiService.getRecipesListAsync(type,offset).await()
             _snackRecipesList.postValue(fetchRecipes)
 
         } catch (e: NoConnectivityException) {
@@ -47,9 +62,9 @@ class NetworkDataSourceImpl(
         get() = _mainCourseRecipesList
 
 
-    override suspend fun fetchMainCourseRecipesList(type: String) {
+    override suspend fun fetchMainCourseRecipesList(type: String,offset: Int) {
         try {
-            val fetchRecipes = recipesApiService.getRecipesListAsync(type).await()
+            val fetchRecipes = recipesApiService.getRecipesListAsync(type,offset).await()
             _mainCourseRecipesList.postValue(fetchRecipes)
 
         } catch (e: NoConnectivityException) {

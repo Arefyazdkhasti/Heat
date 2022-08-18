@@ -13,7 +13,26 @@
         android:id="@+id/profileFragment"
         android:name="com.example.heat.ui.profile.ProfileFragment"
         android:label="@string/profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_personalDataFragment"
+            app:destination="@id/personalDataFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_activrlevelFragment"
+            app:destination="@id/activrlevelFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_dietTypeFragment"
+            app:destination="@id/dietTypeFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_ingredientAllergyFragment"
+            app:destination="@id/ingredientAllergyFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_diseaseFragment"
+            app:destination="@id/diseaseFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_abstractGoalFragment"
+            app:destination="@id/abstractGoalFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.heat.ui.search.SearchFragment"
@@ -22,6 +41,9 @@
         <action
             android:id="@+id/send_Recipe_id"
             app:destination="@id/recipeDetailFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_seeAllRecipesFragment"
+            app:destination="@id/seeAllRecipesFragment" />
 
     </fragment>
 
@@ -34,5 +56,46 @@
             android:name="recipeID"
             app:argType="integer" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/dietTypeFragment"
+        android:name="com.example.heat.ui.survay.DietTypeFragment"
+        android:label="fragment_diet_type"
+        tools:layout="@layout/fragment_diet_type" />
+    <fragment
+        android:id="@+id/activrlevelFragment"
+        android:name="com.example.heat.ui.survay.ActivrlevelFragment"
+        android:label="fragment_active_level"
+        tools:layout="@layout/fragment_active_level" />
+    <fragment
+        android:id="@+id/diseaseFragment"
+        android:name="com.example.heat.ui.survay.DiseaseFragment"
+        android:label="fragment_disease"
+        tools:layout="@layout/fragment_disease" />
+    <fragment
+        android:id="@+id/ingredientAllergyFragment"
+        android:name="com.example.heat.ui.survay.IngredientAllergyFragment"
+        android:label="fragment_ingredient_allergy"
+        tools:layout="@layout/fragment_ingredient_allergy" />
+    <fragment
+        android:id="@+id/personalDataFragment"
+        android:name="com.example.heat.ui.survay.PersonalDataFragment"
+        android:label="fragment_personal_data"
+        tools:layout="@layout/fragment_personal_data" />
+    <fragment
+        android:id="@+id/abstractGoalFragment"
+        android:name="com.example.heat.ui.survay.AbstractGoalFragment"
+        android:label="AbstractGoalFragment" />
+    <fragment
+        android:id="@+id/seeAllRecipesFragment"
+        android:name="com.example.heat.ui.seeAllRecipes.SeeAllRecipesFragment"
+        android:label="fragment_see_all_recipes"
+        tools:layout="@layout/fragment_see_all_recipes" >
+        <argument
+            android:name="type"
+            app:argType="string" />
+        <action
+            android:id="@+id/send_Recipe_id_from_all"
+            app:destination="@id/recipeDetailFragment" />
     </fragment>
 </navigation>

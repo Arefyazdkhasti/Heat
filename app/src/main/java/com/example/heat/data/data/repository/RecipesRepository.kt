@@ -6,11 +6,13 @@ import com.example.heat.data.datamodel.recipeList.RecipeList
 
 interface RecipesRepository {
 
-    suspend fun getBreakfastRecipesList(type:String): LiveData<RecipeList>
+    suspend fun getRecipesList(offset: Int): LiveData<RecipeList>
 
-    suspend fun getSnackRecipesList(type:String): LiveData<RecipeList>
+    suspend fun getBreakfastRecipesList(type:String, offset: Int): LiveData<RecipeList>
 
-    suspend fun getMainCourseRecipesList(type:String): LiveData<RecipeList>
+    suspend fun getSnackRecipesList(type:String, offset: Int): LiveData<RecipeList>
+
+    suspend fun getMainCourseRecipesList(type:String, offset: Int): LiveData<RecipeList>
 
     suspend fun getRecipesDetail(id :Int) : LiveData<Recipe>
 }

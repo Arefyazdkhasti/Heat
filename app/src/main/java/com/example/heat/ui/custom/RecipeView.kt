@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.example.heat.R
@@ -70,6 +71,9 @@ class  RecipeView(
         groupAdapter.setOnItemClickListener { item, view ->
             (item as? RecipeItemRecyclerView)?.let {
                 val actionRecipeDetail = SearchFragmentDirections.sendRecipeId(it.recipeItem.id)
+                val extras = FragmentNavigatorExtras(
+                    //view.findViewById(R.id.recipe_image) to view.findViewById(R.id.recipe_image)
+                )
                 Navigation.findNavController(view).navigate(actionRecipeDetail)
             }
         }
@@ -85,8 +89,8 @@ class  RecipeView(
     }
 
     private fun navigateToSeeAllFragment(type: String,view: View) {
-        //val navigate = HomeFragmentDirections.seeAll(type)
-        //Navigation.findNavController(view).navigate(navigate)
+        val navigate = SearchFragmentDirections.actionSearchFragmentToSeeAllRecipesFragment(type)
+        Navigation.findNavController(view).navigate(navigate)
     }
 
 

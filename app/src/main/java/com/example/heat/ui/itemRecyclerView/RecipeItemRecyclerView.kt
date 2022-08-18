@@ -17,10 +17,6 @@ class RecipeItemRecyclerView(val recipeItem: RecipeListItem) : Item<GroupieViewH
 
         val binding = RecipeItemBinding.bind(viewHolder.itemView)
 
-      /*  Glide.with(viewHolder.itemView)
-            .load(recipeItem.image)
-            .placeholder(R.drawable.load)
-            .into(binding.recipeImage)*/
         setImageWithGlideWithView(viewHolder.itemView, recipeItem.image, binding.recipeImage)
         binding.apply {
             recipeImage.clipToOutline = true

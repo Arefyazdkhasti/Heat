@@ -13,7 +13,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 
-const val API_KEY = "9c9d4b13164f4c0299176f4db1bd95e9"
+const val API_KEY = "04c0561328e547c287cd43770970103e"
 const val BASE_URL = "https://api.spoonacular.com/"
 const val INGREDIENT_IMAGE_BASE_URL = "https://spoonacular.com/cdn/ingredients_100x100/"
 
@@ -23,7 +23,8 @@ interface RecipesApiService {
     //https://api.spoonacular.com/recipes/complexSearch?apiKey=9c9d4b13164f4c0299176f4db1bd95e9&type=breakfast
     @GET("/recipes/complexSearch")
     fun getRecipesListAsync(
-        @Query("type") type: String,
+        @Query("type") type: String? ,
+        @Query("offset") offset: Int? ,
     ): Deferred<RecipeList>
 
     //https://api.spoonacular.com/recipes/647043/information?apiKey=9c9d4b13164f4c0299176f4db1bd95e9&includeNutrition=true

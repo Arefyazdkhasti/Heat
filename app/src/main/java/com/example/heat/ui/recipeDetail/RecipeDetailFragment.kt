@@ -15,6 +15,7 @@ import com.example.heat.data.datamodel.recipeDetail.ExtendedIngredient
 import com.example.heat.data.datamodel.recipeDetail.NutrientX
 import com.example.heat.data.datamodel.recipeDetail.Step
 import com.example.heat.databinding.FragmentRecipeDetailBinding
+import com.example.heat.ui.MainActivity
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.itemRecyclerView.IngredientItemRecyclerView
 import com.example.heat.ui.itemRecyclerView.InstructionItemRecyclerView
