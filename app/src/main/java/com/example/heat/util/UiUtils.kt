@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.bumptech.glide.Glide
 import com.example.heat.R
 import com.google.android.material.snackbar.Snackbar
@@ -38,6 +39,10 @@ class UiUtils {
                 .load(url)
                 .placeholder(R.drawable.load)
                 .into(imageView)
+        }
+
+        fun getStringFromResource(context: Context, path:Int):String{
+            return context.getString(path)
         }
     }
 }

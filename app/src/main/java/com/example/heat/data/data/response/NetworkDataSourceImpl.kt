@@ -86,4 +86,25 @@ class NetworkDataSourceImpl(
             Log.e("Connectivity", "No internet connection", e)
         }
     }
+
+    private val _searchRecipe = MutableLiveData<RecipeList>()
+    override val searchRecipe: LiveData<RecipeList>
+        get() = _searchRecipe
+
+
+    override suspend fun fetchSearchRecipe(
+        query: String,
+        type: String,
+        diet: String,
+        offset: Int,
+        number: Int
+    ) {
+        try {
+            val fetchSearchRecipes = recipesApiService.searchRecipesAsync(query, type, diet, offset, number).await()
+            _searchRecipe.postValue(fetchSearchRecipes)
+
+        } catch (e: NoConnectivityException) {
+            Log.e("Connectivity", "No internet connection", e)
+        }
+    }
 }

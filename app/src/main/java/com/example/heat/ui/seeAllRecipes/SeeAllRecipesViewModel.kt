@@ -3,10 +3,9 @@ package com.example.heat.ui.seeAllRecipes
 import androidx.lifecycle.*
 import com.example.heat.data.data.repository.RecipesRepository
 import com.example.heat.data.datamodel.recipeList.RecipeList
-import com.example.heat.data.datamodel.recipeList.RecipeListItem
-import com.example.heat.ui.search.BREAKFAST
-import com.example.heat.ui.search.MAIN_COURSE
-import com.example.heat.ui.search.SNACK
+import com.example.heat.ui.recipes.BREAKFAST
+import com.example.heat.ui.recipes.MAIN_COURSE
+import com.example.heat.ui.recipes.SNACK
 import com.example.heat.util.lazyDeferred
 
 class SeeAllRecipesViewModel (

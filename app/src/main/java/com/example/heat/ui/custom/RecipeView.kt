@@ -12,8 +12,7 @@ import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.example.heat.R
 import com.example.heat.data.datamodel.recipeList.RecipeListItem
 import com.example.heat.ui.itemRecyclerView.RecipeItemRecyclerView
-import com.example.heat.ui.search.SearchFragmentDirections
-import com.example.heat.util.UiUtils
+import com.example.heat.ui.recipes.RecipesFragmentDirections
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
@@ -70,7 +69,7 @@ class  RecipeView(
 
         groupAdapter.setOnItemClickListener { item, view ->
             (item as? RecipeItemRecyclerView)?.let {
-                val actionRecipeDetail = SearchFragmentDirections.sendRecipeId(it.recipeItem.id)
+                val actionRecipeDetail = RecipesFragmentDirections.sendRecipeId(it.recipeItem.id)
                 val extras = FragmentNavigatorExtras(
                     //view.findViewById(R.id.recipe_image) to view.findViewById(R.id.recipe_image)
                 )
@@ -89,7 +88,7 @@ class  RecipeView(
     }
 
     private fun navigateToSeeAllFragment(type: String,view: View) {
-        val navigate = SearchFragmentDirections.actionSearchFragmentToSeeAllRecipesFragment(type)
+        val navigate = RecipesFragmentDirections.actionSearchFragmentToSeeAllRecipesFragment(type)
         Navigation.findNavController(view).navigate(navigate)
     }
 

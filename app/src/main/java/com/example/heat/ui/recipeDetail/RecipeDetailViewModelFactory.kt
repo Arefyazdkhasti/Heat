@@ -3,7 +3,6 @@ package com.example.heat.ui.recipeDetail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.heat.data.data.repository.RecipesRepository
-import com.example.heat.ui.search.SearchViewModel
 
 class RecipeDetailViewModelFactory (
     private val recipeID: Int,

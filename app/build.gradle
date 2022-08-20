@@ -140,6 +140,7 @@ dependencies {
 
     // pagination
     implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+
     //search view
-    //implementation "com.paulrybitskyi.persistentsearchview:persistentsearchview:1.1.4"
+    implementation 'com.github.arimorty:floatingsearchview:2.1.1'
 }

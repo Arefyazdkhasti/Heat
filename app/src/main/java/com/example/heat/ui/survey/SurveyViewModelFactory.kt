@@ -1,16 +1,17 @@
-package com.example.heat.ui.search
+package com.example.heat.ui.survey
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.heat.data.data.repository.RecipesRepository
+import com.example.heat.ui.recipeDetail.RecipeDetailViewModel
 
-class SearchViewModelFactory (
+class SurveyViewModelFactory  (
     private val recipesRepository: RecipesRepository
-) : ViewModelProvider.NewInstanceFactory() {
+): ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return SearchViewModel(
+        return SurveyViewModel(
             recipesRepository
         ) as T
     }

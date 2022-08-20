@@ -11,33 +11,37 @@ class RecipesRepositoryImpl(
 
     override suspend fun getRecipesList(offset: Int): LiveData<RecipeList> {
         fetchRecipesList(offset)
-        return networkDataSource.breakfastRecipesList
+        return networkDataSource.recipesList
     }
+
     private suspend fun fetchRecipesList(offset: Int) {
         networkDataSource.fetchRecipesList(offset)
     }
 
     override suspend fun getBreakfastRecipesList(type: String, offset: Int): LiveData<RecipeList> {
-        fetchBreakfastRecipesList(type,offset)
+        fetchBreakfastRecipesList(type, offset)
         return networkDataSource.breakfastRecipesList
     }
-    private suspend fun fetchBreakfastRecipesList(type:String, offset: Int) {
-        networkDataSource.fetchBreakfastRecipesList(type,offset)
+
+    private suspend fun fetchBreakfastRecipesList(type: String, offset: Int) {
+        networkDataSource.fetchBreakfastRecipesList(type, offset)
     }
 
     override suspend fun getSnackRecipesList(type: String, offset: Int): LiveData<RecipeList> {
         fetchSnackRecipesList(type, offset)
         return networkDataSource.snackRecipesList
     }
-    private suspend fun fetchSnackRecipesList(type:String, offset: Int) {
-        networkDataSource.fetchSnackRecipesList(type,offset)
+
+    private suspend fun fetchSnackRecipesList(type: String, offset: Int) {
+        networkDataSource.fetchSnackRecipesList(type, offset)
     }
 
     override suspend fun getMainCourseRecipesList(type: String, offset: Int): LiveData<RecipeList> {
-        fetchMainCourseRecipesList(type,offset)
+        fetchMainCourseRecipesList(type, offset)
         return networkDataSource.mainCourseRecipesList
     }
-    private suspend fun fetchMainCourseRecipesList(type:String, offset: Int) {
+
+    private suspend fun fetchMainCourseRecipesList(type: String, offset: Int) {
         networkDataSource.fetchMainCourseRecipesList(type, offset)
     }
 
@@ -46,7 +50,29 @@ class RecipesRepositoryImpl(
         fetchRecipeDetail(id)
         return networkDataSource.recipeDetail
     }
-    private suspend fun fetchRecipeDetail(id : Int) {
+
+    private suspend fun fetchRecipeDetail(id: Int) {
         networkDataSource.fetchRecipeDetail(id)
+    }
+
+    override suspend fun searchRecipes(
+        query: String,
+        type: String,
+        diet: String,
+        offset: Int,
+        number: Int
+    ): LiveData<RecipeList> {
+        fetchSearchRecipes(query, type, diet, offset, number)
+        return networkDataSource.searchRecipe
+    }
+
+    private suspend fun fetchSearchRecipes(
+        query: String,
+        type: String,
+        diet: String,
+        offset: Int,
+        number: Int
+    ) {
+        networkDataSource.fetchSearchRecipe(query, type, diet, offset, number)
     }
 }

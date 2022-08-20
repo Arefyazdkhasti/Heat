@@ -1,19 +1,14 @@
 package com.example.heat.ui.profile
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.heat.R
 import com.example.heat.databinding.FragmentProfileBinding
-import com.example.heat.databinding.FragmentSearchBinding
 import com.example.heat.ui.base.ScopedFragment
-import com.example.heat.ui.search.SearchViewModel
-import com.example.heat.ui.search.SearchViewModelFactory
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
@@ -76,7 +71,7 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
             viewModel.profileEvent.collect{event ->
                 when (event){
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToPersonalDataScreen ->{
-                        val actionAdd = ProfileFragmentDirections.actionProfileFragmentToPersonalDataFragment()
+                        val actionAdd = ProfileFragmentDirections.tosurvey()
                         findNavController().navigate(actionAdd)
                     }
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToActiveLevelScreen ->{
