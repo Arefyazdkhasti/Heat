@@ -1,15 +1,21 @@
 package com.example.heat.util
 
+import android.app.Application
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Typeface
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
-import com.bumptech.glide.Glide
-import com.example.heat.R
 import com.google.android.material.snackbar.Snackbar
-import java.security.AccessController.getContext
+import android.net.Uri
+import android.provider.Settings.Global.getString
+import android.provider.Settings.Secure.getString
+import androidx.core.content.res.TypedArrayUtils.getString
+import com.example.heat.BuildConfig
+import com.example.heat.R
+
 
 class UiUtils {
     companion object {
@@ -38,6 +44,15 @@ class UiUtils {
                 .load(url)
                 .placeholder(R.drawable.load)
                 .into(imageView)
+        }
+
+        fun getStringFromResource( path:Int):String =   /*Resources.getSystem().getString(path)*/ "test"
+
+        fun getURLForResource(resourceId: Int): String {
+            //use BuildConfig.APPLICATION_ID instead of R.class.getPackage().getName() if both are not same
+            return Uri.parse(
+                "android.resource://" +  BuildConfig.APPLICATION_ID+ "/" + resourceId
+            ).toString()
         }
     }
 }

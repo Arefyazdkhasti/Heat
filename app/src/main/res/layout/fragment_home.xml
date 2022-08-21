@@ -1,16 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-
-
-    <SearchView
-        android:id="@+id/persistentSearchView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_margin="@dimen/large_margin" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <com.example.heat.ui.custom.RecipeView
+            android:id="@+id/today_meals_recipesListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/large_margin"
+            android:layout_marginTop="8dp"
+            app:action="@string/track_foods"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/today_meals" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/extra_margin"
+            android:layout_marginEnd="@dimen/mega_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/today_meals_recipesListView">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/process_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/small_margin"
+                android:text="@string/weeks_progress"
+                android:textColor="@color/black"
+                android:textSize="@dimen/extra_font"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/process_current"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/small_margin"
+                android:text="@string/current"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/large_font"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <GridLayout
+            android:id="@+id/nutrition_grid"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/extra_margin"
+            android:columnCount="2"
+            android:horizontalSpacing="@dimen/standard_margin"
+            android:rowCount="2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout">
+
+            <com.example.heat.ui.custom.NutritionChartView
+                android:id="@+id/calories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                app:name="@string/calories" />
+
+            <com.example.heat.ui.custom.NutritionChartView
+                android:id="@+id/carbohydrates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="1"
+                app:name="@string/carbohydrates" />
+
+            <com.example.heat.ui.custom.NutritionChartView
+                android:id="@+id/fat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                app:name="@string/fat" />
+
+            <com.example.heat.ui.custom.NutritionChartView
+                android:id="@+id/protein"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="1"
+                app:name="@string/protein" />
+        </GridLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

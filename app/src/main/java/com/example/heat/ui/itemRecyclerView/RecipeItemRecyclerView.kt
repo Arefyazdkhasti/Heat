@@ -1,5 +1,6 @@
 package com.example.heat.ui.itemRecyclerView
 
+import android.view.animation.AnimationUtils
 import com.bumptech.glide.Glide
 import com.example.heat.R
 import com.example.heat.data.datamodel.recipeList.RecipeListItem
@@ -21,6 +22,8 @@ class RecipeItemRecyclerView(val recipeItem: RecipeListItem) : Item<GroupieViewH
         binding.apply {
             recipeImage.clipToOutline = true
             recipeName.text = recipeItem.title
+
+            recipeRoot.animation = AnimationUtils.loadAnimation(viewHolder.itemView.context, R.anim.recycler_item_anim)
         }
 
     }

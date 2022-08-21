@@ -1,24 +1,25 @@
 package com.example.heat.ui.custom
 
+import androidx.fragment.app.Fragment
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.example.heat.R
 import com.example.heat.data.datamodel.recipeList.RecipeListItem
+import com.example.heat.ui.home.HomeFragmentDirections
 import com.example.heat.ui.itemRecyclerView.RecipeItemRecyclerView
-import com.example.heat.ui.search.SearchFragmentDirections
-import com.example.heat.util.UiUtils
+import com.example.heat.ui.recipes.RecipesFragmentDirections
+import com.example.heat.util.enum.NavigateAction
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
 
-class  RecipeView(
+class RecipeView(
     contextInstant: Context,
     attrs: AttributeSet
 ) : FrameLayout(contextInstant, attrs) {
@@ -33,6 +34,7 @@ class  RecipeView(
         //get attrs
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.RecipeView)
         val title = typedArray.getString(R.styleable.RecipeView_title)
+        val action = typedArray.getString(R.styleable.RecipeView_action)
         //recycle type array after use
         typedArray.recycle()
 
@@ -42,8 +44,10 @@ class  RecipeView(
         movieRecycleView = view.findViewById(R.id.recipe_recyclerView)
 
         listTitle.text = title
+        seeAll.text = action
 
-        movieRecycleView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
+        movieRecycleView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
 
     }
 
@@ -51,12 +55,15 @@ class  RecipeView(
         RecipeItemRecyclerView(it)
     }
 
-    fun initRecycler(data: List<RecipeListItem>, type: String) {
+    fun initRecycler(data: List<RecipeListItem>, type: String, navigateAction: NavigateAction) {
 
         movieRecycleView.showShimmerAdapter()
 
-        seeAll.setOnClickListener{
-            navigateToSeeAllFragment(type,it)
+        seeAll.setOnClickListener {
+            when (navigateAction) {
+                NavigateAction.SEE_ALL -> navigateToSeeAllFragment(type, it)
+                NavigateAction.TRACK_FOODS -> navigateToTrackFoodsFragment(it)
+            }
         }
 
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
@@ -70,14 +77,20 @@ class  RecipeView(
 
         groupAdapter.setOnItemClickListener { item, view ->
             (item as? RecipeItemRecyclerView)?.let {
-                val actionRecipeDetail = SearchFragmentDirections.sendRecipeId(it.recipeItem.id)
-                val extras = FragmentNavigatorExtras(
-                    //view.findViewById(R.id.recipe_image) to view.findViewById(R.id.recipe_image)
-                )
-                Navigation.findNavController(view).navigate(actionRecipeDetail)
+                when (navigateAction) {
+                    NavigateAction.SEE_ALL -> {
+                        val actionRecipeDetail =
+                            RecipesFragmentDirections.sendRecipeId(it.recipeItem.id)
+                        Navigation.findNavController(view).navigate(actionRecipeDetail)
+                    }
+                    NavigateAction.TRACK_FOODS -> {
+                        val actionRecipeDetail =
+                            HomeFragmentDirections.sendRecipeIDFromHome(it.recipeItem.id)
+                        Navigation.findNavController(view).navigate(actionRecipeDetail)
+                    }
+                }
             }
         }
-
     }
 
     fun hideShimmer() {
@@ -88,11 +101,14 @@ class  RecipeView(
         movieRecycleView.showShimmerAdapter()
     }
 
-    private fun navigateToSeeAllFragment(type: String,view: View) {
-        val navigate = SearchFragmentDirections.actionSearchFragmentToSeeAllRecipesFragment(type)
+    private fun navigateToSeeAllFragment(type: String, view: View) {
+        val navigate = RecipesFragmentDirections.actionSearchFragmentToSeeAllRecipesFragment(type)
         Navigation.findNavController(view).navigate(navigate)
     }
 
-
+    private fun navigateToTrackFoodsFragment( view: View) {
+        val navigate = HomeFragmentDirections.navigateToTrackFoods()
+        Navigation.findNavController(view).navigate(navigate)
+    }
 
 }

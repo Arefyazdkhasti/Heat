@@ -1,4 +1,4 @@
-package com.example.heat.ui.survay
+package com.example.heat.ui.setting.abstractGoal
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

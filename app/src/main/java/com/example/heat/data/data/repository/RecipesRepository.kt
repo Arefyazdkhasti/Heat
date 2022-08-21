@@ -15,4 +15,6 @@ interface RecipesRepository {
     suspend fun getMainCourseRecipesList(type:String, offset: Int): LiveData<RecipeList>
 
     suspend fun getRecipesDetail(id :Int) : LiveData<Recipe>
+
+    suspend fun searchRecipes(query:String, type:String, diet:String, offset: Int, number: Int): LiveData<RecipeList>
 }

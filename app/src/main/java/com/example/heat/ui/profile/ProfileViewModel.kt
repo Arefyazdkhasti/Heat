@@ -29,7 +29,7 @@ class ProfileViewModel(
     fun ingredientAllergyClicked() = viewModelScope.launch {
         profileTransactionEvent.send(ProfileTransactionEvent.NavigateToIngredientAllergyScreen)
     }
-    fun diseaeClicked() = viewModelScope.launch {
+    fun diseaseClicked() = viewModelScope.launch {
         profileTransactionEvent.send(ProfileTransactionEvent.NavigateToDiseaseScreen)
     }
 

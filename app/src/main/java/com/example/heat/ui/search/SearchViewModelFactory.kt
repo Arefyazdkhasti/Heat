@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.heat.data.data.repository.RecipesRepository
 
-class SearchViewModelFactory(
+class SearchViewModelFactory (
     private val recipesRepository: RecipesRepository
-):ViewModelProvider.NewInstanceFactory() {
+) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

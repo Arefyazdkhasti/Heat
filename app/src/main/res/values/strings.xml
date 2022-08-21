@@ -16,9 +16,9 @@
     <string name="login">Login</string>
     <string name="login_intro">Login to your account and \nhaving healthy diet</string>
     <string name="your_username">your Username</string>
-    <string name="your_email">your Email</string>
-    <string name="your_password">your Password</string>
-    <string name="do_not_have_an_account">Do not have an account?</string>
+    <string name="your_email">Your Email</string>
+    <string name="your_password">Your Password</string>
+    <string name="do_not_have_an_account">Do not have an account?   </string>
     <!--register-->
     <string name="register">Register</string>
     <string name="register_intro">Do not waist any more time \nstart a healthier life</string>
@@ -79,6 +79,7 @@
 
     <!--Bottom Nav-->
     <string name="home">Home</string>
+    <string name="search">Search</string>
     <string name="recipes">Recipes</string>
     <string name="profile">Profile</string>
 
@@ -95,6 +96,7 @@
     <string name="calories">Calories</string>
 
 
+    <string name="all_recipes">All Foods</string>
     <string name="breakfast">Breakfast</string>
     <string name="lunch">Lunch</string>
     <string name="snack">Snack</string>
@@ -104,6 +106,28 @@
     <!--Search-->
     <string name="see_all">See All</string>
     <string name="search_recipes">Search Recipes</string>+
+    <string name="filter_meal_type_hint">Meal Type</string>
+    <string name="filter_meal_type_all">all</string>
+    <string name="filter_meal_type_breakfast">breakfast</string>
+    <string name="filter_meal_type_main_course">main course</string>
+    <string name="filter_meal_type_dessert">dessert</string>
+    <string name="filter_meal_type_appetizer">appetizer</string>
+    <string name="filter_meal_type_salad">salad</string>
+    <string name="filter_meal_type_bread">bread</string>
+    <string name="filter_meal_type_soup">soup</string>
+    <string name="filter_meal_type_beverage">beverage</string>
+    <string name="filter_meal_type_sauce">sauce</string>
+    <string name="filter_meal_type_finger_food">fingerfood</string>
+    <string name="filter_meal_type_drink">drink</string>
+
+    <string name="filter_diet_type_hint">Diet Type</string>
+    <string name="filter_diet_type_all">all</string>
+    <string name="filter_diet_type_vegetarian">Vegetarian</string>
+    <string name="filter_diet_type_vegan">Vegan</string>
+    <string name="filter_diet_type_very_healthy">veryHealthy</string>
+    <string name="filter_diet_type_glutenFree">glutenFree</string>
+    <string name="filter_diet_type_diaryFree">diaryFree</string>
+
 
     <!--profile-->
     <string name="your_profile">Your Profile</string>
@@ -131,4 +155,36 @@
 
     <string name="next_page">Next page</string>
     <string name="previous_page">Previous page</string>
+
+    <string name="next">Next </string>
+    <string name="previous">Previous</string>
+    <string name="finish">Finish</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string-array name="meal_type">
+        <item>@string/filter_meal_type_all</item>
+        <item>@string/filter_meal_type_breakfast</item>
+        <item>@string/filter_meal_type_main_course</item>
+        <item>@string/filter_meal_type_dessert</item>
+        <item>@string/filter_meal_type_appetizer</item>
+        <item>@string/filter_meal_type_salad</item>
+        <item>@string/filter_meal_type_bread</item>
+        <item>@string/filter_meal_type_soup</item>
+        <item>@string/filter_meal_type_beverage</item>
+        <item>@string/filter_meal_type_sauce</item>
+        <item>@string/filter_meal_type_sauce</item>
+        <item>@string/filter_meal_type_drink</item>
+    </string-array>
+
+    <string-array name="diet_type">
+        <item>@string/filter_diet_type_all</item>
+        <item>@string/filter_diet_type_vegetarian</item>
+        <item>@string/filter_diet_type_vegan</item>
+        <!--<item>@string/filter_diet_type_very_healthy</item>
+        <item>@string/filter_diet_type_glutenFree</item>
+        <item>@string/filter_diet_type_diaryFree</item>-->
+    </string-array>
 </resources>

@@ -1,0 +1,10 @@
+<androidx.appcompat.widget.AppCompatTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/textViewDropDown"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/large_margin"
+    tools:text="TextView"
+    android:textColor="@color/black"
+    android:textSize="@dimen/extra_font"
+    />
