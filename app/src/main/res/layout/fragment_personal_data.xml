@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.survey.PersonalDataFragment">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/back_arrow"
@@ -14,6 +15,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow_back_black" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/back_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/back_arrow"
+       android:text="@string/save"
+        android:textSize="@dimen/extra_font"
+        android:textColor="@color/colorPrimary"
+        android:visibility="invisible"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/title_personal_data"
@@ -41,9 +55,10 @@
         app:layout_constraintTop_toBottomOf="@+id/title_personal_data">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"/>
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
@@ -60,6 +75,7 @@
         app:layout_constraintTop_toBottomOf="@+id/name_personal_data">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/height"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"/>
@@ -80,6 +96,7 @@
         app:layout_constraintTop_toBottomOf="@+id/height_personal_data">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/weight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"/>
@@ -100,6 +117,7 @@
         app:layout_constraintTop_toBottomOf="@+id/weight_personal_data">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/age"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"/>
@@ -152,6 +170,7 @@
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/navigation_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -174,20 +193,22 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:visibility="invisible"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/next"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/next_btn_bg"
             android:gravity="center"
             android:text="@string/next"
             android:textColor="@color/white"
             android:textSize="@dimen/extra_font"
-            android:background="@drawable/next_btn_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_constraintEnd_toEndOf= "parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

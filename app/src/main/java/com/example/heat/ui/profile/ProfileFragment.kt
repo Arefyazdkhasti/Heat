@@ -14,6 +14,7 @@ import com.example.heat.util.enum.AbstractGoal
 import com.example.heat.util.enum.ActiveLevel
 import com.example.heat.util.enum.DietType
 import com.example.heat.util.enum.Gender
+import com.example.heat.util.exhaustive
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
@@ -94,7 +95,7 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
                     }
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToActiveLevelScreen -> {
                         val actionAdd =
-                            ProfileFragmentDirections.actionProfileFragmentToActivrlevelFragment(userPreference)
+                            ProfileFragmentDirections.actionProfileFragmentToPersonalDataFragment(userPreference)
                         findNavController().navigate(actionAdd)
                     }
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToDietTypeToScreen -> {
@@ -119,6 +120,6 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
                     }
                 }
             }
-        }
+        }.exhaustive
     }
 }

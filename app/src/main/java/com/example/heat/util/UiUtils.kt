@@ -12,9 +12,12 @@ import com.google.android.material.snackbar.Snackbar
 import android.net.Uri
 import android.provider.Settings.Global.getString
 import android.provider.Settings.Secure.getString
+import android.text.TextUtils
+import android.widget.EditText
 import androidx.core.content.res.TypedArrayUtils.getString
 import com.example.heat.BuildConfig
 import com.example.heat.R
+import com.google.android.material.textfield.TextInputEditText
 
 
 class UiUtils {
@@ -54,5 +57,8 @@ class UiUtils {
                 "android.resource://" +  BuildConfig.APPLICATION_ID+ "/" + resourceId
             ).toString()
         }
+
+        fun isEditTextEmpty(editText: TextInputEditText):Boolean = TextUtils.isEmpty(editText.text.toString())
+
     }
 }

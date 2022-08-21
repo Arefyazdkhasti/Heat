@@ -10,14 +10,14 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class UserPreferences(
     val id: Int,
-    val username: String,
-    val weight: Double,
-    val height: Double,
-    val age: Int,
-    val gender: Gender,
-    val activeLevel: ActiveLevel,
-    val abstractGoal: AbstractGoal,
-    val dietType: DietType,
-    val ingredientsAllergy: List<String>,
-    val disease: List<String>
+    var name: String,
+    var weight: Double,
+    var height: Double,
+    var age: Int,
+    var gender: Gender,
+    var activeLevel: ActiveLevel,
+    var abstractGoal: AbstractGoal,
+    var dietType: DietType,
+    var ingredientsAllergy: List<String>,
+    var disease: List<String>
 ): Parcelable
