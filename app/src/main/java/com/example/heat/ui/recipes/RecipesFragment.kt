@@ -10,6 +10,7 @@ import com.example.heat.data.datamodel.recipeList.RecipeListItem
 import com.example.heat.databinding.FragmentRecipesBinding
 import com.example.heat.databinding.FragmentSearchBinding
 import com.example.heat.ui.base.ScopedFragment
+import com.example.heat.util.enum.NavigateAction
 import kotlinx.coroutines.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
@@ -58,10 +59,6 @@ class RecipesFragment : ScopedFragment(), KodeinAware {
         }*/
     }
     private fun bindUI() = launch {
-        binding?.allRecipesListView?.showShimmer()
-        binding?.breakfastRecipesListView?.showShimmer()
-        binding?.snackRecipesListView?.showShimmer()
-        binding?.mainCourseRecipesListView?.showShimmer()
 
         val allRecipesList = viewModel.allRecipeList.await()
 
@@ -95,29 +92,24 @@ class RecipesFragment : ScopedFragment(), KodeinAware {
 
             initRecyclerViewMainCourse(mainCourseList.results)
 
-            binding?.allRecipesListView?.hideShimmer()
-            binding?.breakfastRecipesListView?.hideShimmer()
-            binding?.snackRecipesListView?.hideShimmer()
-            binding?.mainCourseRecipesListView?.hideShimmer()
-
         })
     }
 
     private fun initRecyclerViewAll(items: List<RecipeListItem>) {
-        binding?.allRecipesListView?.initRecycler(items, ALL)
+        binding?.allRecipesListView?.initRecycler(items, ALL , NavigateAction.SEE_ALL)
     }
 
     private fun initRecyclerViewBreakfast(items: List<RecipeListItem>) {
-        binding?.breakfastRecipesListView?.initRecycler(items, BREAKFAST)
+        binding?.breakfastRecipesListView?.initRecycler(items, BREAKFAST, NavigateAction.SEE_ALL)
     }
 
     private fun initRecyclerViewSnack(items: List<RecipeListItem>) {
-        binding?.snackRecipesListView?.initRecycler(items, SNACK)
+        binding?.snackRecipesListView?.initRecycler(items, SNACK, NavigateAction.SEE_ALL)
     }
 
 
     private fun initRecyclerViewMainCourse(items: List<RecipeListItem>) {
-        binding?.mainCourseRecipesListView?.initRecycler(items, MAIN_COURSE)
+        binding?.mainCourseRecipesListView?.initRecycler(items, MAIN_COURSE, NavigateAction.SEE_ALL)
     }
 
 

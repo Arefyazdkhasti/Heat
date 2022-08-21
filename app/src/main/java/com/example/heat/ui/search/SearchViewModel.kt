@@ -7,7 +7,6 @@ import androidx.lifecycle.switchMap
 import com.example.heat.data.data.repository.RecipesRepository
 import com.example.heat.data.datamodel.SearchQuery
 import com.example.heat.data.datamodel.recipeList.RecipeList
-import com.example.heat.data.datamodel.recipeList.RecipeListItem
 import com.example.heat.util.enum.DietType
 import com.example.heat.util.enum.MealType
 import com.example.heat.util.lazyDeferred
@@ -21,7 +20,7 @@ class SearchViewModel(
         recipesRepository.searchRecipes("","","",0,100)
     }
 
-    private val currentSearchQuery = MutableLiveData(SearchQuery("",DietType.ALL,MealType.all))
+    private val currentSearchQuery = MutableLiveData(SearchQuery("",DietType.ANY_THING,MealType.all))
 
 
     val recipesListFiltered = currentSearchQuery.switchMap { searchQuery ->

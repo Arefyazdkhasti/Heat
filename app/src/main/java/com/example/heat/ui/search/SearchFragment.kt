@@ -16,7 +16,6 @@ import com.example.heat.data.datamodel.recipeList.RecipeListItem
 import com.example.heat.databinding.FragmentSearchBinding
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.itemRecyclerView.RecipeItemRecyclerView
-import com.example.heat.ui.seeAllRecipes.SeeAllRecipesFragmentDirections
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -29,15 +28,6 @@ import androidx.core.widget.doOnTextChanged
 import com.example.heat.data.datamodel.SearchQuery
 import com.example.heat.util.enum.DietType
 import com.example.heat.util.enum.MealType
-import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion
-
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-
-import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter
-import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter.OnBindSuggestionCallback
-
-import com.example.heat.util.*
 
 import com.example.heat.util.*
 
@@ -72,8 +62,9 @@ class SearchFragment : ScopedFragment(), KodeinAware {
         viewModel = ViewModelProvider(this, viewModelFactory)[SearchViewModel::class.java]
     }
 
+    //TODO change the logics to mvvm style with sealed class in viewModel
     private fun bindUI() = launch {
-        val searchQuery = SearchQuery("", dietType = DietType.ALL, mealType = MealType.all)
+        val searchQuery = SearchQuery("", dietType = DietType.ANY_THING, mealType = MealType.all)
 
         val _dietType = resources.getStringArray(R.array.diet_type)
         val arrayAdapterDiet = ArrayAdapter(requireContext(), R.layout.dropdown_item, _dietType)
@@ -91,6 +82,7 @@ class SearchFragment : ScopedFragment(), KodeinAware {
         })
 
         binding.apply {
+            //TODO make change when submit query instead of while typing
             floatingSearchView.setOnQueryChangeListener { oldQuery, newQuery ->
                 searchQuery.query = newQuery
                 updaterSearchQuery(searchQuery)
@@ -116,7 +108,7 @@ class SearchFragment : ScopedFragment(), KodeinAware {
         return when (text) {
             MealType.all.toString() -> MealType.all
             MealType.breakfast.toString() -> MealType.breakfast
-            MealType.main_cours.toString() -> MealType.main_cours
+            MealType.main_course.toString() -> MealType.main_course
             MealType.dessert.toString() -> MealType.dessert
             MealType.appetizer.toString() -> MealType.appetizer
             MealType.salad.toString() -> MealType.salad
@@ -132,10 +124,10 @@ class SearchFragment : ScopedFragment(), KodeinAware {
 
     private fun getDietType(text: String?): DietType {
         return when (text) {
-            DietType.ALL.toString() -> DietType.ALL
+            DietType.ANY_THING.toString() -> DietType.ANY_THING
             DietType.Vegetarian.toString() -> DietType.Vegetarian
             DietType.Vegan.toString() -> DietType.Vegan
-            else -> DietType.ALL
+            else -> DietType.ANY_THING
         }
     }
 

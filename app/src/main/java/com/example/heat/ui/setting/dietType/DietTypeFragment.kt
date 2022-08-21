@@ -1,4 +1,4 @@
-package com.example.heat.ui.setting
+package com.example.heat.ui.setting.dietType
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
