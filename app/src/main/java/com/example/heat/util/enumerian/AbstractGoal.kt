@@ -1,4 +1,4 @@
-package com.example.heat.util.enum
+package com.example.heat.util.enumerian
 
 enum class AbstractGoal {
     LOSE,MAINTAIN,GAIN

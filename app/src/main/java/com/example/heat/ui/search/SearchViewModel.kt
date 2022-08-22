@@ -7,8 +7,8 @@ import androidx.lifecycle.switchMap
 import com.example.heat.data.data.repository.RecipesRepository
 import com.example.heat.data.datamodel.SearchQuery
 import com.example.heat.data.datamodel.recipeList.RecipeList
-import com.example.heat.util.enum.DietType
-import com.example.heat.util.enum.MealType
+import com.example.heat.util.enumerian.DietType
+import com.example.heat.util.enumerian.MealType
 import com.example.heat.util.lazyDeferred
 
 class SearchViewModel(

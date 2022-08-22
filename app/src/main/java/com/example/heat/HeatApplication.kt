@@ -15,6 +15,13 @@ import com.example.heat.ui.recipeDetail.RecipeDetailViewModelFactory
 import com.example.heat.ui.recipes.RecipesViewModelFactory
 import com.example.heat.ui.search.SearchViewModelFactory
 import com.example.heat.ui.seeAllRecipes.SeeAllRecipesViewModelFactory
+import com.example.heat.ui.setting.abstractGoal.AbstractGoalViewModel
+import com.example.heat.ui.setting.abstractGoal.AbstractGoalViewModelFactory
+import com.example.heat.ui.setting.activeLevel.ActiveLevelViewModel
+import com.example.heat.ui.setting.activeLevel.ActiveLevelViewModelFactory
+import com.example.heat.ui.setting.dietType.DietTypeViewModelFactory
+import com.example.heat.ui.setting.disease.DiseaseViewModelFactory
+import com.example.heat.ui.setting.ingredientAllergy.IngredientAllergyViewModelFactory
 import com.example.heat.ui.setting.personalData.PersonalDataViewModel
 import com.example.heat.ui.setting.personalData.PersonalDataViewModelFactory
 import com.example.heat.ui.survey.SurveyViewModelFactory
@@ -41,6 +48,11 @@ class HeatApplication: Application(),KodeinAware{
         bind() from factory { recipeID:Int -> RecipeDetailViewModelFactory(recipeID,instance()) }
         bind() from factory { type:String -> SeeAllRecipesViewModelFactory(type,instance()) }
         bind() from factory { userPreference: UserPreferences? -> PersonalDataViewModelFactory(userPreference, instance()) }
+        bind() from factory { userPreference: UserPreferences? -> ActiveLevelViewModelFactory(userPreference, instance()) }
+        bind() from factory { userPreference: UserPreferences? -> AbstractGoalViewModelFactory(userPreference, instance()) }
+        bind() from factory { userPreference: UserPreferences? -> DietTypeViewModelFactory(userPreference, instance()) }
+        bind() from factory { userPreference: UserPreferences? -> IngredientAllergyViewModelFactory(userPreference, instance()) }
+        bind() from factory { userPreference: UserPreferences? -> DiseaseViewModelFactory(userPreference, instance()) }
 
     }
 }

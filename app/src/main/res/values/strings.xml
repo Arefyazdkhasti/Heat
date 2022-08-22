@@ -3,7 +3,6 @@
     <string name="app_desc">Healthier Eat</string>
 
     <!--Intro Sliders-->
-    <!--TODO change intro texts-->
     <string name="skip">skip</string>
     <string name="First_intro_headline">Have a healthier \nlifestyle with</string>
     <string name="First_intro_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
@@ -64,7 +63,7 @@
     <string name="Fifth_page_gluten">Gluten</string>
     <string name="Fifth_page_peanuts">Peanuts</string>
     <string name="Fifth_page_egg">Egg</string>
-    <string name="Fifth_page_fish">fish</string>
+    <string name="Fifth_page_fish">Fish</string>
     <string name="Fifth_page_shellfish">Shellfish</string>
     <string name="Fifth_page_diary">Diary</string>
     <string name="Fifth_page_more">Type any more ingredient you wish(optional)</string>
@@ -72,9 +71,9 @@
     <string name="Sixth_page_text">Do You Have Any Of The Following Disease?</string>
     <string name="Sixth_page_diabetes">Diabetes</string>
     <string name="Sixth_page_osteoporosis">Osteoporosis</string>
-    <string name="Sixth_page_heart_disease">Heart disease</string>
+    <string name="Sixth_page_heart_disease">Heart Disease</string>
     <string name="Sixth_page_blood_pressure">High Blood Pressure</string>
-    <string name="Sixth_page_kidney_disease">Kidney disease</string>
+    <string name="Sixth_page_kidney_disease">Kidney Disease</string>
     <string name="Sixth_page_anemia">Anemia</string>
 
     <!--Bottom Nav-->

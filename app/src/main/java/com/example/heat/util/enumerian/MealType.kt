@@ -1,4 +1,4 @@
-package com.example.heat.util.enum
+package com.example.heat.util.enumerian
 
 //TODO use this main course -> private const val main_course = "main course"
 enum class MealType {

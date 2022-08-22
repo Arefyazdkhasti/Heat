@@ -1,17 +1,10 @@
 package com.example.heat.ui.trackFood
 
-import android.content.res.Resources
-import androidx.core.content.res.TypedArrayUtils.getString
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.heat.R
 import com.example.heat.data.data.repository.RecipesRepository
 import com.example.heat.data.datamodel.MealListItem
-import com.example.heat.data.datamodel.recipeList.RecipeList
-import com.example.heat.data.datamodel.recipeList.RecipeListItem
 import com.example.heat.util.UiUtils.Companion.getStringFromResource
-import com.example.heat.util.UiUtils.Companion.getURLForResource
-import com.example.heat.util.enum.MealType
 
 class TrackFoodsViewModel(
     private val recipesRepository: RecipesRepository

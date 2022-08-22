@@ -2,39 +2,25 @@ package com.example.heat.ui.setting.personalData
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isNotEmpty
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.viewbinding.ViewBinding
 import com.example.heat.R
 import com.example.heat.data.datamodel.user.UserPreferences
-import com.example.heat.databinding.FragmentHomeBinding
 import com.example.heat.databinding.FragmentPersonalDataBinding
 import com.example.heat.ui.base.ScopedFragment
-import com.example.heat.ui.home.HomeViewModel
-import com.example.heat.ui.home.HomeViewModelFactory
-import com.example.heat.ui.seeAllRecipes.SeeAllRecipesFragmentArgs
-import com.example.heat.ui.seeAllRecipes.SeeAllRecipesViewModel
-import com.example.heat.ui.seeAllRecipes.SeeAllRecipesViewModelFactory
 import com.example.heat.ui.survey.SurveyFragmentDirections
 import com.example.heat.util.UiUtils.Companion.isEditTextEmpty
 import com.example.heat.util.UiUtils.Companion.showSimpleSnackBar
-import com.example.heat.util.enum.AbstractGoal
-import com.example.heat.util.enum.ActiveLevel
-import com.example.heat.util.enum.DietType
-import com.example.heat.util.enum.Gender
+import com.example.heat.util.enumerian.*
 import com.example.heat.util.exhaustive
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.factory
-import org.kodein.di.generic.instance
 
 
 //TODO Save data when slide with viewPager
@@ -63,18 +49,22 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
 
         val safeArgs = arguments?.let { PersonalDataFragmentArgs.fromBundle(it) }
         val userPref = safeArgs?.userPreferences
+        val comeFrom = safeArgs?.comeFrom
         viewModel = ViewModelProvider(
             this,
             viewModelFactoryInstanceFactory(userPref)
         )[PersonalDataViewModel::class.java]
 
         var isFromProfile = false
+        var shouldUserSurveyDir = false
 
         if (userPref != null) {
             setData(userPref)
-            isFromProfile = true
+        }else{
+            shouldUserSurveyDir = true
         }
-        bindUI(isFromProfile)
+        if(comeFrom == ComeFrom.PROFILE) isFromProfile = true
+        bindUI(isFromProfile,shouldUserSurveyDir)
     }
 
     private fun setData(userPreferences: UserPreferences) {
@@ -84,12 +74,13 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
             height.setText(userPreferences.height.toString())
             age.setText(userPreferences.age.toString())
             when (userPreferences.gender) {
-                //TODO set user gender checked
+                Gender.MALE -> toggleButtonGroupSex.check(R.id.male)
+                Gender.FEMALE -> toggleButtonGroupSex.check(R.id.female)
             }
         }
     }
 
-    private fun bindUI(isFromProfile: Boolean) = launch {
+    private fun bindUI(isFromProfile: Boolean, shouldUserSurveyDir: Boolean) = launch {
         if (isFromProfile) {
             binding.navigationLayout.visibility = View.GONE
             binding.save.visibility = View.VISIBLE
@@ -138,10 +129,20 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
                                 requireActivity().onBackPressed()
                             }
                             false -> {
-                                val actionAdd = SurveyFragmentDirections.actionSurveyFragmentToActiveLevelFragment(
-                                    userPreference
-                                )
-                                findNavController().navigate(actionAdd)
+                                if(shouldUserSurveyDir){
+                                    val actionAdd = SurveyFragmentDirections.actionSurveyFragmentToActiveLevelFragment(
+                                        userPreference,
+                                        ComeFrom.SURVEY
+                                    )
+                                    findNavController().navigate(actionAdd)
+                                }else {
+                                    val actionAdd =
+                                        PersonalDataFragmentDirections.actionPersonalDataFragmentToActiveLevelFragment(
+                                            userPreference,
+                                            ComeFrom.SURVEY
+                                        )
+                                    findNavController().navigate(actionAdd)
+                                }
                             }
                         }
 

@@ -1,10 +1,7 @@
 package com.example.heat.data.datamodel.user
 
 import android.os.Parcelable
-import com.example.heat.util.enum.AbstractGoal
-import com.example.heat.util.enum.ActiveLevel
-import com.example.heat.util.enum.DietType
-import com.example.heat.util.enum.Gender
+import com.example.heat.util.enumerian.*
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -18,6 +15,6 @@ data class UserPreferences(
     var activeLevel: ActiveLevel,
     var abstractGoal: AbstractGoal,
     var dietType: DietType,
-    var ingredientsAllergy: List<String>,
-    var disease: List<String>
+    var ingredientsAllergy: ArrayList<IngredientAllergy>,
+    var disease: ArrayList<Disease>
 ): Parcelable

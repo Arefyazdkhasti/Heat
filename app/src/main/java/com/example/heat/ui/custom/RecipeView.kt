@@ -1,6 +1,5 @@
 package com.example.heat.ui.custom
 
-import androidx.fragment.app.Fragment
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
@@ -14,7 +13,7 @@ import com.example.heat.data.datamodel.recipeList.RecipeListItem
 import com.example.heat.ui.home.HomeFragmentDirections
 import com.example.heat.ui.itemRecyclerView.RecipeItemRecyclerView
 import com.example.heat.ui.recipes.RecipesFragmentDirections
-import com.example.heat.util.enum.NavigateAction
+import com.example.heat.util.enumerian.NavigateAction
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 

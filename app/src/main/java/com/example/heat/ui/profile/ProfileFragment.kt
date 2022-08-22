@@ -10,10 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.databinding.FragmentProfileBinding
 import com.example.heat.ui.base.ScopedFragment
-import com.example.heat.util.enum.AbstractGoal
-import com.example.heat.util.enum.ActiveLevel
-import com.example.heat.util.enum.DietType
-import com.example.heat.util.enum.Gender
+import com.example.heat.util.enumerian.*
 import com.example.heat.util.exhaustive
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.launch
@@ -62,8 +59,8 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
             Gender.MALE,
             ActiveLevel.MODERATELY,
             AbstractGoal.MAINTAIN,
-            DietType.ANY_THING,
-            arrayListOf(),
+            DietType.Kosher,
+            arrayListOf(IngredientAllergy.Peanuts, IngredientAllergy.Diary),
             arrayListOf()
         )
         binding.apply {
@@ -95,27 +92,27 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
                     }
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToActiveLevelScreen -> {
                         val actionAdd =
-                            ProfileFragmentDirections.actionProfileFragmentToPersonalDataFragment(userPreference)
+                            ProfileFragmentDirections.actionProfileFragmentToActiveLevelFragment(userPreference, ComeFrom.PROFILE)
                         findNavController().navigate(actionAdd)
                     }
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToDietTypeToScreen -> {
                         val actionAdd =
-                            ProfileFragmentDirections.actionProfileFragmentToDietTypeFragment(userPreference)
+                            ProfileFragmentDirections.actionProfileFragmentToDietTypeFragment(userPreference, ComeFrom.PROFILE)
                         findNavController().navigate(actionAdd)
                     }
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToAbstractGoalScreen -> {
                         val actionAdd =
-                            ProfileFragmentDirections.actionProfileFragmentToAbstractGoalFragment(userPreference)
+                            ProfileFragmentDirections.actionProfileFragmentToAbstractGoalFragment(userPreference, ComeFrom.PROFILE)
                         findNavController().navigate(actionAdd)
                     }
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToIngredientAllergyScreen -> {
                         val actionAdd =
-                            ProfileFragmentDirections.actionProfileFragmentToIngredientAllergyFragment(userPreference)
+                            ProfileFragmentDirections.actionProfileFragmentToIngredientAllergyFragment(userPreference, ComeFrom.PROFILE)
                         findNavController().navigate(actionAdd)
                     }
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToDiseaseScreen -> {
                         val actionAdd =
-                            ProfileFragmentDirections.actionProfileFragmentToDiseaseFragment(userPreference)
+                            ProfileFragmentDirections.actionProfileFragmentToDiseaseFragment(userPreference, ComeFrom.PROFILE)
                         findNavController().navigate(actionAdd)
                     }
                 }
