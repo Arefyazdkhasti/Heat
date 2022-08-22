@@ -1,7 +1,7 @@
 package com.example.heat.data.datamodel
 
-import com.example.heat.util.enum.DietType
-import com.example.heat.util.enum.MealType
+import com.example.heat.util.enumerian.DietType
+import com.example.heat.util.enumerian.MealType
 
 data class SearchQuery(
     var query: String,

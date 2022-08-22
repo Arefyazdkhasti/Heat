@@ -1,60 +1,182 @@
 package com.example.heat.ui.setting.disease
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.heat.R
+import com.example.heat.data.datamodel.user.UserPreferences
+import com.example.heat.databinding.FragmentDiseaseBinding
+import com.example.heat.ui.base.ScopedFragment
+import com.example.heat.ui.setting.activeLevel.ActiveLevelFragmentArgs
+import com.example.heat.util.UiUtils
+import com.example.heat.util.UiUtils.Companion.showToast
+import com.example.heat.util.enumerian.ComeFrom
+import com.example.heat.util.enumerian.Disease
+import com.example.heat.util.exhaustive
+import kotlinx.coroutines.launch
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.factory
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DiseaseFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class DiseaseFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class DiseaseFragment : ScopedFragment(), KodeinAware {
+    override val kodein by closestKodein()
+    private val viewModelFactoryInstanceFactory: ((UserPreferences?) -> DiseaseViewModelFactory) by factory()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var viewModel: DiseaseViewModel
+
+    private var _binding: FragmentDiseaseBinding? = null
+    private val binding
+        get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_disease, container, false)
+    ): View {
+        _binding = FragmentDiseaseBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DiseaseFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DiseaseFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val safeArgs = arguments?.let { ActiveLevelFragmentArgs.fromBundle(it) }
+        val userPref = safeArgs?.userPreferences
+        val comeFrom = safeArgs?.comeFrom
+
+        viewModel = ViewModelProvider(
+            this,
+            viewModelFactoryInstanceFactory(userPref)
+        )[DiseaseViewModel::class.java]
+
+        var isFromProfile = false
+
+        if (userPref != null) {
+            setData(userPref)
+        }
+        if (comeFrom == ComeFrom.PROFILE) isFromProfile = true
+
+        bindUI(isFromProfile, userPref)
+    }
+
+    private fun setData(userPreferences: UserPreferences) {
+        binding.apply {
+            val diseases = userPreferences.disease
+            if (diseases.contains(Disease.Diabetes.toString())) diseaseChipGroup.check(R.id.chip_diabetes)
+            if (diseases.contains(Disease.Osteoporosis.toString())) diseaseChipGroup.check(R.id.chip_osteoporosis)
+            if (diseases.contains(Disease.HeartDisease.toString())) diseaseChipGroup.check(R.id.chip_heart_disease)
+            if (diseases.contains(Disease.HighBloodPressure.toString())) diseaseChipGroup.check(R.id.chip_high_blood_pressure)
+            if (diseases.contains(Disease.KidneyDisease.toString())) diseaseChipGroup.check(R.id.chip_kidney_disease)
+            if (diseases.contains(Disease.Anemia.toString())) diseaseChipGroup.check(R.id.chip_anemia)
+        }
+    }
+
+    private fun bindUI(isFromProfile: Boolean, userPreference: UserPreferences?) = launch {
+        if (userPreference == null) {
+            return@launch
+        }
+
+        if (isFromProfile) {
+            binding.navigationLayout.visibility = View.GONE
+            binding.save.visibility = View.VISIBLE
+        } else {
+            binding.navigationLayout.visibility = View.VISIBLE
+            binding.save.visibility = View.GONE
+            binding.backArrow.visibility = View.GONE
+        }
+
+        binding.apply {
+            if (isFromProfile) {
+                save.setOnClickListener {
+                    saveData(binding, userPreference, it)
+                }
+            } else {
+                finish.setOnClickListener {
+                    saveData(binding, userPreference, it)
+                }
+                previous.setOnClickListener {
+                    saveData(binding, userPreference, it)
                 }
             }
+            backArrow.setOnClickListener {
+                saveData(binding, userPreference, it)
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.transactionEvent.collect { event ->
+                when (event) {
+                    is DiseaseViewModel.DiseaseTransactionsEvents.NavigateToHomeScreen -> {
+                        Log.e("USER_PREF_PERSONAL_DATA", userPreference.toString())
+                        when (isFromProfile) {
+                            true -> {
+                                requireActivity().onBackPressed()
+                            }
+                            false -> {
+                                val action =
+                                    DiseaseFragmentDirections.actionDiseaseFragmentToHomeFragment()
+                                findNavController().navigate(action)
+                            }
+                        }
+
+                    }
+                    is DiseaseViewModel.DiseaseTransactionsEvents.NavigateBackToIngredientAllergyScreen ->
+                        if (!isFromProfile) {
+                            val action =
+                                DiseaseFragmentDirections.actionDiseaseFragmentToIngredientAllergyFragment(
+                                    userPreference,
+                                    ComeFrom.SURVEY
+                                )
+                            findNavController().navigate(action)
+                        }
+                    else -> {
+                        UiUtils.showSimpleSnackBar(
+                            binding.root,
+                            getString(R.string.complete_all_parts)
+                        )
+                    }
+                }
+            }
+        }.exhaustive
+    }
+
+    private fun saveData(
+        binding: FragmentDiseaseBinding,
+        userPreference: UserPreferences,
+        itemView: View
+    ) {
+        binding.apply {
+            val selectedItems = arrayListOf<Disease>()
+            userPreference.disease.clear()
+
+            if (chipDiabetes.isChecked) selectedItems.add(Disease.Diabetes)
+            if (chipOsteoporosis.isChecked) selectedItems.add(Disease.Osteoporosis)
+            if (chipHeartDisease.isChecked) selectedItems.add(Disease.HeartDisease)
+            if (chipHighBloodPressure.isChecked) selectedItems.add(Disease.HighBloodPressure)
+            if (chipKidneyDisease.isChecked) selectedItems.add(Disease.KidneyDisease)
+            if (chipAnemia.isChecked) selectedItems.add(Disease.Anemia)
+
+            for (item in selectedItems) {
+                if (!userPreference.disease.contains(item.toString()))
+                    userPreference.disease.add(item.toString())
+            }
+            if (itemView == save || itemView == backArrow)
+                viewModel.onNextClicked(userPreference)
+            else if (itemView == previous)
+                viewModel.onPreviousClicked(userPreference)
+            else if (itemView == finish) {
+                //save userPreference to Room database
+                viewModel.saveUserPreferences(userPreference)
+                //TODO show success/fail toast
+                viewModel.onNextClicked(userPreference)
+            }
+        }
     }
 }

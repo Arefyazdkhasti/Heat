@@ -26,8 +26,8 @@ import org.kodein.di.generic.instance
 
 import androidx.core.widget.doOnTextChanged
 import com.example.heat.data.datamodel.SearchQuery
-import com.example.heat.util.enum.DietType
-import com.example.heat.util.enum.MealType
+import com.example.heat.util.enumerian.DietType
+import com.example.heat.util.enumerian.MealType
 
 import com.example.heat.util.*
 
@@ -56,7 +56,6 @@ class SearchFragment : ScopedFragment(), KodeinAware {
         bindUI()
     }
 
-    @DelicateCoroutinesApi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory)[SearchViewModel::class.java]

@@ -9,7 +9,7 @@ import com.example.heat.data.datamodel.recipeList.RecipeListItem
 import com.example.heat.databinding.FragmentHomeBinding
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.recipes.ALL
-import com.example.heat.util.enum.NavigateAction
+import com.example.heat.util.enumerian.NavigateAction
 import com.github.mikephil.charting.data.PieEntry
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.launch

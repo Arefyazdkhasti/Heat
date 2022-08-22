@@ -1,60 +1,177 @@
 package com.example.heat.ui.setting.activeLevel
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.heat.R
+import com.example.heat.data.datamodel.user.UserPreferences
+import com.example.heat.databinding.FragmentActiveLevelBinding
+import com.example.heat.ui.base.ScopedFragment
+import com.example.heat.util.enumerian.ActiveLevel
+import com.example.heat.util.enumerian.ComeFrom
+import com.example.heat.util.UiUtils
+import com.example.heat.util.UiUtils.Companion.showToast
+import com.example.heat.util.exhaustive
+import kotlinx.coroutines.launch
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.factory
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class ActiveLevelFragment : ScopedFragment(), KodeinAware {
+    override val kodein by closestKodein()
+    private val viewModelFactoryInstanceFactory: ((UserPreferences?) -> ActiveLevelViewModelFactory) by factory()
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ActiveLevelFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ActiveLevelFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var viewModel: ActiveLevelViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentActiveLevelBinding? = null
+    private val binding
+        get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_active_level, container, false)
+    ): View {
+        _binding = FragmentActiveLevelBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ActivrlevelFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ActiveLevelFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val safeArgs = arguments?.let { ActiveLevelFragmentArgs.fromBundle(it) }
+        val userPref = safeArgs?.userPreferences
+        val comeFrom = safeArgs?.comeFrom
+
+        viewModel = ViewModelProvider(
+            this,
+            viewModelFactoryInstanceFactory(userPref)
+        )[ActiveLevelViewModel::class.java]
+
+        var isFromProfile = false
+
+        if (userPref != null) {
+            setData(userPref)
+        }
+        if (comeFrom == ComeFrom.PROFILE) isFromProfile = true
+
+        bindUI(isFromProfile, userPref)
+    }
+
+    private fun setData(userPreferences: UserPreferences) {
+        binding.apply {
+            when (userPreferences.activeLevel) {
+                ActiveLevel.SEDENTARY -> toggleButtonGroupActiveLevel.check(R.id.sedentary)
+                ActiveLevel.LIGHTLY -> toggleButtonGroupActiveLevel.check(R.id.lightly)
+                ActiveLevel.MODERATELY -> toggleButtonGroupActiveLevel.check(R.id.moderately)
+                ActiveLevel.VERY -> toggleButtonGroupActiveLevel.check(R.id.very)
+                ActiveLevel.EXTRA -> toggleButtonGroupActiveLevel.check(R.id.extra)
+            }
+        }
+    }
+
+    private fun bindUI(isFromProfile: Boolean, userPreference: UserPreferences?) = launch {
+        if (userPreference == null) {
+            showToast(requireContext(), "UserPref is null")
+            return@launch
+        }
+
+        if (isFromProfile) {
+            binding.navigationLayout.visibility = View.GONE
+            binding.save.visibility = View.VISIBLE
+        } else {
+            binding.navigationLayout.visibility = View.VISIBLE
+            binding.save.visibility = View.GONE
+            binding.backArrow.visibility = View.GONE
+        }
+
+        binding.apply {
+            if (isFromProfile) {
+                save.setOnClickListener {
+                    saveData(binding, userPreference, it)
+                }
+            } else {
+                next.setOnClickListener {
+                    saveData(binding, userPreference, it)
+                }
+                previous.setOnClickListener {
+                    saveData(binding, userPreference, it)
                 }
             }
+            backArrow.setOnClickListener {
+                saveData(binding, userPreference, it)
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.transactionEvent.collect { event ->
+                when (event) {
+                    is ActiveLevelViewModel.ActiveLevelTransactionsEvents.NavigateToAbstractGoalScreen -> {
+                        Log.e("USER_PREF_PERSONAL_DATA", userPreference.toString())
+                        when (isFromProfile) {
+                            true -> {
+                                requireActivity().onBackPressed()
+                            }
+                            false -> {
+                                val action =
+                                    ActiveLevelFragmentDirections.actionActiveLevelFragmentToAbstractGoalFragment(
+                                        userPreference,
+                                        ComeFrom.SURVEY
+                                    )
+                                findNavController().navigate(action)
+                            }
+                        }
+
+                    }
+                    is ActiveLevelViewModel.ActiveLevelTransactionsEvents.NavigateBackToPersonalDataScreen ->
+                        if (!isFromProfile) {
+                            val action =
+                                ActiveLevelFragmentDirections.actionActiveLevelFragmentToPersonalDataFragment(
+                                    userPreference,
+                                    ComeFrom.SURVEY
+                                )
+                            findNavController().navigate(action)
+                        }
+                    else -> {
+                        UiUtils.showSimpleSnackBar(
+                            binding.root,
+                            getString(R.string.complete_all_parts)
+                        )
+                    }
+                }
+            }
+        }.exhaustive
+    }
+
+    private fun saveData(
+        binding: FragmentActiveLevelBinding,
+        userPreference: UserPreferences,
+        itemView: View
+    ) {
+        binding.apply {
+
+            if (toggleButtonGroupActiveLevel.checkedButtonId != View.NO_ID) {
+                when {
+                    sedentary.isChecked -> userPreference.activeLevel = ActiveLevel.SEDENTARY
+                    lightly.isChecked -> userPreference.activeLevel = ActiveLevel.LIGHTLY
+                    moderately.isChecked -> userPreference.activeLevel = ActiveLevel.MODERATELY
+                    very.isChecked -> userPreference.activeLevel = ActiveLevel.VERY
+                    extra.isChecked -> userPreference.activeLevel = ActiveLevel.EXTRA
+                }
+                if (itemView == next || itemView == save || itemView == backArrow)
+                    viewModel.onNextClicked(userPreference)
+                else if (itemView == previous)
+                    viewModel.onPreviousClicked(userPreference)
+
+            } else {
+                viewModel.shouldShowFillAllPartSnackBar()
+            }
+        }
     }
 }

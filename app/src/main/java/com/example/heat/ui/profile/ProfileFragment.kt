@@ -4,17 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.databinding.FragmentProfileBinding
 import com.example.heat.ui.base.ScopedFragment
-import com.example.heat.util.enum.AbstractGoal
-import com.example.heat.util.enum.ActiveLevel
-import com.example.heat.util.enum.DietType
-import com.example.heat.util.enum.Gender
-import kotlinx.coroutines.DelicateCoroutinesApi
+import com.example.heat.util.enumerian.*
+import com.example.heat.util.exhaustive
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
@@ -39,7 +37,6 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
         return binding.root
     }
 
-    @DelicateCoroutinesApi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ProfileViewModel::class.java)
@@ -52,12 +49,12 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
 
     private fun bindUI() = launch {
 
-        val userPreference = UserPreferences(
+        var userPreference = UserPreferences(
             1,
-            "aref",
-            71.5,
-            180.0,
-            22,
+            "",
+            0.0,
+            0.0,
+            0,
             Gender.MALE,
             ActiveLevel.MODERATELY,
             AbstractGoal.MAINTAIN,
@@ -65,6 +62,22 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
             arrayListOf(),
             arrayListOf()
         )
+        //load User
+        viewModel.getUserPreference.await().observe(viewLifecycleOwner, Observer { userPref ->
+            if(userPref == null) return@Observer
+
+            userPreference = userPref
+            binding.apply {
+                username.text = userPref.name
+                activeLevel.text = userPref.activeLevel.toString()
+                dietType.text = userPref.dietType.toString()
+                abstractGoal.text = userPref.abstractGoal.toString()
+                ingredientAllergy.text = userPref.ingredientsAllergy.size.toString()
+                disease.text = userPref.disease.size.toString()
+            }
+
+        })
+
         binding.apply {
             rightArrowIcon.setOnClickListener {
                 viewModel.personalDataClicked()
@@ -76,7 +89,7 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
                 viewModel.dietTypeClicked()
             }
             abstractGoalLayout.setOnClickListener {
-                viewModel.abstarctGoalClicked()
+                viewModel.abstractGoalClicked()
             }
             ingredientAllergyLayout.setOnClickListener {
                 viewModel.ingredientAllergyClicked()
@@ -89,36 +102,36 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
             viewModel.profileEvent.collect { event ->
                 when (event) {
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToPersonalDataScreen -> {
-                        val actionAdd = ProfileFragmentDirections.tosurvey()
+                        val actionAdd = ProfileFragmentDirections.actionProfileFragmentToPersonalDataFragment(userPreference, ComeFrom.PROFILE)
                         findNavController().navigate(actionAdd)
                     }
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToActiveLevelScreen -> {
                         val actionAdd =
-                            ProfileFragmentDirections.actionProfileFragmentToActivrlevelFragment(userPreference)
+                            ProfileFragmentDirections.actionProfileFragmentToActiveLevelFragment(userPreference, ComeFrom.PROFILE)
                         findNavController().navigate(actionAdd)
                     }
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToDietTypeToScreen -> {
                         val actionAdd =
-                            ProfileFragmentDirections.actionProfileFragmentToDietTypeFragment(userPreference)
+                            ProfileFragmentDirections.actionProfileFragmentToDietTypeFragment(userPreference, ComeFrom.PROFILE)
                         findNavController().navigate(actionAdd)
                     }
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToAbstractGoalScreen -> {
                         val actionAdd =
-                            ProfileFragmentDirections.actionProfileFragmentToAbstractGoalFragment(userPreference)
+                            ProfileFragmentDirections.actionProfileFragmentToAbstractGoalFragment(userPreference, ComeFrom.PROFILE)
                         findNavController().navigate(actionAdd)
                     }
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToIngredientAllergyScreen -> {
                         val actionAdd =
-                            ProfileFragmentDirections.actionProfileFragmentToIngredientAllergyFragment(userPreference)
+                            ProfileFragmentDirections.actionProfileFragmentToIngredientAllergyFragment(userPreference, ComeFrom.PROFILE)
                         findNavController().navigate(actionAdd)
                     }
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToDiseaseScreen -> {
                         val actionAdd =
-                            ProfileFragmentDirections.actionProfileFragmentToDiseaseFragment(userPreference)
+                            ProfileFragmentDirections.actionProfileFragmentToDiseaseFragment(userPreference, ComeFrom.PROFILE)
                         findNavController().navigate(actionAdd)
                     }
                 }
             }
-        }
+        }.exhaustive
     }
 }

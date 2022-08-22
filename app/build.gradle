@@ -7,12 +7,15 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 32
 
     defaultConfig {
+        configurations.all {
+            resolutionStrategy { force 'androidx.core:core-ktx:1.6.0' }
+        }
         applicationId "com.example.heat"
         minSdk 23
-        targetSdk 31
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 
@@ -143,4 +146,14 @@ dependencies {
 
     //search view
     implementation 'com.github.arimorty:floatingsearchview:2.1.1'
+    
+    //ROOM
+    implementation "androidx.room:room-runtime:2.4.2"
+    kapt "androidx.room:room-compiler:2.4.2"
+    implementation "androidx.room:room-ktx:2.4.2"
+    implementation "androidx.room:room-paging:2.4.2"
+
+    // Paging 3.0
+    implementation 'androidx.paging:paging-compose:1.0.0-alpha15'
+
 }

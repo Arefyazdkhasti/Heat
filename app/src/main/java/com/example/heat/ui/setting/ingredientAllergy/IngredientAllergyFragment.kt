@@ -1,61 +1,179 @@
 package com.example.heat.ui.setting.ingredientAllergy
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.heat.R
+import com.example.heat.data.datamodel.user.UserPreferences
+import com.example.heat.databinding.FragmentIngredientAllergyBinding
+import com.example.heat.ui.base.ScopedFragment
+import com.example.heat.ui.setting.activeLevel.ActiveLevelFragmentArgs
+import com.example.heat.util.UiUtils
+import com.example.heat.util.enumerian.ComeFrom
+import com.example.heat.util.enumerian.IngredientAllergy
+import com.example.heat.util.exhaustive
+import kotlinx.coroutines.launch
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.factory
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class IngredientAllergyFragment : ScopedFragment(), KodeinAware {
+    override val kodein by closestKodein()
+    private val viewModelFactoryInstanceFactory: ((UserPreferences?) -> IngredientAllergyViewModelFactory) by factory()
 
-/**
- * A simple [Fragment] subclass.
- * Use the [IngredientAllergyFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+    private lateinit var viewModel: IngredientAllergyViewModel
 
-class IngredientAllergyFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentIngredientAllergyBinding? = null
+    private val binding
+        get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ingredient_allergy, container, false)
+    ): View {
+        _binding = FragmentIngredientAllergyBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment IngridientAllergyFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            IngredientAllergyFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val safeArgs = arguments?.let { ActiveLevelFragmentArgs.fromBundle(it) }
+        val userPref = safeArgs?.userPreferences
+        val comeFrom = safeArgs?.comeFrom
+
+        viewModel = ViewModelProvider(
+            this,
+            viewModelFactoryInstanceFactory(userPref)
+        )[IngredientAllergyViewModel::class.java]
+
+        var isFromProfile = false
+
+        if (userPref != null) {
+            setData(userPref)
+        }
+        if (comeFrom == ComeFrom.PROFILE) isFromProfile = true
+
+        bindUI(isFromProfile, userPref)
+    }
+
+    private fun setData(userPreferences: UserPreferences) {
+        binding.apply {
+            val ingredients = userPreferences.ingredientsAllergy
+            if (ingredients.contains(IngredientAllergy.Gluten.toString())) allergyChipGroup.check(R.id.chip_gluten)
+            if (ingredients.contains(IngredientAllergy.Peanuts.toString())) allergyChipGroup.check(R.id.chip_peanut)
+            if (ingredients.contains(IngredientAllergy.Egg.toString())) allergyChipGroup.check(R.id.chip_egg)
+            if (ingredients.contains(IngredientAllergy.Fish.toString())) allergyChipGroup.check(R.id.chip_fish)
+            if (ingredients.contains(IngredientAllergy.Shellfish.toString())) allergyChipGroup.check(R.id.chip_shellfish)
+            if (ingredients.contains(IngredientAllergy.Diary.toString())) allergyChipGroup.check(R.id.chip_diary)
+        }
+    }
+
+    private fun bindUI(isFromProfile: Boolean, userPreference: UserPreferences?) = launch {
+        if (userPreference == null) {
+            UiUtils.showToast(requireContext(), "UserPref is null")
+            return@launch
+        }
+
+        if (isFromProfile) {
+            binding.navigationLayout.visibility = View.GONE
+            binding.save.visibility = View.VISIBLE
+        } else {
+            binding.navigationLayout.visibility = View.VISIBLE
+            binding.save.visibility = View.GONE
+            binding.backArrow.visibility = View.GONE
+        }
+
+        binding.apply {
+            if (isFromProfile) {
+                save.setOnClickListener {
+                    saveData(binding, userPreference, it)
+                }
+            } else {
+                next.setOnClickListener {
+                    saveData(binding, userPreference, it)
+                }
+                previous.setOnClickListener {
+                    saveData(binding, userPreference, it)
                 }
             }
+            backArrow.setOnClickListener {
+                saveData(binding, userPreference, it)
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.transactionEvent.collect { event ->
+                when (event) {
+                    is IngredientAllergyViewModel.IngredientAllergyTransactionsEvents.NavigateToDiseaseScreen -> {
+                        Log.e("USER_PREF_PERSONAL_DATA", userPreference.toString())
+                        when (isFromProfile) {
+                            true -> {
+                                requireActivity().onBackPressed()
+                            }
+                            false -> {
+                                val action =
+                                    IngredientAllergyFragmentDirections.actionIngredientAllergyFragmentToDiseaseFragment(
+                                        userPreference,
+                                        ComeFrom.SURVEY
+                                    )
+                                findNavController().navigate(action)
+                            }
+                        }
+
+                    }
+                    is IngredientAllergyViewModel.IngredientAllergyTransactionsEvents.NavigateBackToDietTypeScreen ->
+                        if (!isFromProfile) {
+                            val action =
+                                IngredientAllergyFragmentDirections.actionIngredientAllergyFragmentToDietTypeFragment(
+                                    userPreference,
+                                    ComeFrom.SURVEY
+                                )
+                            findNavController().navigate(action)
+                        }
+                    else -> {
+                        UiUtils.showSimpleSnackBar(
+                            binding.root,
+                            getString(R.string.complete_all_parts)
+                        )
+                    }
+                }
+            }
+        }.exhaustive
+    }
+
+    private fun saveData(
+        binding: FragmentIngredientAllergyBinding,
+        userPreference: UserPreferences,
+        itemView: View
+    ) {
+        binding.apply {
+            val selectedItems = arrayListOf<IngredientAllergy>()
+            userPreference.ingredientsAllergy.clear()
+
+            if (chipGluten.isChecked) selectedItems.add(IngredientAllergy.Gluten)
+            if (chipPeanut.isChecked) selectedItems.add(IngredientAllergy.Peanuts)
+            if (chipEgg.isChecked) selectedItems.add(IngredientAllergy.Egg)
+            if (chipFish.isChecked) selectedItems.add(IngredientAllergy.Fish)
+            if (chipShellfish.isChecked) selectedItems.add(IngredientAllergy.Shellfish)
+            if (chipDiary.isChecked) selectedItems.add(IngredientAllergy.Diary)
+
+            for (item in selectedItems){
+                if(!userPreference.ingredientsAllergy.contains(item.toString()))
+                    userPreference.ingredientsAllergy.add(item.toString())
+            }
+            if (itemView == next || itemView == save || itemView == backArrow)
+                viewModel.onNextClicked(userPreference)
+            else if (itemView == previous)
+                viewModel.onPreviousClicked(userPreference)
+
+        }
     }
 }

@@ -16,6 +16,19 @@
         app:srcCompat="@drawable/ic_arrow_back_black" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/back_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/back_arrow"
+        android:text="@string/save"
+        android:textSize="@dimen/extra_font"
+        android:textColor="@color/colorPrimary"
+        android:visibility="invisible"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/title_disease"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +41,7 @@
         app:layout_constraintTop_toBottomOf = "@id/back_arrow"/>
 
     <com.google.android.material.chip.ChipGroup
-        android:id="@+id/allergy_chip_group"
+        android:id="@+id/disease_chip_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/mega_margin"
@@ -59,7 +72,7 @@
             android:textSize="@dimen/large_font"
             android:text="@string/Sixth_page_heart_disease"/>
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip_fish"
+            android:id="@+id/chip_high_blood_pressure"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -82,6 +95,7 @@
 
     </com.google.android.material.chip.ChipGroup>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/navigation_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -117,7 +131,7 @@
             android:background="@drawable/next_btn_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_constraintEnd_toEndOf= "parent"
+            app:layout_constraintEnd_toEndOf= "parent"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
