@@ -67,12 +67,12 @@ class IngredientAllergyFragment : ScopedFragment(), KodeinAware {
     private fun setData(userPreferences: UserPreferences) {
         binding.apply {
             val ingredients = userPreferences.ingredientsAllergy
-            if (ingredients.contains(IngredientAllergy.Gluten)) allergyChipGroup.check(R.id.chip_gluten)
-            if (ingredients.contains(IngredientAllergy.Peanuts)) allergyChipGroup.check(R.id.chip_peanut)
-            if (ingredients.contains(IngredientAllergy.Egg)) allergyChipGroup.check(R.id.chip_egg)
-            if (ingredients.contains(IngredientAllergy.Fish)) allergyChipGroup.check(R.id.chip_fish)
-            if (ingredients.contains(IngredientAllergy.Shellfish)) allergyChipGroup.check(R.id.chip_shellfish)
-            if (ingredients.contains(IngredientAllergy.Diary)) allergyChipGroup.check(R.id.chip_diary)
+            if (ingredients.contains(IngredientAllergy.Gluten.toString())) allergyChipGroup.check(R.id.chip_gluten)
+            if (ingredients.contains(IngredientAllergy.Peanuts.toString())) allergyChipGroup.check(R.id.chip_peanut)
+            if (ingredients.contains(IngredientAllergy.Egg.toString())) allergyChipGroup.check(R.id.chip_egg)
+            if (ingredients.contains(IngredientAllergy.Fish.toString())) allergyChipGroup.check(R.id.chip_fish)
+            if (ingredients.contains(IngredientAllergy.Shellfish.toString())) allergyChipGroup.check(R.id.chip_shellfish)
+            if (ingredients.contains(IngredientAllergy.Diary.toString())) allergyChipGroup.check(R.id.chip_diary)
         }
     }
 
@@ -166,8 +166,8 @@ class IngredientAllergyFragment : ScopedFragment(), KodeinAware {
             if (chipDiary.isChecked) selectedItems.add(IngredientAllergy.Diary)
 
             for (item in selectedItems){
-                if(!userPreference.ingredientsAllergy.contains(item))
-                    userPreference.ingredientsAllergy.add(item)
+                if(!userPreference.ingredientsAllergy.contains(item.toString()))
+                    userPreference.ingredientsAllergy.add(item.toString())
             }
             if (itemView == next || itemView == save || itemView == backArrow)
                 viewModel.onNextClicked(userPreference)

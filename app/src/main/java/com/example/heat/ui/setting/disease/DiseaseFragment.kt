@@ -2,7 +2,6 @@ package com.example.heat.ui.setting.disease
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,16 +11,12 @@ import androidx.navigation.fragment.findNavController
 import com.example.heat.R
 import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.databinding.FragmentDiseaseBinding
-import com.example.heat.databinding.FragmentIngredientAllergyBinding
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.setting.activeLevel.ActiveLevelFragmentArgs
-import com.example.heat.ui.setting.ingredientAllergy.IngredientAllergyFragmentDirections
-import com.example.heat.ui.setting.ingredientAllergy.IngredientAllergyViewModel
-import com.example.heat.ui.setting.ingredientAllergy.IngredientAllergyViewModelFactory
 import com.example.heat.util.UiUtils
+import com.example.heat.util.UiUtils.Companion.showToast
 import com.example.heat.util.enumerian.ComeFrom
 import com.example.heat.util.enumerian.Disease
-import com.example.heat.util.enumerian.IngredientAllergy
 import com.example.heat.util.exhaustive
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
@@ -74,18 +69,17 @@ class DiseaseFragment : ScopedFragment(), KodeinAware {
     private fun setData(userPreferences: UserPreferences) {
         binding.apply {
             val diseases = userPreferences.disease
-            if (diseases.contains(Disease.Diabetes)) diseaseChipGroup.check(R.id.chip_diabetes)
-            if (diseases.contains(Disease.Osteoporosis)) diseaseChipGroup.check(R.id.chip_osteoporosis)
-            if (diseases.contains(Disease.HeartDisease)) diseaseChipGroup.check(R.id.chip_heart_disease)
-            if (diseases.contains(Disease.HighBloodPressure)) diseaseChipGroup.check(R.id.chip_high_blood_pressure)
-            if (diseases.contains(Disease.KidneyDisease)) diseaseChipGroup.check(R.id.chip_kidney_disease)
-            if (diseases.contains(Disease.Anemia)) diseaseChipGroup.check(R.id.chip_anemia)
+            if (diseases.contains(Disease.Diabetes.toString())) diseaseChipGroup.check(R.id.chip_diabetes)
+            if (diseases.contains(Disease.Osteoporosis.toString())) diseaseChipGroup.check(R.id.chip_osteoporosis)
+            if (diseases.contains(Disease.HeartDisease.toString())) diseaseChipGroup.check(R.id.chip_heart_disease)
+            if (diseases.contains(Disease.HighBloodPressure.toString())) diseaseChipGroup.check(R.id.chip_high_blood_pressure)
+            if (diseases.contains(Disease.KidneyDisease.toString())) diseaseChipGroup.check(R.id.chip_kidney_disease)
+            if (diseases.contains(Disease.Anemia.toString())) diseaseChipGroup.check(R.id.chip_anemia)
         }
     }
 
     private fun bindUI(isFromProfile: Boolean, userPreference: UserPreferences?) = launch {
         if (userPreference == null) {
-            UiUtils.showToast(requireContext(), "UserPref is null")
             return@launch
         }
 
@@ -169,16 +163,18 @@ class DiseaseFragment : ScopedFragment(), KodeinAware {
             if (chipKidneyDisease.isChecked) selectedItems.add(Disease.KidneyDisease)
             if (chipAnemia.isChecked) selectedItems.add(Disease.Anemia)
 
-            for (item in selectedItems){
-                if(!userPreference.disease.contains(item))
-                    userPreference.disease.add(item)
+            for (item in selectedItems) {
+                if (!userPreference.disease.contains(item.toString()))
+                    userPreference.disease.add(item.toString())
             }
             if (itemView == save || itemView == backArrow)
                 viewModel.onNextClicked(userPreference)
             else if (itemView == previous)
                 viewModel.onPreviousClicked(userPreference)
-            else if(itemView == finish){
+            else if (itemView == finish) {
                 //save userPreference to Room database
+                viewModel.saveUserPreferences(userPreference)
+                //TODO show success/fail toast
                 viewModel.onNextClicked(userPreference)
             }
         }

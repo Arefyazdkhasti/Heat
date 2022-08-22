@@ -64,7 +64,7 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
             shouldUserSurveyDir = true
         }
         if(comeFrom == ComeFrom.PROFILE) isFromProfile = true
-        bindUI(isFromProfile,shouldUserSurveyDir)
+        bindUI(isFromProfile,shouldUserSurveyDir, userPref)
     }
 
     private fun setData(userPreferences: UserPreferences) {
@@ -80,7 +80,11 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
         }
     }
 
-    private fun bindUI(isFromProfile: Boolean, shouldUserSurveyDir: Boolean) = launch {
+    private fun bindUI(isFromProfile: Boolean, shouldUserSurveyDir: Boolean, userPreference: UserPreferences?) = launch {
+        if (userPreference == null) {
+            return@launch
+        }
+
         if (isFromProfile) {
             binding.navigationLayout.visibility = View.GONE
             binding.save.visibility = View.VISIBLE
@@ -90,23 +94,12 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
             binding.backArrow.visibility = View.GONE
         }
 
-        //TODO get userPreference from DAO
-        val userPreference = UserPreferences(
-            1,
-            "",
-            0.0,
-            0.0,
-            0,
-            Gender.MALE,
-            ActiveLevel.MODERATELY,
-            AbstractGoal.MAINTAIN,
-            DietType.ANY_THING,
-            arrayListOf(),
-            arrayListOf()
-        )
         binding.apply {
             if (isFromProfile) {
                 save.setOnClickListener {
+                    //update user preferences
+                    viewModel.updateUserPreferences(userPreference)
+
                     saveData(binding, userPreference)
                 }
             } else {

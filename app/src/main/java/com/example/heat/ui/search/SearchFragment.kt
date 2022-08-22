@@ -56,7 +56,6 @@ class SearchFragment : ScopedFragment(), KodeinAware {
         bindUI()
     }
 
-    @DelicateCoroutinesApi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory)[SearchViewModel::class.java]

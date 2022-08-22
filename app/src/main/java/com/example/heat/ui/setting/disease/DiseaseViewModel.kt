@@ -4,13 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.heat.data.data.repository.RecipesRepository
 import com.example.heat.data.datamodel.user.UserPreferences
+import com.example.heat.data.local.repository.RoomRepository
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class DiseaseViewModel (
     private val userPreferences: UserPreferences?,
-    private val recipesRepository: RecipesRepository
+    private val recipesRepository: RecipesRepository,
+    private val roomRepository: RoomRepository
 ) : ViewModel() {
 
     private val transactionsEventChannel = Channel<DiseaseTransactionsEvents>()
@@ -18,6 +20,7 @@ class DiseaseViewModel (
 
 
     fun onNextClicked(userPreference: UserPreferences) = viewModelScope.launch {
+
         transactionsEventChannel.send(
             DiseaseTransactionsEvents.NavigateToHomeScreen(
                 userPreference
@@ -35,6 +38,10 @@ class DiseaseViewModel (
 
     fun shouldShowFillAllPartSnackBar() = viewModelScope.launch {
         transactionsEventChannel.send(DiseaseTransactionsEvents.ShouldFillAllPart)
+    }
+
+    fun saveUserPreferences(userPreferences: UserPreferences) = viewModelScope.launch {
+        roomRepository.insertUserPreferences(userPreferences)
     }
 
     sealed class DiseaseTransactionsEvents() {
