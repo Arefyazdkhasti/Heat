@@ -81,9 +81,8 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun bindUI(isFromProfile: Boolean, shouldUserSurveyDir: Boolean, userPreference: UserPreferences?) = launch {
-        if (userPreference == null) {
-            return@launch
-        }
+
+        val userPref : UserPreferences = userPreference ?: UserPreferences(0,"",0.0,0.0,0,Gender.MALE,ActiveLevel.MODERATELY,AbstractGoal.MAINTAIN,DietType.ANY_THING,arrayListOf(),arrayListOf())
 
         if (isFromProfile) {
             binding.navigationLayout.visibility = View.GONE
@@ -98,17 +97,17 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
             if (isFromProfile) {
                 save.setOnClickListener {
                     //update user preferences
-                    viewModel.updateUserPreferences(userPreference)
+                    viewModel.updateUserPreferences(userPref)
 
-                    saveData(binding, userPreference)
+                    saveData(binding, userPref)
                 }
             } else {
                 next.setOnClickListener {
-                    saveData(binding, userPreference)
+                    saveData(binding, userPref)
                 }
             }
             backArrow.setOnClickListener {
-                saveData(binding, userPreference)
+                saveData(binding, userPref)
             }
         }
 
@@ -124,14 +123,14 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
                             false -> {
                                 if(shouldUserSurveyDir){
                                     val actionAdd = SurveyFragmentDirections.actionSurveyFragmentToActiveLevelFragment(
-                                        userPreference,
+                                        userPref,
                                         ComeFrom.SURVEY
                                     )
                                     findNavController().navigate(actionAdd)
                                 }else {
                                     val actionAdd =
                                         PersonalDataFragmentDirections.actionPersonalDataFragmentToActiveLevelFragment(
-                                            userPreference,
+                                            userPref,
                                             ComeFrom.SURVEY
                                         )
                                     findNavController().navigate(actionAdd)

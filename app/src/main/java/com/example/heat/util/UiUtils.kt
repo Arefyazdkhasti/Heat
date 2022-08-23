@@ -18,6 +18,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.TypedArrayUtils.getString
 import com.example.heat.BuildConfig
 import com.example.heat.R
+import com.example.heat.data.datamodel.EatenMealItem
+import com.example.heat.data.datamodel.MealListItem
 import com.google.android.material.textfield.TextInputEditText
 
 
@@ -64,4 +66,8 @@ class UiUtils {
         fun getColor(context:Context, res:Int) = ContextCompat.getColor(context,res)
 
     }
+}
+
+interface SendEvent{
+    fun sendCheckedStatus(check:Boolean, meal: MealListItem)
 }

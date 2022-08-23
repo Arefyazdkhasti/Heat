@@ -28,11 +28,29 @@
         app:layout_constraintTop_toTopOf="@id/back_arrow"
         app:textAllCaps="true" />
 
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/checkbox_tick_all"
+        style="@style/CustomCheckboxStyle30"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/mega_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_weight="1"
+        android:checked="true"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/track_food_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back_arrow" />
+
     <com.cooltechworks.views.shimmer.ShimmerRecyclerView
         android:id="@+id/meal_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/standard_margin"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/mega_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,6 +59,7 @@
         app:shimmer_demo_grid_child_count="4"
         app:shimmer_demo_layout_manager_type="linear_vertical"
         app:spanCount="2"
+
         tools:itemCount="4"
         tools:listitem="@layout/meal_item" />
 

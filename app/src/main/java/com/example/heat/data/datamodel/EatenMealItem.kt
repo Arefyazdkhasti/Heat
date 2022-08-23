@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-@Entity(tableName = "mealList_table")
+@Entity(tableName = "eaten_meal_table")
 @Parcelize
-data class MealListItem(
+data class EatenMealItem(
     @PrimaryKey(autoGenerate = false)
     @SerializedName("id")
     val id: Int,
@@ -27,7 +27,5 @@ data class MealListItem(
     @SerializedName("type")
     val type: String,
     @SerializedName("date")
-    val date: String,
-    @SerializedName("eaten")
-    val eaten: Boolean
+    val date: String
 ): Parcelable

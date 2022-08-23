@@ -63,13 +63,12 @@ class RecipeDetailFragment : ScopedFragment(), KodeinAware {
     @SuppressLint("SetTextI18n")
     private fun bindUI() = launch {
         val recipeDetail = viewModel.recipeDetail.await()
-
+        binding.backArrow.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
         recipeDetail.observe(viewLifecycleOwner, Observer { recipe ->
             binding.apply {
 
-                backArrow.setOnClickListener {
-                    requireActivity().onBackPressed()
-                }
 
                 UiUtils.setImageWithGlideWithContext(
                     requireContext(), recipe.image, recipeImage
@@ -123,8 +122,7 @@ class RecipeDetailFragment : ScopedFragment(), KodeinAware {
 
     //Nutrition recyclerView
     private fun initNutritionRecyclerView(
-        recyclerView: ShimmerRecyclerView,
-        data: List<NutrientX>
+        recyclerView: ShimmerRecyclerView, data: List<NutrientX>
     ) {
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
             addAll(data.toNutritionListItems())

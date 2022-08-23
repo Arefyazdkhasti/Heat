@@ -18,6 +18,9 @@ interface MealDao {
     @Update
     suspend fun updateMeal(meal: MealListItem)
 
+    @Query ("UPDATE mealList_table SET eaten = :eaten WHERE id = :mealID")
+    fun eatMeal(mealID:Int, eaten: Boolean)
+
     @Query("SELECT * FROM mealList_table WHERE date = :day")
     fun getDayMeals(day: String): LiveData<List<MealListItem>>
 

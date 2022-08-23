@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.example.heat.R
+import com.example.heat.data.datamodel.EatenMealItem
 import com.example.heat.data.datamodel.MealListItem
 import com.example.heat.data.datamodel.recipeList.RecipeListItem
 import com.example.heat.databinding.FragmentHomeBinding
@@ -21,8 +23,8 @@ import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.home.HomeViewModel
 import com.example.heat.ui.home.HomeViewModelFactory
 import com.example.heat.ui.itemRecyclerView.MealItemRecyclerView
-import com.example.heat.ui.itemRecyclerView.RecipeItemRecyclerView
-import com.example.heat.ui.search.SearchFragmentDirections
+import com.example.heat.util.SendEvent
+import com.example.heat.util.UiUtils.Companion.showToast
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -31,7 +33,7 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 
-class TrackFoodsFragment  : ScopedFragment(), KodeinAware {
+class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
     override val kodein by closestKodein()
     private val viewModelFactory: TrackFoodsViewModelFactory by instance()
 
@@ -68,8 +70,22 @@ class TrackFoodsFragment  : ScopedFragment(), KodeinAware {
         //viewModel.loadFakeDateToRoom()
 
         viewModel.getFakeData.await().observe(viewLifecycleOwner, Observer {
-            initRecyclerView(binding.mealRecyclerView , it)
+            initRecyclerView(binding.mealRecyclerView, it)
         })
+
+        /*viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.event.collect { event ->
+                when (event) {
+                    is TrackFoodsViewModel.TrackFoodTransactionEvents.CheckFood -> {
+
+                    }
+                    is TrackFoodsViewModel.TrackFoodTransactionEvents.UnCheckFood -> {
+
+                    }
+                }
+            }
+        }*/
+
     }
 
     private fun initRecyclerView(
@@ -90,10 +106,8 @@ class TrackFoodsFragment  : ScopedFragment(), KodeinAware {
         }
 
         groupAdapter.setOnItemClickListener { item, view ->
-            (item as? RecipeItemRecyclerView)?.let {
-                /*val actionRecipeDetail =
-                    SearchFragmentDirections.sendRecipeIdFromSearch(it.recipeItem.id)
-                Navigation.findNavController(view).navigate(actionRecipeDetail)*/
+            (item as? MealItemRecyclerView)?.let {
+
             }
         }
 
@@ -101,6 +115,12 @@ class TrackFoodsFragment  : ScopedFragment(), KodeinAware {
     }
 
     private fun List<MealListItem>.toRecipeListItems(): List<MealItemRecyclerView> = this.map {
-        MealItemRecyclerView(it)
+        MealItemRecyclerView(it, this@TrackFoodsFragment)
+    }
+
+    override fun sendCheckedStatus(check: Boolean, meal: MealListItem) {
+        showToast(requireContext(), "$check ${meal.id}")
+        viewModel.eatOrUnEatFoodToRoom(meal, check)
+
     }
 }

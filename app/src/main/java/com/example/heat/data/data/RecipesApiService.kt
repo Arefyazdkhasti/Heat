@@ -34,7 +34,7 @@ interface RecipesApiService {
         @Query("includeNutrition") includeNutrition:Boolean = true,
     ): Deferred<Recipe>
 
-    //https://api.spoonacular.com/recipes/complexSearch?apiKey=9c9d4b13164f4c0299176f4db1bd95e9&type=breakfast
+    //https://api.spoonacular.com/recipes/complexSearch?apiKey=9c9d4b13164f4c0299176f4db1bd95e9&type=breakfast&qyuery=egg&diet=vegan
     @GET("/recipes/complexSearch")
     fun searchRecipesAsync(
         @Query("query") query: String? ,
