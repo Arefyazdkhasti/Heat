@@ -1,17 +1,25 @@
 package com.example.heat.ui.trackFood
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.heat.R
 import com.example.heat.data.data.repository.RecipesRepository
 import com.example.heat.data.datamodel.MealListItem
+import com.example.heat.data.local.repository.RoomRepository
 import com.example.heat.util.UiUtils.Companion.getStringFromResource
+import com.example.heat.util.lazyDeferred
+import kotlinx.coroutines.launch
+import java.text.DateFormat.getDateInstance
+import java.text.SimpleDateFormat
+import java.util.*
 
 class TrackFoodsViewModel(
-    private val recipesRepository: RecipesRepository
+    private val recipesRepository: RecipesRepository,
+    private val roomRepository: RoomRepository
 ) : ViewModel() {
 
-
-    fun generateFakeData(): List<MealListItem> {
+    fun loadFakeDateToRoom() = viewModelScope.launch{
         val breakfast = MealListItem(
             1,
             "https://simply-delicious-food.com/wp-content/uploads/2018/10/breakfast-board-500x500.jpg",
@@ -20,7 +28,8 @@ class TrackFoodsViewModel(
             "Italian",
             45,
             1,
-            "Breakfast"
+            "Breakfast",
+            getDateInstance().toString()
         )
         val lunch = MealListItem(
             2,
@@ -30,7 +39,8 @@ class TrackFoodsViewModel(
             "Iranian",
             36,
             2,
-            "Lunch"
+            "Lunch",
+            getDateInstance().toString()
         )
         val dinner = MealListItem(
             3,
@@ -40,7 +50,8 @@ class TrackFoodsViewModel(
             "Middle Eastern",
             65,
             1,
-            "Dinner"
+            "Dinner",
+            getDateInstance().toString()
         )
         val snack = MealListItem(
             4,
@@ -50,10 +61,16 @@ class TrackFoodsViewModel(
             "Cuban",
             26,
             3,
-            "Snack"
+            "Snack",
+            getDateInstance().toString()
         )
-        //val recipeList = RecipeList(1, 0, listOf(breakfast), 1)
+        roomRepository.insertMeal(breakfast)
+        roomRepository.insertMeal(lunch)
+        roomRepository.insertMeal(dinner)
+        roomRepository.insertMeal(snack)
+    }
 
-        return listOf(breakfast,lunch,dinner,snack)
+    val getFakeData  by lazyDeferred{
+        roomRepository.getDayMeal(getDateInstance().toString())
     }
 }

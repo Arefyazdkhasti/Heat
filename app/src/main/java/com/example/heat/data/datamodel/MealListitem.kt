@@ -1,10 +1,15 @@
 package com.example.heat.data.datamodel
 
+import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
-//TODO should change due to the back-end
-
+@Entity(tableName = "mealList_table")
+@Parcelize
 data class MealListItem(
+    @PrimaryKey(autoGenerate = false)
     @SerializedName("id")
     val id: Int,
     @SerializedName("image")
@@ -20,5 +25,7 @@ data class MealListItem(
     @SerializedName("servings")
     val servings: Int,
     @SerializedName("type")
-    val type: String
-)
+    val type: String,
+    @SerializedName("date")
+    val date: String
+): Parcelable

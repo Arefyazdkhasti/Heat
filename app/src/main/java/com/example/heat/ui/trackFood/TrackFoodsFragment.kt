@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
@@ -49,7 +50,6 @@ class TrackFoodsFragment  : ScopedFragment(), KodeinAware {
         return binding.root
     }
 
-    @DelicateCoroutinesApi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory).get(TrackFoodsViewModel::class.java)
@@ -65,7 +65,11 @@ class TrackFoodsFragment  : ScopedFragment(), KodeinAware {
             requireActivity().onBackPressed()
         }
 
-        initRecyclerView(binding.mealRecyclerView, viewModel.generateFakeData())
+        //viewModel.loadFakeDateToRoom()
+
+        viewModel.getFakeData.await().observe(viewLifecycleOwner, Observer {
+            initRecyclerView(binding.mealRecyclerView , it)
+        })
     }
 
     private fun initRecyclerView(
