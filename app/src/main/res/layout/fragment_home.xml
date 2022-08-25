@@ -4,30 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.home.HomeFragment"
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <com.example.heat.ui.custom.RecipeView
             android:id="@+id/today_meals_recipesListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/large_margin"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginStart="@dimen/large_margin"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:layout_marginBottom="@dimen/large_margin"
             app:action="@string/track_foods"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:title="@string/today_meals" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/today_meals_title_when_no_plan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/large_margin"
+            android:text="@string/today_meals"
+            android:textColor="@color/black"
+            android:textSize="@dimen/extra_font"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/today_meals_recipesListView"
+            app:layout_constraintTop_toTopOf="@+id/today_meals_recipesListView" />
+
+        <LinearLayout
+            android:id="@+id/layout_generate_food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_margin"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/today_meals_title_when_no_plan">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view_generate_food"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_100sdp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:layout_gravity="center_horizontal"
+                app:lottie_rawRes="@raw/generate_food_animation" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/generate_your_plan_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/generate_your_plan"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/extra_font" />
+        </LinearLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/mega_margin"
-            android:layout_marginTop="@dimen/extra_margin"
+            android:layout_marginTop="@dimen/large_margin"
             android:layout_marginEnd="@dimen/mega_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_margin="@dimen/small_margin"
+                android:layout_margin="@dimen/standard_margin"
                 android:text="@string/current"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/large_font"
@@ -64,7 +113,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <GridLayout
+        <!--<GridLayout
             android:id="@+id/nutrition_grid"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -83,7 +132,8 @@
                 android:layout_height="wrap_content"
                 android:layout_row="0"
                 android:layout_column="0"
-                app:name="@string/calories" />
+                app:name="@string/calories"
+                app:type="calories" />
 
             <com.example.heat.ui.custom.NutritionChartView
                 android:id="@+id/carbohydrates"
@@ -91,7 +141,8 @@
                 android:layout_height="wrap_content"
                 android:layout_row="0"
                 android:layout_column="1"
-                app:name="@string/carbohydrates" />
+                app:name="@string/carbohydrates"
+                app:type="carbo" />
 
             <com.example.heat.ui.custom.NutritionChartView
                 android:id="@+id/fat"
@@ -99,7 +150,8 @@
                 android:layout_height="wrap_content"
                 android:layout_row="1"
                 android:layout_column="0"
-                app:name="@string/fat" />
+                app:name="@string/fat"
+                app:type="fat" />
 
             <com.example.heat.ui.custom.NutritionChartView
                 android:id="@+id/protein"
@@ -107,8 +159,28 @@
                 android:layout_height="wrap_content"
                 android:layout_row="1"
                 android:layout_column="1"
-                app:name="@string/protein" />
-        </GridLayout>
+                app:name="@string/protein"
+                app:type="protein" />
+        </GridLayout>-->
+
+        <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+            android:id="@+id/nutrition_charts_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:layout_marginBottom="@dimen/standard_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout"
+            app:shimmer_demo_angle="20"
+            app:shimmer_demo_grid_child_count="6"
+            app:shimmer_demo_layout_manager_type="linear_horizontal"
+            app:spanCount="2"
+            tools:itemCount="5"
+            tools:listitem="@layout/nutrition_chart_view"
+            android:layout_gravity="center_horizontal"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

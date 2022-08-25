@@ -82,6 +82,12 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
             rightArrowIcon.setOnClickListener {
                 viewModel.personalDataClicked()
             }
+            usernameLayout.setOnClickListener {
+                viewModel.personalDataClicked()
+            }
+            generalSettingLayout.setOnClickListener {
+
+            }
             activeLevelLayout.setOnClickListener {
                 viewModel.activeLevelClicked()
             }

@@ -86,16 +86,21 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
 
         if (isFromProfile) {
             binding.navigationLayout.visibility = View.GONE
-            binding.save.visibility = View.VISIBLE
+            binding.toolbarLayout.save.visibility = View.VISIBLE
+            binding.toolbarLayout.progressView.visibility = View.INVISIBLE
+
         } else {
             binding.navigationLayout.visibility = View.VISIBLE
-            binding.save.visibility = View.GONE
-            binding.backArrow.visibility = View.GONE
+            binding.toolbarLayout.save.visibility = View.GONE
+            binding.toolbarLayout.backArrow.visibility = View.GONE
+            binding.toolbarLayout.progressView.visibility = View.VISIBLE
+            binding.toolbarLayout.progressView.progress = 0f
+            binding.toolbarLayout.progressView.labelText = "0 out of 6 completed"
         }
 
         binding.apply {
             if (isFromProfile) {
-                save.setOnClickListener {
+                toolbarLayout.save.setOnClickListener {
                     //update user preferences
                     viewModel.updateUserPreferences(userPref)
 
@@ -106,7 +111,7 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
                     saveData(binding, userPref)
                 }
             }
-            backArrow.setOnClickListener {
+                toolbarLayout.backArrow.setOnClickListener {
                 saveData(binding, userPref)
             }
         }

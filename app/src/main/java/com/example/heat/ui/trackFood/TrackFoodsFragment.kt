@@ -67,25 +67,11 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
             requireActivity().onBackPressed()
         }
 
-        //viewModel.loadFakeDateToRoom()
+        viewModel.loadFakeDateToRoom()
 
         viewModel.getFakeData.await().observe(viewLifecycleOwner, Observer {
             initRecyclerView(binding.mealRecyclerView, it)
         })
-
-        /*viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.event.collect { event ->
-                when (event) {
-                    is TrackFoodsViewModel.TrackFoodTransactionEvents.CheckFood -> {
-
-                    }
-                    is TrackFoodsViewModel.TrackFoodTransactionEvents.UnCheckFood -> {
-
-                    }
-                }
-            }
-        }*/
-
     }
 
     private fun initRecyclerView(
@@ -119,8 +105,6 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
     }
 
     override fun sendCheckedStatus(check: Boolean, meal: MealListItem) {
-        showToast(requireContext(), "$check ${meal.id}")
         viewModel.eatOrUnEatFoodToRoom(meal, check)
-
     }
 }

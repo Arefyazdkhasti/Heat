@@ -3,41 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.setting.DietTypeFragment">
+    android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/back_arrow"
-        android:layout_width="@dimen/_25sdp"
-        android:layout_height="@dimen/_25sdp"
-        android:layout_margin="@dimen/standard_margin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_arrow_back_black" />
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/title_diet_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/mega_margin"
-        android:text="@string/Forth_page_text"
-        android:textColor="@color/black"
-        android:textSize="@dimen/big_font"
+    <include
+        android:id="@+id/toolbar_layout"
+        layout="@layout/survey_toolbar_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf = "@id/back_arrow" />
+        />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standard_margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/back_arrow"
-        app:layout_constraintBottom_toBottomOf="@id/back_arrow"
-        android:text="@string/save"
-        android:textSize="@dimen/extra_font"
-        android:textColor="@color/colorPrimary"
-        android:visibility="invisible"/>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/anything_card_view"
@@ -49,7 +23,7 @@
         app:cardCornerRadius="@dimen/small_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_diet_type"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_layout"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -77,8 +77,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/recipe_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/recipe_title"
-                app:srcCompat="@drawable/ic_like_black"
-                />
+                app:srcCompat="@drawable/ic_like_black" />
 
         </RelativeLayout>
 

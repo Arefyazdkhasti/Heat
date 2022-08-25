@@ -84,7 +84,7 @@
 
     <!--Home -->
     <string name="today_meals">Today Meals</string>
-    <string name="track_foods">Track Foods</string>
+    <string name="track_foods">Track Foods ></string>
 
     <!--TODO change to days progress or remove this part entirely-->
     <string name="weeks_progress">Weeks Progress</string>
@@ -140,6 +140,7 @@
     <string name="your_Account">Your Account</string>
     <string name="upgrade_to_premium">Upgrade to Premium for more features</string>
     <string name="Logout">Logout</string>
+    <string name="general_setting">General Setting</string>
 
     <!--Recipes detail-->
     <string name="detail_ingredients">Ingredients</string>
@@ -161,6 +162,9 @@
 
     <string name="complete_all_parts">Complete All Parts</string>
     <string name="save">save</string>
+    <string name="calories_range">Calories Range</string>
+    <string name="filter_search_result">Filter</string>
+    <string name="generate_your_plan">Generate Your Plan</string>
 
     <string-array name="meal_type">
         <item>@string/filter_meal_type_all</item>

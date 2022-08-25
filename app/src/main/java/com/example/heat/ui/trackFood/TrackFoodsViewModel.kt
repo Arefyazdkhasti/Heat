@@ -11,7 +11,6 @@ import com.example.heat.data.datamodel.EatenMealItem
 import com.example.heat.data.datamodel.MealListItem
 import com.example.heat.data.local.repository.RoomRepository
 import com.example.heat.ui.profile.ProfileViewModel
-import com.example.heat.util.UiUtils.Companion.getStringFromResource
 import com.example.heat.util.lazyDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

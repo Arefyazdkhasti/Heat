@@ -39,9 +39,6 @@
         <action
             android:id="@+id/action_profileFragment_to_abstractGoalFragment"
             app:destination="@id/abstractGoalFragment" />
-        <action
-            android:id="@+id/tosurvey"
-            app:destination="@id/surveyFragment" />
     </fragment>
     <fragment
         android:id="@+id/recipesFragment"
@@ -78,12 +75,6 @@
         <argument
             android:name="comeFrom"
             app:argType="com.example.heat.util.enumerian.ComeFrom" />
-        <action
-            android:id="@+id/action_dietTypeFragment_to_ingredientAllergyFragment"
-            app:destination="@id/ingredientAllergyFragment" />
-        <action
-            android:id="@+id/action_dietTypeFragment_to_abstractGoalFragment"
-            app:destination="@id/abstractGoalFragment" />
     </fragment>
     <fragment
         android:id="@+id/activeLevelFragment"
@@ -96,33 +87,18 @@
         <argument
             android:name="comeFrom"
             app:argType="com.example.heat.util.enumerian.ComeFrom" />
-        <action
-            android:id="@+id/action_activeLevelFragment_to_abstractGoalFragment"
-            app:destination="@id/abstractGoalFragment" />
-        <action
-            android:id="@+id/action_activeLevelFragment_to_personalDataFragment"
-            app:destination="@id/personalDataFragment" />
     </fragment>
     <fragment
         android:id="@+id/diseaseFragment"
         android:name="com.example.heat.ui.setting.disease.DiseaseFragment"
         android:label="fragment_disease"
         tools:layout="@layout/fragment_disease">
-        <action
-            android:id="@+id/finishSurvey"
-            app:destination="@id/homeFragment" />
         <argument
             android:name="userPreferences"
             app:argType="com.example.heat.data.datamodel.user.UserPreferences" />
         <argument
             android:name="comeFrom"
             app:argType="com.example.heat.util.enumerian.ComeFrom" />
-        <action
-            android:id="@+id/action_diseaseFragment_to_ingredientAllergyFragment"
-            app:destination="@id/ingredientAllergyFragment" />
-        <action
-            android:id="@+id/action_diseaseFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/ingredientAllergyFragment"
@@ -135,12 +111,6 @@
         <argument
             android:name="comeFrom"
             app:argType="com.example.heat.util.enumerian.ComeFrom" />
-        <action
-            android:id="@+id/action_ingredientAllergyFragment_to_diseaseFragment"
-            app:destination="@id/diseaseFragment" />
-        <action
-            android:id="@+id/action_ingredientAllergyFragment_to_dietTypeFragment"
-            app:destination="@id/dietTypeFragment" />
 
     </fragment>
     <fragment
@@ -154,9 +124,6 @@
         <argument
             android:name="comeFrom"
             app:argType="com.example.heat.util.enumerian.ComeFrom" />
-        <action
-            android:id="@+id/action_personalDataFragment_to_activeLevelFragment"
-            app:destination="@id/activeLevelFragment" />
     </fragment>
     <fragment
         android:id="@+id/abstractGoalFragment"
@@ -168,12 +135,6 @@
         <argument
             android:name="comeFrom"
             app:argType="com.example.heat.util.enumerian.ComeFrom" />
-        <action
-            android:id="@+id/action_abstractGoalFragment_to_dietTypeFragment"
-            app:destination="@id/dietTypeFragment" />
-        <action
-            android:id="@+id/action_abstractGoalFragment_to_activeLevelFragment"
-            app:destination="@id/activeLevelFragment" />
     </fragment>
     <fragment
         android:id="@+id/seeAllRecipesFragment"
@@ -197,30 +158,6 @@
         android:name="com.example.heat.ui.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
-    <fragment
-        android:id="@+id/surveyFragment"
-        android:name="com.example.heat.ui.survey.SurveyFragment"
-        android:label="fragment_survay"
-        tools:layout="@layout/fragment_survay">
-        <action
-            android:id="@+id/action_surveyFragment_to_activeLevelFragment"
-            app:destination="@id/activeLevelFragment" />
-        <action
-            android:id="@+id/action_surveyFragment_to_personalDataFragment"
-            app:destination="@id/personalDataFragment" />
-        <action
-            android:id="@+id/action_surveyFragment_to_dietTypeFragment"
-            app:destination="@id/dietTypeFragment" />
-        <action
-            android:id="@+id/action_surveyFragment_to_ingredientAllergyFragment"
-            app:destination="@id/ingredientAllergyFragment" />
-        <action
-            android:id="@+id/action_surveyFragment_to_diseaseFragment"
-            app:destination="@id/diseaseFragment" />
-        <action
-            android:id="@+id/action_surveyFragment_to_abstractGoalFragment"
-            app:destination="@id/abstractGoalFragment" />
-    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.heat.ui.search.SearchFragment"

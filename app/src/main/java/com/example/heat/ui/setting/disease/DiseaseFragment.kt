@@ -1,5 +1,6 @@
 package com.example.heat.ui.setting.disease
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.heat.R
 import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.databinding.FragmentDiseaseBinding
+import com.example.heat.ui.MainActivity
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.setting.activeLevel.ActiveLevelFragmentArgs
 import com.example.heat.util.UiUtils
@@ -85,16 +87,20 @@ class DiseaseFragment : ScopedFragment(), KodeinAware {
 
         if (isFromProfile) {
             binding.navigationLayout.visibility = View.GONE
-            binding.save.visibility = View.VISIBLE
+            binding.toolbarLayout.save.visibility = View.VISIBLE
+            binding.toolbarLayout.progressView.visibility = View.INVISIBLE
         } else {
             binding.navigationLayout.visibility = View.VISIBLE
-            binding.save.visibility = View.GONE
-            binding.backArrow.visibility = View.GONE
+            binding.toolbarLayout.save.visibility = View.GONE
+            binding.toolbarLayout.backArrow.visibility = View.GONE
+            binding.toolbarLayout.progressView.visibility = View.VISIBLE
+            binding.toolbarLayout.progressView.progress = 100f
+            binding.toolbarLayout.progressView.labelText = "5 out of 6 completed"
         }
 
         binding.apply {
             if (isFromProfile) {
-                save.setOnClickListener {
+                toolbarLayout.save.setOnClickListener {
                     saveData(binding, userPreference, it)
                 }
             } else {
@@ -105,7 +111,7 @@ class DiseaseFragment : ScopedFragment(), KodeinAware {
                     saveData(binding, userPreference, it)
                 }
             }
-            backArrow.setOnClickListener {
+            toolbarLayout.backArrow.setOnClickListener {
                 saveData(binding, userPreference, it)
             }
         }
@@ -120,9 +126,8 @@ class DiseaseFragment : ScopedFragment(), KodeinAware {
                                 requireActivity().onBackPressed()
                             }
                             false -> {
-                                val action =
-                                    DiseaseFragmentDirections.actionDiseaseFragmentToHomeFragment()
-                                findNavController().navigate(action)
+                                val intent = Intent (activity, MainActivity::class.java)
+                                activity?.startActivity(intent)
                             }
                         }
 
@@ -167,7 +172,7 @@ class DiseaseFragment : ScopedFragment(), KodeinAware {
                 if (!userPreference.disease.contains(item.toString()))
                     userPreference.disease.add(item.toString())
             }
-            if (itemView == save || itemView == backArrow)
+            if (itemView == toolbarLayout.save || itemView == toolbarLayout.backArrow)
                 viewModel.onNextClicked(userPreference)
             else if (itemView == previous)
                 viewModel.onPreviousClicked(userPreference)

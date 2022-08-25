@@ -17,19 +17,29 @@ class SearchViewModel(
 
 
     val recipesListAtFirst by lazyDeferred {
-        recipesRepository.searchRecipes("","","",0,100)
+        recipesRepository.searchRecipes("", "", "", 0, 100)
     }
 
-    private val currentSearchQuery = MutableLiveData(SearchQuery("",DietType.ANY_THING,MealType.all))
+    private val currentSearchQuery = MutableLiveData(
+        SearchQuery(
+            "", DietType.ANY_THING, MealType.all, 0, 10000
+        )
+    )
 
 
     val recipesListFiltered = currentSearchQuery.switchMap { searchQuery ->
-        liveData<RecipeList>{
-          recipesRepository.searchRecipes(searchQuery.query, searchQuery.mealType.toString(), searchQuery.dietType.toString(), 0 , 100)
+        liveData<RecipeList> {
+            recipesRepository.searchRecipes(
+                searchQuery.query,
+                searchQuery.mealType.toString(),
+                searchQuery.dietType.toString(),
+                0,
+                100
+            )
         }
     }
 
-    fun setCurrentSearchQuery(searchQuery: SearchQuery){
+    fun setCurrentSearchQuery(searchQuery: SearchQuery) {
         currentSearchQuery.postValue(searchQuery)
     }
 }

@@ -44,7 +44,7 @@ class HeatApplication: Application(),KodeinAware{
         bind<MealDataBase>() with singleton { MealDataBase.getDatabase(instance()) }
         bind<RecipesRepository>() with singleton { RecipesRepositoryImpl(instance())}
         bind<RoomRepository>() with singleton { RoomRepositoryImpl(instance(), instance()) }
-        bind() from provider { HomeViewModelFactory(instance()) }
+        bind() from provider { HomeViewModelFactory(instance(), instance()) }
         bind() from provider { RecipesViewModelFactory(instance()) }
         bind() from provider { ProfileViewModelFactory(instance(),instance()) }
         bind() from provider { SearchViewModelFactory(instance()) }

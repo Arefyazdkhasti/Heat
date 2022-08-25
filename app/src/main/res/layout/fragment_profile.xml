@@ -37,6 +37,7 @@
             app:srcCompat="@drawable/avatar" />
 
         <LinearLayout
+            android:id="@+id/username_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/large_margin"
@@ -73,6 +74,41 @@
             app:layout_constraintTop_toTopOf="@+id/avatar"
             app:srcCompat="@drawable/ic_arrow_right" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/general_setting_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/extra_margin"
+            android:layout_marginEnd="@dimen/mega_margin"
+            android:layout_marginBottom="@dimen/mega_margin"
+            app:layout_goneMarginEnd="@dimen/mega_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/avatar"
+            >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/general_setting_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/general_setting"
+                android:textColor="@color/gray900"
+                android:textSize="@dimen/large_font"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ic_arrow_right_general_setting"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="@id/general_setting_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/general_setting_title"
+                app:srcCompat="@drawable/ic_setting" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <View
             android:id="@+id/line1"
             android:layout_width="@dimen/_200sdp"
@@ -81,7 +117,7 @@
             android:background="@color/gray100"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/avatar" />
+            app:layout_constraintTop_toBottomOf="@id/general_setting_layout" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/your_preferences_title"

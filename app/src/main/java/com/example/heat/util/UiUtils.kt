@@ -12,8 +12,10 @@ import com.google.android.material.snackbar.Snackbar
 import android.net.Uri
 import android.provider.Settings.Global.getString
 import android.provider.Settings.Secure.getString
+import android.provider.Settings.System.getString
 import android.text.TextUtils
 import android.widget.EditText
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.TypedArrayUtils.getString
 import com.example.heat.BuildConfig
@@ -52,8 +54,24 @@ class UiUtils {
                 .into(imageView)
         }
 
-        fun getStringFromResource( path:Int):String =   /*Resources.getSystem().getString(path)*/ "test"
+        //fun getStringFromResource( path:Int):String =  ContextCompat.getS
 
+        // extension function to get a string resource by resource name
+        fun Context.stringFromResourcesByName(resourceName: String): String {
+            return try {
+                // get the string resource id by name
+                val resourceId = resources.getIdentifier(
+                    resourceName,
+                    "string",
+                    packageName
+                )
+
+                // return the string value
+                getString(resourceId)
+            }catch (e:Resources.NotFoundException){
+                ""
+            }
+        }
         fun getURLForResource(resourceId: Int): String {
             //use BuildConfig.APPLICATION_ID instead of R.class.getPackage().getName() if both are not same
             return Uri.parse(

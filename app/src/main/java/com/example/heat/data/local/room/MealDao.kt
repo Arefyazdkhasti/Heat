@@ -26,4 +26,7 @@ interface MealDao {
 
     @Query("SELECT * FROM mealList_table")
     fun getWeekMeals(): LiveData<List<MealListItem>>
+
+    @Query("SELECT count(*) FROM mealList_table")
+    fun getMealSize(): LiveData<Int>
 }

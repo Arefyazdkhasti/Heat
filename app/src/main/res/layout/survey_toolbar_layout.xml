@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/small_margin">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_margin="@dimen/standard_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back_black"
+        />
+
+    <com.skydoves.progressview.ProgressView
+        android:id="@+id/progressView"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_margin="@dimen/standard_margin"
+        app:layout_constraintEnd_toStartOf="@id/save"
+        app:layout_constraintStart_toEndOf="@id/back_arrow"
+        app:layout_constraintTop_toTopOf="parent"
+        app:progressView_autoAnimate="true"
+        app:progressView_colorBackground="@color/white"
+        app:progressView_colorProgress="@color/colorPrimary"
+        app:progressView_labelColorInner="@color/white"
+        app:progressView_labelColorOuter="@color/black"
+        app:progressView_labelSize="@dimen/standard_font"
+        app:progressView_labelSpace="@dimen/standard_margin"
+        tools:progressView_labelText="achieve 65%"
+        app:progressView_max="120"
+        app:progressView_min="0"
+        app:progressView_progressFromPrevious="true"
+        app:progressView_radius="12dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_margin"
+        android:text="@string/save"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/extra_font"
+        app:layout_constraintBottom_toBottomOf="@id/back_arrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/back_arrow" />
+</androidx.constraintlayout.widget.ConstraintLayout>

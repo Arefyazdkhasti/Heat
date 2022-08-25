@@ -13,7 +13,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 
-const val API_KEY = "9c9d4b13164f4c0299176f4db1bd95e9"
+const val API_KEY = "11f787419de348f8bad5732e9eb1f064"
 const val BASE_URL = "https://api.spoonacular.com/"
 const val INGREDIENT_IMAGE_BASE_URL = "https://spoonacular.com/cdn/ingredients_100x100/"
 
