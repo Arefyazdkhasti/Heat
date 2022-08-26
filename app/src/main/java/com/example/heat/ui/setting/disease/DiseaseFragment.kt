@@ -88,6 +88,7 @@ class DiseaseFragment : ScopedFragment(), KodeinAware {
         if (isFromProfile) {
             binding.navigationLayout.visibility = View.GONE
             binding.toolbarLayout.save.visibility = View.VISIBLE
+            binding.toolbarLayout.backArrow.visibility = View.VISIBLE
             binding.toolbarLayout.progressView.visibility = View.INVISIBLE
         } else {
             binding.navigationLayout.visibility = View.VISIBLE
@@ -126,8 +127,8 @@ class DiseaseFragment : ScopedFragment(), KodeinAware {
                                 requireActivity().onBackPressed()
                             }
                             false -> {
-                                val intent = Intent (activity, MainActivity::class.java)
-                                activity?.startActivity(intent)
+                                val action =DiseaseFragmentDirections.actionDiseaseFragmentToHomeFragment()
+                                findNavController().navigate(action)
                             }
                         }
 

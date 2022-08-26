@@ -41,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/large_font"
+            app:chipBackgroundColor="@drawable/bg_chip"
             android:text="@string/Fifth_page_gluten"/>
 
         <com.google.android.material.chip.Chip
@@ -49,6 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/large_font"
+            app:chipBackgroundColor="@drawable/bg_chip"
             android:text="@string/Fifth_page_peanuts"/>
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_egg"
@@ -56,6 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/large_font"
+            app:chipBackgroundColor="@drawable/bg_chip"
             android:text="@string/Fifth_page_egg"/>
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_fish"
@@ -63,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/large_font"
-
+            app:chipBackgroundColor="@drawable/bg_chip"
             android:text="@string/Fifth_page_fish"/>
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_shellfish"
@@ -71,6 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/large_font"
+            app:chipBackgroundColor="@drawable/bg_chip"
             android:text="@string/Fifth_page_shellfish"/>
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_diary"
@@ -78,6 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/large_font"
+            app:chipBackgroundColor="@drawable/bg_chip"
             android:text="@string/Fifth_page_diary"/>
 
     </com.google.android.material.chip.ChipGroup>

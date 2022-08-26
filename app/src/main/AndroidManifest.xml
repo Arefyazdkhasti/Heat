@@ -16,18 +16,13 @@
         android:theme="@style/Theme.Heat"
         tools:replace="icon, label">
         <activity
-            android:name=".ui.StarterActivity"
-            android:exported="true" >
+            android:name=".ui.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.MainActivity"
-            android:exported="true">
-
         </activity>
     </application>
 

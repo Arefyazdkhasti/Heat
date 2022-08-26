@@ -85,6 +85,7 @@
         app:layout_constraintTop_toBottomOf="@+id/login_intro">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email_login_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress" />
@@ -109,6 +110,7 @@
         app:layout_constraintTop_toBottomOf="@+id/email_login">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_login_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress" />
@@ -129,8 +131,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_login" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/login_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_login"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:visibility="invisible"
+        />
+
     <LinearLayout
-        android:id="@+id/dont_have_account_btn"
+        android:id="@+id/do_not_have_account_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -147,6 +162,7 @@
             android:textSize="@dimen/large_font" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/navigation_to_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/register"

@@ -1,27 +1,17 @@
 package com.example.heat.ui.trackFood
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asFlow
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
-import com.example.heat.R
 import com.example.heat.data.data.repository.RecipesRepository
 import com.example.heat.data.datamodel.EatenMealItem
 import com.example.heat.data.datamodel.MealListItem
 import com.example.heat.data.local.repository.RoomRepository
-import com.example.heat.ui.profile.ProfileViewModel
 import com.example.heat.util.lazyDeferred
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import java.text.DateFormat.getDateInstance
-import java.text.SimpleDateFormat
 import java.util.*
 
 class TrackFoodsViewModel(
@@ -33,6 +23,7 @@ class TrackFoodsViewModel(
     val event = transactionEvent.receiveAsFlow()
 
     fun loadFakeDateToRoom() = viewModelScope.launch {
+
         val breakfast = MealListItem(
             1,
             "https://simply-delicious-food.com/wp-content/uploads/2018/10/breakfast-board-500x500.jpg",
@@ -42,7 +33,7 @@ class TrackFoodsViewModel(
             45,
             1,
             "Breakfast",
-            getDateInstance().toString(),
+           "2019-08-07",
             false
         )
         val lunch = MealListItem(
@@ -54,7 +45,7 @@ class TrackFoodsViewModel(
             36,
             2,
             "Lunch",
-            getDateInstance().toString(),
+           "2019-08-07",
             false
         )
         val dinner = MealListItem(
@@ -66,7 +57,7 @@ class TrackFoodsViewModel(
             65,
             1,
             "Dinner",
-            getDateInstance().toString(),
+           "2019-08-07",
             false
         )
         val snack = MealListItem(
@@ -78,17 +69,71 @@ class TrackFoodsViewModel(
             26,
             3,
             "Snack",
-            getDateInstance().toString(),
+           "2019-08-07",
             false
         )
+        val test1 = MealListItem(
+            5,
+            "https://img.freepik.com/free-vector/collection-delicious-snacks_23-2147914461.jpg",
+            "PNG",
+            "test4",
+            "Cuban",
+            26,
+            3,
+            "TEST1",
+            "2019-08-07",
+            false
+        )
+        val test2 = MealListItem(
+            6,
+            "https://img.freepik.com/free-vector/collection-delicious-snacks_23-2147914461.jpg",
+            "PNG",
+            "test4",
+            "Cuban",
+            26,
+            3,
+            "TEST2",
+            "2019-08-07",
+            false
+        )
+        val test3 = MealListItem(
+            7,
+            "https://img.freepik.com/free-vector/collection-delicious-snacks_23-2147914461.jpg",
+            "PNG",
+            "test4",
+            "Cuban",
+            26,
+            3,
+            "TEST3",
+            "2019-08-07",
+            false
+        )
+        val test4 = MealListItem(
+            8,
+            "https://img.freepik.com/free-vector/collection-delicious-snacks_23-2147914461.jpg",
+            "PNG",
+            "test4",
+            "Cuban",
+            26,
+            3,
+            "TEST4",
+            "2019-08-07",
+            false
+        )
+
         roomRepository.insertMeal(breakfast)
         roomRepository.insertMeal(lunch)
         roomRepository.insertMeal(dinner)
         roomRepository.insertMeal(snack)
+        roomRepository.insertMeal(test1)
+        roomRepository.insertMeal(test2)
+        roomRepository.insertMeal(test3)
+        roomRepository.insertMeal(test4)
+
     }
 
     val getFakeData by lazyDeferred {
-        roomRepository.getDayMeal(getDateInstance().toString())
+        roomRepository.getDayMeal()
     }
 
 

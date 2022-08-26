@@ -18,6 +18,9 @@ class ProfileViewModel(
     private val profileTransactionEvent = Channel<ProfileTransactionEvent>()
     val profileEvent = profileTransactionEvent.receiveAsFlow()
 
+    fun settingClicked() = viewModelScope.launch {
+        profileTransactionEvent.send(ProfileTransactionEvent.NavigateToSettingScreen)
+    }
     fun personalDataClicked() = viewModelScope.launch {
         profileTransactionEvent.send(ProfileTransactionEvent.NavigateToPersonalDataScreen)
     }
@@ -36,17 +39,21 @@ class ProfileViewModel(
     fun diseaseClicked() = viewModelScope.launch {
         profileTransactionEvent.send(ProfileTransactionEvent.NavigateToDiseaseScreen)
     }
-
+    fun logoutClicked() = viewModelScope.launch {
+        profileTransactionEvent.send(ProfileTransactionEvent.NavigateToLoginScreen)
+    }
     val getUserPreference by lazyDeferred{
         roomRepository.getUserPreference()
     }
 
     sealed class ProfileTransactionEvent{
+        object NavigateToSettingScreen : ProfileTransactionEvent()
         object NavigateToPersonalDataScreen : ProfileTransactionEvent()
         object NavigateToActiveLevelScreen : ProfileTransactionEvent()
         object NavigateToDietTypeToScreen : ProfileTransactionEvent()
         object NavigateToAbstractGoalScreen : ProfileTransactionEvent()
         object NavigateToIngredientAllergyScreen : ProfileTransactionEvent()
         object NavigateToDiseaseScreen : ProfileTransactionEvent()
+        object NavigateToLoginScreen : ProfileTransactionEvent()
     }
 }

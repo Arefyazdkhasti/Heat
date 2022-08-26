@@ -83,6 +83,7 @@ class AbstractGoalFragment  : ScopedFragment(), KodeinAware {
         if (isFromProfile) {
             binding.navigationLayout.visibility = View.GONE
             binding.toolbarLayout.save.visibility = View.VISIBLE
+            binding.toolbarLayout.backArrow.visibility = View.VISIBLE
             binding.toolbarLayout.progressView.visibility = View.INVISIBLE
         } else {
             binding.navigationLayout.visibility = View.VISIBLE

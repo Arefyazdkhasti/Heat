@@ -33,8 +33,8 @@ class RoomRepositoryImpl(
 
     override suspend fun eatMeal(meal: MealListItem, eaten: Boolean) = mealDataBase.mealDao().eatMeal(meal.id, eaten)
 
-    override suspend fun getDayMeal(day: String): LiveData<List<MealListItem>> =
-        mealDataBase.mealDao().getDayMeals(day)
+    override suspend fun getDayMeal(): LiveData<List<MealListItem>> =
+        mealDataBase.mealDao().getDayMeals()
 
     override suspend fun getWeekMeal(): LiveData<List<MealListItem>> =
         mealDataBase.mealDao().getWeekMeals()

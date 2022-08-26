@@ -14,6 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow_back_black"
+        android:visibility="invisible"
         />
 
     <com.skydoves.progressview.ProgressView
@@ -34,6 +35,7 @@
         tools:progressView_labelText="achieve 65%"
         app:progressView_max="120"
         app:progressView_min="0"
+        android:visibility="invisible"
         app:progressView_progressFromPrevious="true"
         app:progressView_radius="12dp" />
 
@@ -45,6 +47,7 @@
         android:text="@string/save"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/extra_font"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/back_arrow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/back_arrow" />

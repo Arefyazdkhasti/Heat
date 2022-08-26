@@ -35,8 +35,10 @@ class MealItemRecyclerView(val mealItem: MealListItem, val sendEvent: SendEvent)
 
                 if (checked)
                     mealRefresh.visibility = View.INVISIBLE
-                else
+                else {
+                    sendEvent.sendOneMealUnChecked()
                     mealRefresh.visibility = View.VISIBLE
+                }
             }
         }
     }

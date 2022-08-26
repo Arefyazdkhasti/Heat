@@ -22,6 +22,7 @@ import org.kodein.di.generic.instance
 import androidx.constraintlayout.widget.ConstraintSet
 
 import android.R
+import android.os.Handler
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -32,12 +33,7 @@ import com.example.heat.data.datamodel.NutritionType
 import com.example.heat.data.datamodel.recipeDetail.Nutrition
 import com.example.heat.databinding.FragmentHomeBinding
 import com.example.heat.ui.itemRecyclerView.NutritionChartItemRecyclerView
-import com.example.heat.ui.itemRecyclerView.RecipeItemRecyclerView
-import com.example.heat.ui.search.SearchFragmentDirections
-import com.example.heat.util.SwipeToLikeCallback
 import com.example.heat.util.UiUtils
-import com.example.heat.util.enumerian.RecipeViewType
-import com.example.heat.util.getURLForResource
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
@@ -73,28 +69,29 @@ class HomeFragment : ScopedFragment(), KodeinAware {
     private fun bindUI() = launch {
 
         binding.apply {
-            var dbSize = 0
             viewModel.mealDbSize.await().observe(viewLifecycleOwner, Observer {
-                dbSize = it
-            })
+                if (it == 0) {
+                    todayMealsRecipesListView.visibility = View.INVISIBLE
+                    processTitle.visibility = View.INVISIBLE
+                    nutritionChartsRecyclerView.visibility = View.GONE
+                    layoutGenerateFood.visibility = View.VISIBLE
+                    todayMealsTitleWhenNoPlan.visibility = View.VISIBLE
 
-            if (dbSize == 0) {
-                todayMealsRecipesListView.visibility = View.INVISIBLE
-                layoutGenerateFood.visibility = View.VISIBLE
-                todayMealsTitleWhenNoPlan.visibility = View.VISIBLE
-
-                layoutGenerateFood.setOnClickListener {
+                    layoutGenerateFood.setOnClickListener {
+                        layoutGenerateFood.visibility = View.INVISIBLE
+                        todayMealsTitleWhenNoPlan.visibility = View.INVISIBLE
+                        initRecyclerViewTodayMeals(viewModel.generateDayFakeData())
+                        todayMealsRecipesListView.visibility = View.VISIBLE
+                        processTitle.visibility = View.VISIBLE
+                        nutritionChartsRecyclerView.visibility = View.VISIBLE
+                    }
+                } else {
+                    initRecyclerViewTodayMeals(viewModel.generateDayFakeData())
                     todayMealsRecipesListView.visibility = View.VISIBLE
                     layoutGenerateFood.visibility = View.INVISIBLE
                     todayMealsTitleWhenNoPlan.visibility = View.INVISIBLE
-                    initRecyclerViewTodayMeals(viewModel.generateDayFakeData())
                 }
-            } else {
-                initRecyclerViewTodayMeals(viewModel.generateDayFakeData())
-                todayMealsRecipesListView.visibility = View.VISIBLE
-                layoutGenerateFood.visibility = View.INVISIBLE
-                todayMealsTitleWhenNoPlan.visibility = View.INVISIBLE
-            }
+            })
 
             /*val constraintLayout: ConstraintLayout = layout
             val constraintSet = ConstraintSet()
@@ -131,9 +128,10 @@ class HomeFragment : ScopedFragment(), KodeinAware {
             //load fake data to charts
             val nutritions = listOf(
                 NutritionType("Calories", R.drawable.ic_btn_speak_now, 24),
-                NutritionType("Carbohydrate",  R.drawable.ic_btn_speak_now, 75),
-                NutritionType ("Fat",  R.drawable.ic_btn_speak_now, 48),
-                NutritionType ("Protein",  R.drawable.ic_btn_speak_now, 12))
+                NutritionType("Carbohydrate", R.drawable.ic_btn_speak_now, 75),
+                NutritionType("Fat", R.drawable.ic_btn_speak_now, 48),
+                NutritionType("Protein", R.drawable.ic_btn_speak_now, 12)
+            )
 
             initRecyclerViewNutritionChart(nutritionChartsRecyclerView, nutritions)
         }

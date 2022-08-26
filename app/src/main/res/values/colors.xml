@@ -11,7 +11,8 @@
 
     <color name="colorPrimary">#1bcb7b</color>
     <color name="colorPrimaryDark">#185C5C</color>
-    <color name="colorSecondary">#EC6431</color>
+    <!--#EC6431-->
+    <color name="colorSecondary">#1bcb7b</color>
     <color name="colorSecondaryDark">#9F2F05</color>
     <color name="colorSecondaryLight">#F5A623</color>
 

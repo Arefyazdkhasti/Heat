@@ -29,5 +29,5 @@ data class MealListItem(
     @SerializedName("date")
     val date: String,
     @SerializedName("eaten")
-    val eaten: Boolean
+    var eaten: Boolean
 ): Parcelable

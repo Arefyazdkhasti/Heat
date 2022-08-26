@@ -166,6 +166,27 @@
     <string name="filter_search_result">Filter</string>
     <string name="generate_your_plan">Generate Your Plan</string>
 
+    <string name="appearance">Appearance</string>
+    <string name="preference">Preferences</string>
+    <string name="theme">Theme</string>
+    <string name="light">light</string>
+    <string name="dark">Dark</string>
+    <string name="system_default">System Default</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="persian">Persian</string>
+
+    <string name="notification">Notification</string>
+    <string name="show_notification">Show Notification</string>
+    <string name="breakfast_notification">Breakfast Notification</string>
+    <string name="lunch_notification">Lunch Notification</string>
+    <string name="dinner_notification">Dinner Notification</string>
+    <string name="snack_notification">Snack Notification</string>
+
+    <string name="meal_plan">Number of meal plan</string>
+    <string name="one_day_plan">One Day</string>
+    <string name="one_week_plan">One Week</string>
+
     <string-array name="meal_type">
         <item>@string/filter_meal_type_all</item>
         <item>@string/filter_meal_type_breakfast</item>
@@ -189,4 +210,6 @@
         <item>@string/filter_diet_type_glutenFree</item>
         <item>@string/filter_diet_type_diaryFree</item>-->
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

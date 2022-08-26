@@ -10,7 +10,7 @@ import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.util.MyConvertor
 
 
-@Database(entities = [MealListItem::class], version = 2, exportSchema = false)
+@Database(entities = [MealListItem::class], version = 1, exportSchema = false)
 abstract class MealDataBase(
 ) : RoomDatabase() {
     abstract fun mealDao(): MealDao

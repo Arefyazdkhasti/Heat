@@ -8,15 +8,21 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.heat.R
 import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.databinding.FragmentProfileBinding
 import com.example.heat.ui.base.ScopedFragment
+import com.example.heat.util.UiUtils.Companion.saveUserLoginStatusToDataStore
 import com.example.heat.util.enumerian.*
 import com.example.heat.util.exhaustive
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+
 
 class ProfileFragment : ScopedFragment(), KodeinAware {
     override val kodein by closestKodein()
@@ -47,6 +53,7 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
         bindUI()
     }
 
+    @DelicateCoroutinesApi
     private fun bindUI() = launch {
 
         var userPreference = UserPreferences(
@@ -64,7 +71,7 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
         )
         //load User
         viewModel.getUserPreference.await().observe(viewLifecycleOwner, Observer { userPref ->
-            if(userPref == null) return@Observer
+            if (userPref == null) return@Observer
 
             userPreference = userPref
             binding.apply {
@@ -86,7 +93,7 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
                 viewModel.personalDataClicked()
             }
             generalSettingLayout.setOnClickListener {
-
+                viewModel.settingClicked()
             }
             activeLevelLayout.setOnClickListener {
                 viewModel.activeLevelClicked()
@@ -103,41 +110,96 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
             diseaseLayout.setOnClickListener {
                 viewModel.diseaseClicked()
             }
+            logoutLayout.setOnClickListener {
+                showConfirmLogoutDialog()
+            }
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.profileEvent.collect { event ->
                 when (event) {
+                    is ProfileViewModel.ProfileTransactionEvent.NavigateToSettingScreen -> {
+                        val actionAdd =
+                            ProfileFragmentDirections.actionProfileFragmentToSettingsFragment()
+                        findNavController().navigate(actionAdd)
+                    }
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToPersonalDataScreen -> {
-                        val actionAdd = ProfileFragmentDirections.actionProfileFragmentToPersonalDataFragment(userPreference, ComeFrom.PROFILE)
+                        val actionAdd =
+                            ProfileFragmentDirections.actionProfileFragmentToPersonalDataFragment(
+                                userPreference,
+                                ComeFrom.PROFILE
+                            )
                         findNavController().navigate(actionAdd)
                     }
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToActiveLevelScreen -> {
                         val actionAdd =
-                            ProfileFragmentDirections.actionProfileFragmentToActiveLevelFragment(userPreference, ComeFrom.PROFILE)
+                            ProfileFragmentDirections.actionProfileFragmentToActiveLevelFragment(
+                                userPreference,
+                                ComeFrom.PROFILE
+                            )
                         findNavController().navigate(actionAdd)
                     }
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToDietTypeToScreen -> {
                         val actionAdd =
-                            ProfileFragmentDirections.actionProfileFragmentToDietTypeFragment(userPreference, ComeFrom.PROFILE)
+                            ProfileFragmentDirections.actionProfileFragmentToDietTypeFragment(
+                                userPreference,
+                                ComeFrom.PROFILE
+                            )
                         findNavController().navigate(actionAdd)
                     }
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToAbstractGoalScreen -> {
                         val actionAdd =
-                            ProfileFragmentDirections.actionProfileFragmentToAbstractGoalFragment(userPreference, ComeFrom.PROFILE)
+                            ProfileFragmentDirections.actionProfileFragmentToAbstractGoalFragment(
+                                userPreference,
+                                ComeFrom.PROFILE
+                            )
                         findNavController().navigate(actionAdd)
                     }
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToIngredientAllergyScreen -> {
                         val actionAdd =
-                            ProfileFragmentDirections.actionProfileFragmentToIngredientAllergyFragment(userPreference, ComeFrom.PROFILE)
+                            ProfileFragmentDirections.actionProfileFragmentToIngredientAllergyFragment(
+                                userPreference,
+                                ComeFrom.PROFILE
+                            )
                         findNavController().navigate(actionAdd)
                     }
                     is ProfileViewModel.ProfileTransactionEvent.NavigateToDiseaseScreen -> {
                         val actionAdd =
-                            ProfileFragmentDirections.actionProfileFragmentToDiseaseFragment(userPreference, ComeFrom.PROFILE)
+                            ProfileFragmentDirections.actionProfileFragmentToDiseaseFragment(
+                                userPreference,
+                                ComeFrom.PROFILE
+                            )
+                        findNavController().navigate(actionAdd)
+                    }
+                    is ProfileViewModel.ProfileTransactionEvent.NavigateToLoginScreen -> {
+                        val actionAdd =
+                            ProfileFragmentDirections.actionProfileFragmentToLoginFragment()
                         findNavController().navigate(actionAdd)
                     }
                 }
             }
         }.exhaustive
+    }
+
+    @DelicateCoroutinesApi
+    private fun showConfirmLogoutDialog() {
+        val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
+        dialog.apply {
+            setTitle("Logout")
+            setIcon(R.drawable.ic_logout)
+            setMessage("Do you really want to logout of your account?")
+            setPositiveButton(
+                "Yes"
+            ) { dialogInterface, i ->
+                dialogInterface.dismiss()
+                saveUserLoginStatusToDataStore(requireContext(),false)
+                viewModel.logoutClicked()
+            }
+            setNeutralButton(
+                "No"
+            ) { dialogInterface, i ->
+                dialogInterface.dismiss()
+            }
+            show()
+        }
     }
 }
