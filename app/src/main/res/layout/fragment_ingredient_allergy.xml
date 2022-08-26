@@ -4,28 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.setting.IngredientAllergyFragment">
+    >
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/back_arrow"
-        android:layout_width="@dimen/_25sdp"
-        android:layout_height="@dimen/_25sdp"
-        android:layout_margin="@dimen/standard_margin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_arrow_back_black" />
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standard_margin"
+    <include
+        android:id="@+id/toolbar_layout"
+        layout="@layout/survey_toolbar_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/back_arrow"
-        app:layout_constraintBottom_toBottomOf="@id/back_arrow"
-        android:text="@string/save"
-        android:textSize="@dimen/extra_font"
-        android:textColor="@color/colorPrimary"
-        android:visibility="invisible"/>
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/title_ingredient_allergy"
@@ -37,7 +24,7 @@
         android:textSize="@dimen/big_font"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/back_arrow"/>
+        app:layout_constraintTop_toBottomOf="@id/toolbar_layout"/>
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/allergy_chip_group"
@@ -54,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/large_font"
+            app:chipBackgroundColor="@drawable/bg_chip"
             android:text="@string/Fifth_page_gluten"/>
 
         <com.google.android.material.chip.Chip
@@ -62,6 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/large_font"
+            app:chipBackgroundColor="@drawable/bg_chip"
             android:text="@string/Fifth_page_peanuts"/>
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_egg"
@@ -69,6 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/large_font"
+            app:chipBackgroundColor="@drawable/bg_chip"
             android:text="@string/Fifth_page_egg"/>
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_fish"
@@ -76,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/large_font"
-
+            app:chipBackgroundColor="@drawable/bg_chip"
             android:text="@string/Fifth_page_fish"/>
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_shellfish"
@@ -84,6 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/large_font"
+            app:chipBackgroundColor="@drawable/bg_chip"
             android:text="@string/Fifth_page_shellfish"/>
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_diary"
@@ -91,6 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/large_font"
+            app:chipBackgroundColor="@drawable/bg_chip"
             android:text="@string/Fifth_page_diary"/>
 
     </com.google.android.material.chip.ChipGroup>

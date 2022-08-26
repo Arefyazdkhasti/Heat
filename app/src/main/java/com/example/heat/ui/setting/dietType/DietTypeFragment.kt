@@ -89,17 +89,22 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
 
         if (isFromProfile) {
             binding.navigationLayout.visibility = View.GONE
-            binding.save.visibility = View.VISIBLE
+            binding.toolbarLayout.save.visibility = View.VISIBLE
+            binding.toolbarLayout.backArrow.visibility = View.VISIBLE
+            binding.toolbarLayout.progressView.visibility = View.INVISIBLE
         } else {
             binding.navigationLayout.visibility = View.VISIBLE
-            binding.save.visibility = View.GONE
-            binding.backArrow.visibility = View.GONE
+            binding.toolbarLayout.save.visibility = View.GONE
+            binding.toolbarLayout.backArrow.visibility = View.GONE
+            binding.toolbarLayout.progressView.visibility = View.VISIBLE
+            binding.toolbarLayout.progressView.progress = 60f
+            binding.toolbarLayout.progressView.labelText = "3 out of 6 completed"
         }
 
         binding.apply {
 
             val selectColor = getColor(requireContext(), R.color.gray)
-            val disselectColor = getColor(requireContext(), R.color.white)
+            val disselectColor = getColor(requireContext(), R.color.pure_white)
             var selectedDietType = DietType.ANY_THING
 
             //TODO move to a separate function
@@ -145,7 +150,7 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
             }
 
             if (isFromProfile) {
-                save.setOnClickListener {
+                toolbarLayout.save.setOnClickListener {
                     saveData(binding, userPreference, it, selectedDietType)
                 }
             } else {
@@ -156,7 +161,7 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
                     saveData(binding, userPreference, it, selectedDietType)
                 }
             }
-            backArrow.setOnClickListener {
+            toolbarLayout.backArrow.setOnClickListener {
                 saveData(binding, userPreference, it, selectedDietType)
             }
         }
@@ -217,7 +222,7 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
 
             if (dietType != null) {
                 userPreference.dietType = dietType
-                if (itemView == next || itemView == save || itemView == backArrow)
+                if (itemView == next || itemView == toolbarLayout.save || itemView == toolbarLayout.backArrow)
                     viewModel.onNextClicked(userPreference)
                 else if (itemView == previous)
                     viewModel.onPreviousClicked(userPreference)

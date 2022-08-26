@@ -1,0 +1,67 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/appearance"
+        >
+
+
+        <ListPreference
+            app:defaultValue="@string/system_default"
+            app:entries="@array/theme_entry"
+            app:entryValues="@array/theme_values"
+            app:key="theme"
+            app:title="@string/theme"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+
+    <PreferenceCategory app:title="@string/preference">
+
+        <ListPreference
+            app:defaultValue="@string/english"
+            app:entries="@array/language_entries"
+            app:entryValues="@array/language_values"
+            app:key="language"
+            app:title="@string/language"
+            app:useSimpleSummaryProvider="true" />
+
+
+        <ListPreference
+            app:defaultValue="MealPlan"
+            app:entries="@array/meal_plan_entries"
+            app:entryValues="@array/meal_plan_values"
+            app:key="reply"
+            app:title="@string/meal_plan"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:initialExpandedChildrenCount="1"
+        app:title="@string/notification">
+
+        <SwitchPreferenceCompat
+            app:key="notification"
+            app:title="@string/show_notification"
+            />
+
+        <SwitchPreferenceCompat
+            app:dependency="notification"
+            app:key="breakfast_notification"
+            app:title="@string/breakfast_notification" />
+
+        <SwitchPreferenceCompat
+            app:dependency="notification"
+            app:key="lunch_notification"
+            app:title="@string/lunch_notification" />
+        <SwitchPreferenceCompat
+            app:dependency="notification"
+            app:key="dinner_notification"
+            app:title="@string/dinner_notification" />
+        <SwitchPreferenceCompat
+            app:dependency="notification"
+            app:key="snack_notification"
+            app:title="@string/snack_notification" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

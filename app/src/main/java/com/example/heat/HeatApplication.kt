@@ -11,11 +11,16 @@ import com.example.heat.data.data.response.NetworkDataSourceImpl
 import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.data.local.repository.RoomRepository
 import com.example.heat.data.local.repository.RoomRepositoryImpl
+import com.example.heat.data.local.room.EatenMealDataBase
+import com.example.heat.data.local.room.MealDataBase
 import com.example.heat.data.local.room.UserPreferenceDataBase
 import com.example.heat.ui.home.HomeViewModelFactory
+import com.example.heat.ui.login.LoginViewModelFactory
 import com.example.heat.ui.profile.ProfileViewModelFactory
 import com.example.heat.ui.recipeDetail.RecipeDetailViewModelFactory
 import com.example.heat.ui.recipes.RecipesViewModelFactory
+import com.example.heat.ui.register.RegisterViewModel
+import com.example.heat.ui.register.RegisterViewModelFactory
 import com.example.heat.ui.search.SearchViewModelFactory
 import com.example.heat.ui.seeAllRecipes.SeeAllRecipesViewModelFactory
 import com.example.heat.ui.setting.abstractGoal.AbstractGoalViewModelFactory
@@ -24,6 +29,7 @@ import com.example.heat.ui.setting.dietType.DietTypeViewModelFactory
 import com.example.heat.ui.setting.disease.DiseaseViewModelFactory
 import com.example.heat.ui.setting.ingredientAllergy.IngredientAllergyViewModelFactory
 import com.example.heat.ui.setting.personalData.PersonalDataViewModelFactory
+import com.example.heat.ui.splash.SplashScreenViewModelFactory
 import com.example.heat.ui.survey.SurveyViewModelFactory
 import com.example.heat.ui.trackFood.TrackFoodsViewModelFactory
 import org.kodein.di.Kodein
@@ -39,14 +45,18 @@ class HeatApplication: Application(),KodeinAware{
         bind() from singleton { RecipesApiService(instance()) }
         bind<NetworkDataSource>() with singleton { NetworkDataSourceImpl(instance()) }
         bind<UserPreferenceDataBase>() with singleton { UserPreferenceDataBase.getDatabase(instance()) }
+        bind<MealDataBase>() with singleton { MealDataBase.getDatabase(instance()) }
         bind<RecipesRepository>() with singleton { RecipesRepositoryImpl(instance())}
-        bind<RoomRepository>() with singleton { RoomRepositoryImpl(instance()) }
-        bind() from provider { HomeViewModelFactory(instance()) }
+        bind<RoomRepository>() with singleton { RoomRepositoryImpl(instance(), instance()) }
+        bind() from provider { HomeViewModelFactory(instance(), instance()) }
         bind() from provider { RecipesViewModelFactory(instance()) }
+        bind() from provider { LoginViewModelFactory(instance()) }
+        bind() from provider { RegisterViewModelFactory(instance()) }
+        bind() from provider { SplashScreenViewModelFactory() }
         bind() from provider { ProfileViewModelFactory(instance(),instance()) }
         bind() from provider { SearchViewModelFactory(instance()) }
         bind() from provider { SurveyViewModelFactory(instance()) }
-        bind() from provider { TrackFoodsViewModelFactory(instance()) }
+        bind() from provider { TrackFoodsViewModelFactory(instance(),instance()) }
         bind() from factory { recipeID:Int -> RecipeDetailViewModelFactory(recipeID,instance()) }
         bind() from factory { type:String -> SeeAllRecipesViewModelFactory(type,instance()) }
         bind() from factory { userPreference: UserPreferences? -> PersonalDataViewModelFactory(userPreference, instance(), instance()) }

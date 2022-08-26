@@ -6,14 +6,19 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.example.heat.R
 import com.example.heat.data.datamodel.recipeList.RecipeListItem
 import com.example.heat.ui.home.HomeFragmentDirections
 import com.example.heat.ui.itemRecyclerView.RecipeItemRecyclerView
 import com.example.heat.ui.recipes.RecipesFragmentDirections
+import com.example.heat.util.SwipeToLikeCallback
 import com.example.heat.util.enumerian.NavigateAction
+import com.example.heat.util.enumerian.RecipeViewType
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
@@ -25,7 +30,7 @@ class RecipeView(
 
     private val listTitle: AppCompatTextView
     private val seeAll: AppCompatTextView
-    private val movieRecycleView: ShimmerRecyclerView
+    private val recipeRecycleView: ShimmerRecyclerView
 
     init {
         val view = inflate(context, R.layout.recipe_view, this)
@@ -40,23 +45,23 @@ class RecipeView(
 
         listTitle = view.findViewById(R.id.recipe_type)
         seeAll = view.findViewById(R.id.recipe_type_see_all)
-        movieRecycleView = view.findViewById(R.id.recipe_recyclerView)
+        recipeRecycleView = view.findViewById(R.id.recipe_recyclerView)
 
         listTitle.text = title
         seeAll.text = action
 
-        movieRecycleView.layoutManager =
+        recipeRecycleView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
 
     }
 
     private fun List<RecipeListItem>.toRecipeListItems(): List<RecipeItemRecyclerView> = this.map {
-        RecipeItemRecyclerView(it)
+        RecipeItemRecyclerView(it, RecipeViewType.SMALL)
     }
 
     fun initRecycler(data: List<RecipeListItem>, type: String, navigateAction: NavigateAction) {
 
-        movieRecycleView.showShimmerAdapter()
+        recipeRecycleView.showShimmerAdapter()
 
         seeAll.setOnClickListener {
             when (navigateAction) {
@@ -69,9 +74,10 @@ class RecipeView(
             addAll(data.toRecipeListItems())
         }
 
-        movieRecycleView.apply {
+
+        recipeRecycleView.apply {
             adapter = groupAdapter
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         }
 
         groupAdapter.setOnItemClickListener { item, view ->
@@ -93,11 +99,11 @@ class RecipeView(
     }
 
     fun hideShimmer() {
-        movieRecycleView.hideShimmerAdapter()
+        recipeRecycleView.hideShimmerAdapter()
     }
 
     fun showShimmer() {
-        movieRecycleView.showShimmerAdapter()
+        recipeRecycleView.showShimmerAdapter()
     }
 
     private fun navigateToSeeAllFragment(type: String, view: View) {

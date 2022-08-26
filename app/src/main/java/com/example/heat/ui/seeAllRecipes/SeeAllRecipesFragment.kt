@@ -14,6 +14,7 @@ import com.example.heat.data.datamodel.recipeList.RecipeListItem
 import com.example.heat.databinding.FragmentSeeAllRecipesBinding
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.itemRecyclerView.RecipeItemRecyclerView
+import com.example.heat.util.enumerian.RecipeViewType
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.coroutines.launch
@@ -125,6 +126,6 @@ class SeeAllRecipesFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun List<RecipeListItem>.toRecipeListItems(): List<RecipeItemRecyclerView> = this.map {
-        RecipeItemRecyclerView(it)
+        RecipeItemRecyclerView(it,RecipeViewType.SMALL)
     }
 }

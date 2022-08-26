@@ -26,4 +26,7 @@ interface NetworkDataSource {
     //search
     val searchRecipe: LiveData<RecipeList>
     suspend fun fetchSearchRecipe(query:String, type:String, diet:String, offset: Int, number: Int)
+
+    //like and unlike Recipes
+
 }

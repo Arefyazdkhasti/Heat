@@ -84,16 +84,22 @@ class ActiveLevelFragment : ScopedFragment(), KodeinAware {
 
         if (isFromProfile) {
             binding.navigationLayout.visibility = View.GONE
-            binding.save.visibility = View.VISIBLE
+            binding.toolbarLayout.save.visibility = View.VISIBLE
+            binding.toolbarLayout.backArrow.visibility = View.VISIBLE
+            binding.toolbarLayout.progressView.visibility = View.INVISIBLE
+
         } else {
             binding.navigationLayout.visibility = View.VISIBLE
-            binding.save.visibility = View.GONE
-            binding.backArrow.visibility = View.GONE
+            binding.toolbarLayout.save.visibility = View.GONE
+            binding.toolbarLayout.backArrow.visibility = View.GONE
+            binding.toolbarLayout.progressView.visibility = View.VISIBLE
+            binding.toolbarLayout.progressView.progress = 20f
+            binding.toolbarLayout.progressView.labelText = "1 out of 6 completed"
         }
 
         binding.apply {
             if (isFromProfile) {
-                save.setOnClickListener {
+                toolbarLayout.save.setOnClickListener {
                     saveData(binding, userPreference, it)
                 }
             } else {
@@ -104,7 +110,7 @@ class ActiveLevelFragment : ScopedFragment(), KodeinAware {
                     saveData(binding, userPreference, it)
                 }
             }
-            backArrow.setOnClickListener {
+            toolbarLayout.backArrow.setOnClickListener {
                 saveData(binding, userPreference, it)
             }
         }
@@ -164,7 +170,7 @@ class ActiveLevelFragment : ScopedFragment(), KodeinAware {
                     very.isChecked -> userPreference.activeLevel = ActiveLevel.VERY
                     extra.isChecked -> userPreference.activeLevel = ActiveLevel.EXTRA
                 }
-                if (itemView == next || itemView == save || itemView == backArrow)
+                if (itemView == next || itemView == toolbarLayout.save || itemView == toolbarLayout.backArrow)
                     viewModel.onNextClicked(userPreference)
                 else if (itemView == previous)
                     viewModel.onPreviousClicked(userPreference)

@@ -1,7 +1,6 @@
 package com.example.heat.ui.itemRecyclerView
 
 import android.content.Context
-import android.graphics.Movie
 
 import androidx.recyclerview.widget.RecyclerView
 

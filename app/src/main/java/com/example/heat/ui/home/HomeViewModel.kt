@@ -1,6 +1,9 @@
 package com.example.heat.ui.home
 
+import android.app.Application
+import android.content.Context
 import android.content.res.Resources
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.res.TypedArrayUtils.getString
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -8,41 +11,48 @@ import com.example.heat.R
 import com.example.heat.data.data.repository.RecipesRepository
 import com.example.heat.data.datamodel.recipeList.RecipeList
 import com.example.heat.data.datamodel.recipeList.RecipeListItem
-import com.example.heat.util.UiUtils.Companion.getStringFromResource
+import com.example.heat.data.local.repository.RoomRepository
 import com.example.heat.util.UiUtils.Companion.getURLForResource
+import com.example.heat.util.UiUtils.Companion.stringFromResourcesByName
+import com.example.heat.util.lazyDeferred
+import java.security.AccessController.getContext
 
 class HomeViewModel(
-    private val recipesRepository: RecipesRepository
+    private val recipesRepository: RecipesRepository,
+    private val roomRepository: RoomRepository
 ) : ViewModel() {
 
 
-    fun generateFakeData(): List<RecipeListItem> {
+    fun generateDayFakeData(): List<RecipeListItem> {
         val breakfast = RecipeListItem(
             1,
-            "https://simply-delicious-food.com/wp-content/uploads/2018/10/breakfast-board-500x500.jpg",
+            getURLForResource(R.drawable.breakfast),
             "PNG",
-            getStringFromResource(R.string.breakfast)
+            "Breakfast"
         )
         val lunch = RecipeListItem(
             2,
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoJBTc9RI3gHAWFG3-dRApc8TbPbvCPy4oS4gf6hcDTrEbK7L_pNUkyXXpDxt_9GZcFFQ&usqp=CAU",
+            getURLForResource(R.drawable.lunch),
             "PNG",
-            getStringFromResource(R.string.lunch)
+            "Lunch"
         )
         val dinner = RecipeListItem(
             3,
-            "https://insanelygoodrecipes.com/wp-content/uploads/2021/03/Spaghetti-and-Meatballs-with-Tomato-Sauce-683x1024.png",
+            getURLForResource(R.drawable.dinner),
             "PNG",
-            getStringFromResource(R.string.dinner)
+            "Dinner"
         )
         val snack = RecipeListItem(
             4,
-            "https://img.freepik.com/free-vector/collection-delicious-snacks_23-2147914461.jpg",
+            getURLForResource(R.drawable.snack),
             "PNG",
-            getStringFromResource(R.string.snack)
+            "Snack"
         )
-        //val recipeList = RecipeList(1, 0, listOf(breakfast), 1)
 
         return listOf(breakfast,lunch,dinner,snack)
+    }
+
+    val mealDbSize by lazyDeferred {
+        roomRepository.eatMealDBSize()
     }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -15,6 +16,12 @@ import com.example.heat.R
 import com.example.heat.databinding.ActivityMainBinding
 import org.imaginativeworld.oopsnointernet.callbacks.ConnectionCallback
 import org.imaginativeworld.oopsnointernet.dialogs.pendulum.NoInternetDialogPendulum
+import android.content.DialogInterface
+import android.util.Log
+import com.example.heat.util.UiUtils
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlin.system.exitProcess
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,6 +53,8 @@ class MainActivity : AppCompatActivity() {
         //setupActionBarWithNavController(navController)
 
         checkForInternet()
+
+        initDestinationListener()
     }
 
     private fun checkForInternet() {
@@ -81,4 +90,53 @@ class MainActivity : AppCompatActivity() {
     /*override fun onSupportNavigateUp(): Boolean =
         navController.navigateUp()*/
 
+    private fun initDestinationListener() {
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            Log.e("DESTINATION", " -> $destination")
+            // Showing or Hiding Bottom Navigation on Specific Screen
+            if (destination.id == R.id.splashScreenFragment ||
+                destination.id == R.id.loginFragment ||
+                destination.id == R.id.registerFragment ||
+                destination.id == R.id.personalDataFragment||
+                destination.id == R.id.dietTypeFragment||
+                destination.id == R.id.abstractGoalFragment||
+                destination.id == R.id.ingredientAllergyFragment||
+                destination.id == R.id.diseaseFragment||
+                destination.id == R.id.activeLevelFragment ||
+                destination.id == R.id.settingsFragment
+            ) {
+                hideBottomNavigation()
+            } else {
+                showBottomNavigation()
+            }
+        }
+    }
+
+    private fun showBottomNavigation() {
+        binding.bottomNav.visibility = View.VISIBLE
+    }
+
+    private fun hideBottomNavigation() {
+        binding.bottomNav.visibility = View.GONE
+    }
+
+    /*override fun onBackPressed() {
+        val dialog = MaterialAlertDialogBuilder(this, R.style.AlertDialogTheme)
+        dialog.apply {
+            setTitle("Exit")
+            setMessage("Do you want to exit HEAT?")
+            setPositiveButton(
+                "Yes"
+            ) { dialogInterface, i ->
+                exitProcess(0)
+            }
+            setNeutralButton(
+                "No"
+            ) { dialogInterface, i ->
+                dialogInterface.dismiss()
+            }
+            show()
+        }
+    }*/
 }

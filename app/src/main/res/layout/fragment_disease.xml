@@ -1,32 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.setting.DiseaseFragment">
+    android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/back_arrow"
-        android:layout_width="@dimen/_25sdp"
-        android:layout_height="@dimen/_25sdp"
-        android:layout_margin="@dimen/standard_margin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_arrow_back_black" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standard_margin"
+    <include
+        android:id="@+id/toolbar_layout"
+        layout="@layout/survey_toolbar_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/back_arrow"
-        app:layout_constraintBottom_toBottomOf="@id/back_arrow"
-        android:text="@string/save"
-        android:textSize="@dimen/extra_font"
-        android:textColor="@color/colorPrimary"
-        android:visibility="invisible"/>
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/title_disease"
@@ -36,9 +20,9 @@
         android:text="@string/Sixth_page_text"
         android:textColor="@color/black"
         android:textSize="@dimen/big_font"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf = "@id/back_arrow"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_layout" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/disease_chip_group"
@@ -47,92 +31,100 @@
         android:layout_margin="@dimen/mega_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf= "@id/title_disease">
+        app:layout_constraintTop_toBottomOf="@id/title_disease">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_diabetes"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/Sixth_page_diabetes"
             android:textSize="@dimen/large_font"
-            android:text="@string/Sixth_page_diabetes"/>
+            app:chipBackgroundColor="@drawable/bg_chip" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_osteoporosis"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/Sixth_page_osteoporosis"
             android:textSize="@dimen/large_font"
-            android:text="@string/Sixth_page_osteoporosis"/>
+            app:chipBackgroundColor="@drawable/bg_chip" />
+
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_heart_disease"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/Sixth_page_heart_disease"
             android:textSize="@dimen/large_font"
-            android:text="@string/Sixth_page_heart_disease"/>
+            app:chipBackgroundColor="@drawable/bg_chip" />
+
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_high_blood_pressure"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/Sixth_page_blood_pressure"
             android:textSize="@dimen/large_font"
-            android:text="@string/Sixth_page_blood_pressure"/>
+            app:chipBackgroundColor="@drawable/bg_chip" />
+
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_kidney_disease"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/Sixth_page_kidney_disease"
             android:textSize="@dimen/large_font"
-            android:text="@string/Sixth_page_kidney_disease"/>
+            app:chipBackgroundColor="@drawable/bg_chip" />
+
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_anemia"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/Sixth_page_anemia"
             android:textSize="@dimen/large_font"
-            android:text="@string/Sixth_page_anemia"/>
+            app:chipBackgroundColor="@drawable/bg_chip" />
 
     </com.google.android.material.chip.ChipGroup>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/navigation_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/mega_margin"
-        android:layout_marginEnd ="@dimen/mega_margin"
+        android:layout_marginEnd="@dimen/mega_margin"
         android:layout_marginBottom="@dimen/standard_margin"
-        >
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/previous"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/previous_btn_bg"
             android:gravity="center"
             android:text="@string/previous"
             android:textColor="@color/gray900"
             android:textSize="@dimen/extra_font"
-            android:background="@drawable/previous_btn_bg"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/finish"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/next_btn_bg"
             android:gravity="center"
             android:text="@string/finish"
             android:textColor="@color/white"
             android:textSize="@dimen/extra_font"
-            android:background="@drawable/next_btn_bg"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf= "parent"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

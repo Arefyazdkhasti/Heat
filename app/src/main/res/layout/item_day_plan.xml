@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/checkbox_tick_all_day"
+        style="@style/CustomCheckboxStyle30"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/_14sdp"
+        android:layout_weight="1"
+        android:checked="false"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/day_plan_recyclerView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/day_plan_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_margin"
+        tools:text="21 January 2021"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/extra_font"
+        app:layout_constraintBottom_toBottomOf="@+id/checkbox_tick_all_day"
+        app:layout_constraintStart_toEndOf="@+id/checkbox_tick_all_day"
+        app:layout_constraintTop_toTopOf="@+id/checkbox_tick_all_day" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/refresh_whole_day_plan"
+        style="@style/CustomCheckboxStyle30"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:layout_margin="@dimen/standard_margin"
+        app:layout_constraintBottom_toTopOf="@+id/day_plan_recyclerView"
+        app:layout_constraintStart_toEndOf="@+id/day_plan_date"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_refresh_round" />
+
+    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+        android:id="@+id/day_plan_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_30sdp"
+        app:shimmer_demo_angle="20"
+        app:shimmer_demo_grid_child_count="4"
+        app:shimmer_demo_layout_manager_type="linear_vertical"
+        app:spanCount="2"
+        tools:itemCount="4"
+        tools:listitem="@layout/meal_item" />
+</androidx.constraintlayout.widget.ConstraintLayout>
