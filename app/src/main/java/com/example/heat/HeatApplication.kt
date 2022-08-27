@@ -11,7 +11,6 @@ import com.example.heat.data.data.response.NetworkDataSourceImpl
 import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.data.local.repository.RoomRepository
 import com.example.heat.data.local.repository.RoomRepositoryImpl
-import com.example.heat.data.local.room.EatenMealDataBase
 import com.example.heat.data.local.room.MealDataBase
 import com.example.heat.data.local.room.UserPreferenceDataBase
 import com.example.heat.ui.home.HomeViewModelFactory

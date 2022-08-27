@@ -23,7 +23,7 @@ data class MealListItem(
     @SerializedName("readyInMinutes")
     val readyInMinutes: Int,
     @SerializedName("servings")
-    val servings: Int,
+    val calories: Int,
     @SerializedName("type")
     val type: String,
     @SerializedName("date")

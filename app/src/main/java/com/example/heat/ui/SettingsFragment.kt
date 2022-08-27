@@ -22,6 +22,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val languagePreference = findPreference<ListPreference>("language")
         languagePreference?.onPreferenceChangeListener = languageChangeListener
 
+        val mealTypePreference = findPreference<ListPreference>("language")
+        //languagePreference?.onPreferenceChangeListener = languageChangeListener
     }
 
 

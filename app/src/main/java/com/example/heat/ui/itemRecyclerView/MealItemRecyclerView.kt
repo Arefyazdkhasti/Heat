@@ -2,14 +2,12 @@ package com.example.heat.ui.itemRecyclerView
 
 import android.view.View
 import com.example.heat.R
-import com.example.heat.data.datamodel.EatenMealItem
 import com.example.heat.data.datamodel.MealListItem
 import com.example.heat.databinding.MealItemBinding
 import com.example.heat.util.SendEvent
 import com.example.heat.util.UiUtils.Companion.setImageWithGlideWithView
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
-import java.lang.IllegalArgumentException
 
 
 class MealItemRecyclerView(val mealItem: MealListItem, val sendEvent: SendEvent) :
@@ -24,7 +22,7 @@ class MealItemRecyclerView(val mealItem: MealListItem, val sendEvent: SendEvent)
             mealName.text = mealItem.title
             mealType.text = mealItem.type
             mealCuisine.text = mealItem.cuisine
-            val detail = "${mealItem.readyInMinutes}min    ${mealItem.servings} serving"
+            val detail = "${mealItem.readyInMinutes}min    ${mealItem.calories} kcal"
             mealDetail.text = detail
 
 

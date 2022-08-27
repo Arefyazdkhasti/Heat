@@ -83,7 +83,6 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
 
 
         if (userPreference == null) {
-            UiUtils.showToast(requireContext(), "UserPref is null")
             return@launch
         }
 

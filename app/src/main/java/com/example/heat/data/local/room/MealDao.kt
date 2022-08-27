@@ -21,11 +21,13 @@ interface MealDao {
     @Query ("UPDATE mealList_table SET eaten = :eaten WHERE id = :mealID")
     fun eatMeal(mealID:Int, eaten: Boolean)
 
-    @Query("SELECT * FROM mealList_table")
-    fun getDayMeals(): LiveData<List<MealListItem>>
+    @Query("SELECT * FROM mealList_table WHERE date = :day")
+    fun getDayMeals(day:String): LiveData<List<MealListItem>>
 
-    @Query("SELECT * FROM mealList_table")
+    @Query("SELECT * FROM mealList_table ")
     fun getWeekMeals(): LiveData<List<MealListItem>>
+
+
 
     @Query("SELECT count(*) FROM mealList_table")
     fun getMealSize(): LiveData<Int>

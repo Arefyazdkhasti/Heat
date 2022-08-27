@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Heat</string>
+    <string name="app_desc">Healthier Eat</string>
+    <!--Intro Sliders-->
+    <string name="skip">skip</string>
+    <string name="First_intro_headline">Have a healthier \nlifestyle with</string>
+    <string name="First_intro_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
+    <string name="Second_intro_headline">How does HEAT Work?</string>
+    <string name="Second_intro_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
+    <string name="Third_intro_headline">Ready to \nGet Started?</string>
+    <string name="Third_intro_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
+
+    <!--login-->
+    <string name="login">ورود</string>
+    <string name="login_intro">به اکانتت وارد شو /n و زندگی سالمتری رو در پیش بگیر</string>
+    <string name="your_username">نام کاربری</string>
+    <string name="your_email">ایمیل</string>
+    <string name="your_password">رمز عبور</string>
+    <string name="do_not_have_an_account">حساب کاربری نداری؟  </string>
+    <!--register-->
+    <string name="register">ثبت نام</string>
+    <string name="register_intro">زمان بیشتری هدر نده /n زندگی سالمت رو شروع کن</string>
+    <string name="already_have_an_account">حساب کاربری داری؟  </string>
+
+    <!--survey-->
+
+    <string name="First_page_text">اطلاعاتت رو وارد کن</string>
+    <string name="First_page_name">نام</string>
+    <string name="First_page_height">قد</string>
+    <string name="First_page_weight">وزن</string>
+    <string name="First_page_age">سن</string>
+    <string name="First_page_sex">جنسیت</string>
+    <string name="First_page_male">مرد</string>
+    <string name="First_page_female">زن</string>
+
+    <string name="Second_page_text">چقد فعالیت بدنی داری؟</string>
+    <string name="Second_page_sedentary">خیلی کم</string>
+    <string name="Second_page_lightly">کم</string>
+    <string name="Second_page_moderately">متوسط</string>
+    <string name="Second_page_very">زیاد</string>
+    <string name="Second_page_extra">خیلی زیاد</string>
+
+    <string name="Third_page_text">هدف کلی ات چیه؟</string>
+    <string name="Third_page_lose">کاهش وزن</string>
+    <string name="Third_page_maintain">حفظ وزن فعلی</string>
+    <string name="Third_page_gain">افزایش وزن</string>
+    <string name="Third_page_target_weight">وزن هدفت؟ (اختیاری)</string>
+
+    <string name="Forth_page_text">نوع تغذیه خودت رو انتخاب کن</string>
+    <string name="Forth_page_any_thin">همه چی</string>
+    <string name="Forth_page_any_thing_exclude">استثنا: هیچی</string>
+    <string name="Forth_page_vegetarian">گیاه خوار</string>
+    <string name="Forth_page_vegetarian_exclude">استثنا: گوشت قرمز، ماهی، حیوانات دریایی</string>
+    <string name="Forth_page_vegan">خام گیاهخوار</string>
+    <string name="Forth_page_vegan_exclude">استثنا: گوشت قرمز، ماهی، حیوانات دریای، لبنیات، تخم مرغ، عسل</string>
+    <string name="Forth_page_kosher">کوشر</string>
+    <string name="Forth_page_kosher_exclude">استثنا: خوک، خرگوش، گوشت اسب، خرس، حیوانات دریایی، کوسه مارماهی، اختاپوس، غورباقه</string>
+    <string name="Forth_page_muslim">مسلمان</string>
+    <string name="Forth_page_muslin_exclude">استثنا: خوک، سوسیس خونی، خون، پودینگ خونی، انواع الکل</string>
+
+    <string name="Fifth_page_text">به کدام یک از مادههای غذایی زیر آلرژی داری؟</string>
+    <string name="Fifth_page_gluten">گلوتن</string>
+    <string name="Fifth_page_peanuts">بادم زمنینی</string>
+    <string name="Fifth_page_egg">تخم مرغ</string>
+    <string name="Fifth_page_fish">ماهی</string>
+    <string name="Fifth_page_shellfish">غذاهای دریایی</string>
+    <string name="Fifth_page_diary">لبنیات</string>
+    <string name="Fifth_page_more">Type any more ingredient you wish(optional)</string>
+
+    <string name="Sixth_page_text">از میان بیماری های زیر به کدام یک مبتلا هستی؟</string>
+    <string name="Sixth_page_diabetes">دیابت</string>
+    <string name="Sixth_page_osteoporosis">پوکی استخوان</string>
+    <string name="Sixth_page_heart_disease">بیماری های قلبی</string>
+    <string name="Sixth_page_blood_pressure">فشار خون بالا</string>
+    <string name="Sixth_page_kidney_disease">بیماری کلیه</string>
+    <string name="Sixth_page_anemia">کم خونی</string>
+
+    <!--Bottom Nav-->
+    <string name="home">خانه</string>
+    <string name="search">جستوجو</string>
+    <string name="recipes">دستورغذایی</string>
+    <string name="profile">پروفایل</string>
+
+    <!--Home -->
+    <string name="today_meals">غذاهای امروز</string>
+    <string name="track_foods">پیگری غذا ها ></string>
+
+    <!--TODO change to days progress or remove this part entirely-->
+    <string name="weeks_progress">آنالیز هفته</string>
+    <string name="current">current</string>
+    <string name="carbohydrates">کربوهیدارت</string>
+    <string name="fat">چربی</string>
+    <string name="protein">پروتئین</string>
+    <string name="calories">کالری</string>
+
+
+    <string name="all_recipes">All Foods</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="lunch">Lunch</string>
+    <string name="snack">Snack</string>
+    <string name="dinner">Dinner</string>
+    <string name="main_course">Main Course</string>
+
+    <!--Search-->
+    <string name="see_all">مشاهده همه</string>
+    <string name="search_recipes">جستجو دستورغذایی</string>+
+    <string name="filter_meal_type_hint">نوع غذا</string>
+    <string name="filter_meal_type_all">همه</string>
+    <string name="filter_meal_type_breakfast">صبحانه</string>
+    <string name="filter_meal_type_main_course">غذای اصلی</string>
+    <string name="filter_meal_type_dessert">دسر</string>
+    <string name="filter_meal_type_appetizer">پیش غذا</string>
+    <string name="filter_meal_type_salad">سالاد</string>
+    <string name="filter_meal_type_bread">نان</string>
+    <string name="filter_meal_type_soup">سوپ</string>
+    <string name="filter_meal_type_beverage">نوشیدنی الکل دار</string>
+    <string name="filter_meal_type_sauce">سس</string>
+    <string name="filter_meal_type_finger_food">غذای انگشتی</string>
+    <string name="filter_meal_type_drink">نوشتیدنی</string>
+
+    <string name="filter_diet_type_hint">نوع رژیم</string>
+    <string name="filter_diet_type_all">همه</string>
+    <string name="filter_diet_type_vegetarian">گیاه خوار</string>
+    <string name="filter_diet_type_vegan">خام گیاه خوار</string>
+    <string name="filter_diet_type_very_healthy">veryHealthy</string>
+    <string name="filter_diet_type_glutenFree">glutenFree</string>
+    <string name="filter_diet_type_diaryFree">diaryFree</string>
+
+
+    <!--profile-->
+    <string name="your_profile">حساب کاربری شما</string>
+    <string name="edit_profile">ویرایش پروفایل</string>
+    <string name="your_preferences">انتخاب های شما</string>
+    <string name="active_level">میزان فعالیت</string>
+    <string name="diet_type">نوع رژیم</string>
+    <string name="abstract_goal">هدف کلی</string>
+    <string name="Ingredient_allergy">آلرژی به موادغذایی</string>
+    <string name="disease">بیماری</string>
+    <string name="your_Account">اکانت شما</string>
+    <string name="upgrade_to_premium">ارتقا به پلن ویژه جهت بهره مندی از همه قابلیت ها</string>
+    <string name="Logout">خروج از حساب کاربری</string>
+    <string name="general_setting">تتظیمات کلی</string>
+
+    <!--Recipes detail-->
+    <string name="detail_ingredients">مواد تکشیل دهنده</string>
+    <string name="detail_instruction">دستور پخت</string>
+    <string name="detail_full_instruction">full instruction</string>
+    <string name="detail_sample_instruction">Beat the cream cheese and mayo in a bowl with a hand mixer until creamy and spreadable, and then mix in the peanuts.</string>
+    <!--Today Foods-->
+    <string name="today_foods">غذاهای امروز</string>
+
+    <!--Analytics-->
+    <string name="analytics">Analytics</string>
+
+    <string name="next_page">صفحه بعدی</string>
+    <string name="previous_page">صفحه قبلی</string>
+
+    <string name="next">بعدی</string>
+    <string name="previous">قبلی</string>
+    <string name="finish">اتمام</string>
+
+    <string name="complete_all_parts">همه پارت ها را کامل کنید</string>
+    <string name="save">ذخیره</string>
+    <string name="calories_range">رنچ کالری</string>
+    <string name="filter_search_result">فیلتر</string>
+    <string name="generate_your_plan">برنامه خودت رو ایجاد کن</string>
+
+    <string name="appearance">ظاهر</string>
+    <string name="preference">انتنخاب</string>
+    <string name="theme">تم</string>
+    <string name="light">روشن</string>
+    <string name="dark">تیره</string>
+    <string name="system_default">مطابق دستگاه</string>
+    <string name="language">زبان</string>
+    <string name="english">انگلیسی</string>
+    <string name="persian">فارسی</string>
+
+    <string name="notification">اعلان ها</string>
+    <string name="show_notification">نمایش اعلان</string>
+    <string name="breakfast_notification">اعلان صبحانه</string>
+    <string name="lunch_notification">اعلان ناهار</string>
+    <string name="dinner_notification">اعلان شام</string>
+    <string name="snack_notification">اعلان میان وعده</string>
+
+    <string name="meal_plan">تعداد برنامه غذایی</string>
+    <string name="one_day_plan">یک روزه</string>
+    <string name="one_week_plan">یک هفته</string>
+</resources>

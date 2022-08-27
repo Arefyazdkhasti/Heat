@@ -1,11 +1,8 @@
 package com.example.heat.data.local.repository
 
 import androidx.lifecycle.LiveData
-import com.example.heat.data.data.response.NetworkDataSource
-import com.example.heat.data.datamodel.EatenMealItem
 import com.example.heat.data.datamodel.MealListItem
 import com.example.heat.data.datamodel.user.UserPreferences
-import com.example.heat.data.local.room.EatenMealDataBase
 import com.example.heat.data.local.room.MealDataBase
 import com.example.heat.data.local.room.UserPreferenceDataBase
 
@@ -31,12 +28,13 @@ class RoomRepositoryImpl(
 
     override suspend fun updateMeal(meal: MealListItem) = mealDataBase.mealDao().updateMeal(meal)
 
-    override suspend fun eatMeal(meal: MealListItem, eaten: Boolean) = mealDataBase.mealDao().eatMeal(meal.id, eaten)
+    override suspend fun eatMeal(meal: MealListItem, eaten: Boolean) =
+        mealDataBase.mealDao().eatMeal(meal.id, eaten)
 
-    override suspend fun getDayMeal(): LiveData<List<MealListItem>> =
-        mealDataBase.mealDao().getDayMeals()
+    override suspend fun getDayMeal(day:String): LiveData<List<MealListItem>> =
+        mealDataBase.mealDao().getDayMeals(day)
 
-    override suspend fun getWeekMeal(): LiveData<List<MealListItem>> =
+    override suspend fun getWeekMeal(): LiveData<List<MealListItem>>  =
         mealDataBase.mealDao().getWeekMeals()
 
     override suspend fun eatMealDBSize(): LiveData<Int> = mealDataBase.mealDao().getMealSize()

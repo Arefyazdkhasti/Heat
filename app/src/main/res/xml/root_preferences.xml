@@ -30,7 +30,7 @@
             app:defaultValue="MealPlan"
             app:entries="@array/meal_plan_entries"
             app:entryValues="@array/meal_plan_values"
-            app:key="reply"
+            app:key="mealPlan"
             app:title="@string/meal_plan"
             app:useSimpleSummaryProvider="true" />
 

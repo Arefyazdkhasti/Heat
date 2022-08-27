@@ -210,6 +210,4 @@
         <item>@string/filter_diet_type_glutenFree</item>
         <item>@string/filter_diet_type_diaryFree</item>-->
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

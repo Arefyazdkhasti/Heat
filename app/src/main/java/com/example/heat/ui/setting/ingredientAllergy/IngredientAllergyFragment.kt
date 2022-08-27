@@ -78,7 +78,6 @@ class IngredientAllergyFragment : ScopedFragment(), KodeinAware {
 
     private fun bindUI(isFromProfile: Boolean, userPreference: UserPreferences?) = launch {
         if (userPreference == null) {
-            UiUtils.showToast(requireContext(), "UserPref is null")
             return@launch
         }
 

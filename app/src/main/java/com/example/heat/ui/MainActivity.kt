@@ -104,7 +104,8 @@ class MainActivity : AppCompatActivity() {
                 destination.id == R.id.ingredientAllergyFragment||
                 destination.id == R.id.diseaseFragment||
                 destination.id == R.id.activeLevelFragment ||
-                destination.id == R.id.settingsFragment
+                destination.id == R.id.settingsFragment ||
+                destination.id == R.id.recipeDetailFragment
             ) {
                 hideBottomNavigation()
             } else {

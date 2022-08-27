@@ -81,7 +81,7 @@ class TrackFoodsViewModel(
             26,
             3,
             "TEST1",
-            "2019-08-07",
+            "2019-08-08",
             false
         )
         val test2 = MealListItem(
@@ -93,7 +93,7 @@ class TrackFoodsViewModel(
             26,
             3,
             "TEST2",
-            "2019-08-07",
+            "2019-08-08",
             false
         )
         val test3 = MealListItem(
@@ -105,7 +105,7 @@ class TrackFoodsViewModel(
             26,
             3,
             "TEST3",
-            "2019-08-07",
+            "2019-08-08",
             false
         )
         val test4 = MealListItem(
@@ -117,7 +117,7 @@ class TrackFoodsViewModel(
             26,
             3,
             "TEST4",
-            "2019-08-07",
+            "2019-08-08",
             false
         )
 
@@ -132,10 +132,12 @@ class TrackFoodsViewModel(
 
     }
 
-    val getFakeData by lazyDeferred {
-        roomRepository.getDayMeal()
+    val getFakeDataDay by lazyDeferred {
+        roomRepository.getDayMeal("2019-08-07")
     }
-
+    val getFakeDataWeek by lazyDeferred {
+        roomRepository.getWeekMeal()
+    }
 
     fun eatOrUnEatFoodToRoom(mealItem: MealListItem, eat: Boolean) {
         GlobalScope.launch {

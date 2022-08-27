@@ -1,6 +1,7 @@
 package com.example.heat.ui.custom
 
 import android.content.Context
+import android.content.res.Configuration
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
@@ -77,7 +78,7 @@ class RecipeView(
 
         recipeRecycleView.apply {
             adapter = groupAdapter
-            layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+            layoutManager = GridLayoutManager(context, if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 4 else 2, GridLayoutManager.VERTICAL, false)
         }
 
         groupAdapter.setOnItemClickListener { item, view ->

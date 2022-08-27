@@ -78,7 +78,6 @@ class ActiveLevelFragment : ScopedFragment(), KodeinAware {
 
     private fun bindUI(isFromProfile: Boolean, userPreference: UserPreferences?) = launch {
         if (userPreference == null) {
-            showToast(requireContext(), "UserPref is null")
             return@launch
         }
 

@@ -12,15 +12,20 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.preference.PreferenceManager
 import com.example.heat.BuildConfig
 import com.example.heat.R
 import com.example.heat.data.datamodel.DayListItem
 import com.example.heat.data.datamodel.MealListItem
 import com.example.heat.util.UiUtils.Companion.dataStore
+import com.example.heat.util.UiUtils.Companion.stringFromResourcesByName
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -121,11 +126,13 @@ class UiUtils {
                 userManager.storeUser(login)
             }
         }
+
+        fun getDayOrWeekFromSetting(context: Context): String{
+            val preference = PreferenceManager.getDefaultSharedPreferences(context)
+            val selectedType = preference.getString("mealPlan" , "one_day_plan")
+            return selectedType.toString()
+        }
     }
-
-
-
-
 }
 
 interface SendEvent {
