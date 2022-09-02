@@ -1,5 +1,6 @@
 package com.example.heat.ui.profile
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,10 @@ import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.lang.Exception
+import android.content.Context.ACTIVITY_SERVICE
+import android.app.ActivityManager
+import android.os.Build
 
 
 class ProfileFragment : ScopedFragment(), KodeinAware {
@@ -65,7 +70,7 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
             Gender.MALE,
             ActiveLevel.MODERATELY,
             AbstractGoal.MAINTAIN,
-            DietType.ANY_THING,
+            UserDietType.ANY_THING,
             arrayListOf(),
             arrayListOf()
         )
@@ -112,6 +117,12 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
             }
             logoutLayout.setOnClickListener {
                 showConfirmLogoutDialog()
+            }
+            neededAmountsOfNutritionLayout.setOnClickListener {
+                viewModel.dailyNutritionClicked()
+            }
+            likedFoodsLayout.setOnClickListener {
+                viewModel.likedFoodsClicked()
             }
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
@@ -175,6 +186,16 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
                             ProfileFragmentDirections.actionProfileFragmentToLoginFragment()
                         findNavController().navigate(actionAdd)
                     }
+                    is ProfileViewModel.ProfileTransactionEvent.NavigateToDailyNutritionScreen ->{
+                        val actionAdd =
+                            ProfileFragmentDirections.actionProfileFragmentToDailyNutritionFragment(userPreference,ComeFrom.PROFILE)
+                        findNavController().navigate(actionAdd)
+                    }
+                    is ProfileViewModel.ProfileTransactionEvent.NavigateToLikedFoodsScreen -> {
+                        val actionAdd =
+                            ProfileFragmentDirections.actionProfileFragmentToLikedFoodsFragment()
+                        findNavController().navigate(actionAdd)
+                    }
                 }
             }
         }.exhaustive
@@ -186,11 +207,13 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
         dialog.apply {
             setTitle("Logout")
             setIcon(R.drawable.ic_logout)
-            setMessage("Do you really want to logout of your account?")
+            setMessage("Do you really want to logout of your account? This action will delete all your local data.")
             setPositiveButton(
                 "Yes"
             ) { dialogInterface, i ->
                 dialogInterface.dismiss()
+                context.cacheDir.deleteRecursively()
+               //TODO clearAppData() crash the app as well
                 saveUserLoginStatusToDataStore(requireContext(),false)
                 viewModel.logoutClicked()
             }
@@ -202,4 +225,19 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
             show()
         }
     }
+    private fun clearAppData() {
+        try {
+            // clearing app data
+            if (Build.VERSION_CODES.KITKAT <= Build.VERSION.SDK_INT) {
+                (requireContext().getSystemService(ACTIVITY_SERVICE) as ActivityManager?)!!.clearApplicationUserData() // note: it has a return value!
+            } else {
+                val packageName: String = requireContext().packageName
+                val runtime = Runtime.getRuntime()
+                runtime.exec("pm clear $packageName")
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
 }

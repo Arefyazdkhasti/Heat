@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView
-import com.example.heat.data.datamodel.recipeDetail.ExtendedIngredient
-import com.example.heat.data.datamodel.recipeDetail.NutrientX
-import com.example.heat.data.datamodel.recipeDetail.Step
+import com.example.heat.data.datamodel.food.foodDetail.Ingredient
+import com.example.heat.data.datamodel.food.foodDetail.InstructionStep
+import com.example.heat.data.datamodel.food.foodDetail.Nutrient
 import com.example.heat.databinding.FragmentRecipeDetailBinding
 import com.example.heat.ui.MainActivity
 import com.example.heat.ui.base.ScopedFragment
@@ -21,8 +22,12 @@ import com.example.heat.ui.itemRecyclerView.IngredientItemRecyclerView
 import com.example.heat.ui.itemRecyclerView.InstructionItemRecyclerView
 import com.example.heat.ui.itemRecyclerView.NutritionItemRecyclerView
 import com.example.heat.util.UiUtils
+import com.example.heat.util.UiUtils.Companion.dataStore
+import com.example.heat.util.UiUtils.Companion.showToast
+import com.example.heat.util.UserIDManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
@@ -62,34 +67,45 @@ class RecipeDetailFragment : ScopedFragment(), KodeinAware {
 
     @SuppressLint("SetTextI18n")
     private fun bindUI() = launch {
+        viewModel.setUserID(getUserIDFromDataStore())
+
         val recipeDetail = viewModel.recipeDetail.await()
         binding.backArrow.setOnClickListener {
             requireActivity().onBackPressed()
         }
+        binding.recipeLikeIcon.setOnClickListener {
+            sendLikeRequest()
+        }
+
+        viewModel.isFoodLiked.await()?.observe(viewLifecycleOwner, Observer {
+            if( it != null){
+                binding.recipeLikeIcon.isChecked = it.isLiked
+            }
+        })
         recipeDetail.observe(viewLifecycleOwner, Observer { recipe ->
             binding.apply {
 
 
                 UiUtils.setImageWithGlideWithContext(
-                    requireContext(), recipe.image, recipeImage
+                    requireContext(), recipe.imageLink, recipeImage
                 )
                 recipeTitle.text = recipe.title
 
                 val info =
-                    "${recipe.readyInMinutes} min ${recipe.nutrition.nutrients[0].amount} ${recipe.nutrition.nutrients[0].unit} per Serving"
+                    "${recipe.readyInMinute} min ${recipe.nutrients[0].amount} ${recipe.nutrients[0].unit} per Serving"
                 recipeMinAndCalInformation.text = info
 
                 initIngredientsRecyclerView(
                     recipeIngredientRecyclerView,
-                    recipe.extendedIngredients
+                    recipe.ingredients
                 )
 
-                initNutritionRecyclerView(recipeNutritionRecyclerView, recipe.nutrition.nutrients)
+                initNutritionRecyclerView(recipeNutritionRecyclerView, recipe.nutrients)
 
-                if (recipe.analyzedInstructions.isNotEmpty())
+                if (recipe.instructionSteps.isNotEmpty())
                     iniInstructionRecyclerView(
                         recipeInstructionRecyclerView,
-                        recipe.analyzedInstructions[0].steps
+                        recipe.instructionSteps
                     )
                 else {
                     recipeInstructionRecyclerView.visibility = View.GONE
@@ -99,10 +115,16 @@ class RecipeDetailFragment : ScopedFragment(), KodeinAware {
         })
     }
 
+    private fun sendLikeRequest() = launch{
+        viewModel.likeFood.await()?.observe(viewLifecycleOwner, Observer {
+            showToast(requireContext(),"${it.status} the food ")
+        })
+    }
+
     //ingredients recyclerView
     private fun initIngredientsRecyclerView(
         recyclerView: ShimmerRecyclerView,
-        data: List<ExtendedIngredient>
+        data: List<Ingredient>
     ) {
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
             addAll(data.toIngredientsListItems())
@@ -115,14 +137,14 @@ class RecipeDetailFragment : ScopedFragment(), KodeinAware {
         recyclerView.hideShimmerAdapter()
     }
 
-    private fun List<ExtendedIngredient>.toIngredientsListItems(): List<IngredientItemRecyclerView> =
+    private fun List<Ingredient>.toIngredientsListItems(): List<IngredientItemRecyclerView> =
         this.map {
             IngredientItemRecyclerView(it)
         }
 
     //Nutrition recyclerView
     private fun initNutritionRecyclerView(
-        recyclerView: ShimmerRecyclerView, data: List<NutrientX>
+        recyclerView: ShimmerRecyclerView, data: List<Nutrient>
     ) {
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
             addAll(data.toNutritionListItems())
@@ -135,14 +157,18 @@ class RecipeDetailFragment : ScopedFragment(), KodeinAware {
         recyclerView.hideShimmerAdapter()
     }
 
-    private fun List<NutrientX>.toNutritionListItems(): List<NutritionItemRecyclerView> = this.map {
+    private fun List<Nutrient>.toNutritionListItems(): List<NutritionItemRecyclerView> = this.map {
         NutritionItemRecyclerView(it)
     }
 
     //Instruction recyclerView
-    private fun iniInstructionRecyclerView(recyclerView: ShimmerRecyclerView, data: List<Step>) {
+    private fun iniInstructionRecyclerView(
+        recyclerView: ShimmerRecyclerView,
+        data: List<InstructionStep>
+    ) {
+        val sorted :List<InstructionStep> = data.sortedBy { it.number}
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
-            addAll(data.toInstructionListItems())
+            addAll(sorted.toInstructionListItems())
         }
 
         recyclerView.apply {
@@ -152,13 +178,28 @@ class RecipeDetailFragment : ScopedFragment(), KodeinAware {
         recyclerView.hideShimmerAdapter()
     }
 
-    private fun List<Step>.toInstructionListItems(): List<InstructionItemRecyclerView> = this.map {
-        InstructionItemRecyclerView(it)
-    }
+    private fun List<InstructionStep>.toInstructionListItems(): List<InstructionItemRecyclerView> =
+        this.map {
+            InstructionItemRecyclerView(it)
+        }
 
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun getUserIDFromDataStore(): Int {
+        val dataStore = context?.dataStore
+        var id = 0
+        if (dataStore != null) {
+            val userManager = UserIDManager(dataStore)
+            userManager.userIDFlow.asLiveData().observe(viewLifecycleOwner, {
+                if (it != null) {
+                    id = it
+                }
+            })
+        }
+        return id
     }
 }

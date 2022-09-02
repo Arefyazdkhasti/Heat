@@ -26,6 +26,8 @@
             android:textSize="@dimen/standard_font"
             android:gravity="center"
             android:padding="@dimen/small_margin"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="300"
             android:textColor="@color/gray900"
             tools:text="Carbohydrates : 332" />
 

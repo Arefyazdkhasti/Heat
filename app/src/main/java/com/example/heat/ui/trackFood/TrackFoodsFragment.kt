@@ -5,21 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.example.heat.data.datamodel.DayListItem
-import com.example.heat.data.datamodel.MealListItem
+import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 import com.example.heat.databinding.FragmentTrackFoodsBinding
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.itemRecyclerView.DayPlanItemRecyclerView
-import com.example.heat.ui.recipes.RecipesFragmentDirections
 import com.example.heat.util.SendEvent
-import com.example.heat.util.UiUtils
 import com.example.heat.util.UiUtils.Companion.getDayOrWeekFromSetting
 import com.example.heat.util.UiUtils.Companion.stringFromResourcesByName
 import com.xwray.groupie.GroupAdapter
@@ -39,7 +35,7 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
     private val binding
         get() = _binding!!
 
-    private val requestList = arrayListOf<Pair<Boolean, MealListItem>>()
+    private val requestList = arrayListOf<Pair<Boolean, FoodSummery>>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,55 +66,55 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
             requireActivity().onBackPressed()
         }
 
-        viewModel.loadFakeDateToRoom()
-
 
 
         when {
-            getDayOrWeekFromSetting(requireContext()) == requireContext().stringFromResourcesByName("one_day_plan") -> {
-                viewModel.getFakeDataDay.await().observe(viewLifecycleOwner, Observer {
+            getDayOrWeekFromSetting(requireContext()) == requireContext().stringFromResourcesByName(
+                "one_week_plan"
+            ) -> {
+                viewModel.getWeekMeals.await().observe(viewLifecycleOwner, Observer {
                     val data: ArrayList<DayListItem> = arrayListOf()
 
                     var i = 0
+                    var index = 0
                     while (i + 3 < it.size) {
-                        val list: ArrayList<MealListItem> = arrayListOf()
+                        val list: ArrayList<FoodSummery> = arrayListOf()
 
                         list.addAll(it.slice(i..i + 3))
-                        data.add(DayListItem(list))
+                        list[0].mealLabel = "Breakfast"
+                        list[1].mealLabel = "Lunch"
+                        list[2].mealLabel = "Dinner"
+                        list[3].mealLabel = "Snack"
+                        data.add(DayListItem(list[0],list[1],list[2],list[3]))
                         i += 4
-                    }
-                    initRecyclerView(binding.mealRecyclerView, listOf(data[0]))
-                })
-            }
-            getDayOrWeekFromSetting(requireContext()) == requireContext().stringFromResourcesByName("one_week_plan") -> {
-                viewModel.getFakeDataWeek.await().observe(viewLifecycleOwner, Observer {
-                    val data: ArrayList<DayListItem> = arrayListOf()
-
-                    var i = 0
-                    while (i + 3 < it.size) {
-                        val list: ArrayList<MealListItem> = arrayListOf()
-
-                        list.addAll(it.slice(i..i + 3))
-                        data.add(DayListItem(list))
-                        i += 4
+                        index++
                     }
                     initRecyclerView(binding.mealRecyclerView, data)
                 })
             }
             else -> {
-                viewModel.getFakeDataDay.await().observe(viewLifecycleOwner, Observer {
-                    val data: ArrayList<DayListItem> = arrayListOf()
+                viewModel.getDayMeals.await().observe(viewLifecycleOwner, Observer {
+                    if (it != null) {
+                        if (it.isNotEmpty()) {
+                            val data: ArrayList<DayListItem> = arrayListOf()
+                            var i = 0
+                            var index = 0
+                            while (i + 3 < it.size) {
+                                val list: ArrayList<FoodSummery> = arrayListOf()
 
-                    var i = 0
-                    while (i + 3 < it.size) {
-                        val list: ArrayList<MealListItem> = arrayListOf()
-
-                        list.addAll(it.slice(i..i + 3))
-                        data.add(DayListItem(list))
-                        i += 4
+                                list.addAll(it.slice(i..i + 3))
+                                list[0].mealLabel = "Breakfast"
+                                list[1].mealLabel = "Lunch"
+                                list[2].mealLabel = "Dinner"
+                                list[3].mealLabel = "Snack"
+                                data.add(DayListItem(list[0],list[1],list[2],list[3]))
+                                i += 4
+                                index++
+                            }
+                            if (data.isNotEmpty())
+                                initRecyclerView(binding.mealRecyclerView, listOf(data[0]))
+                        }
                     }
-                    if (data.isNotEmpty())
-                        initRecyclerView(binding.mealRecyclerView, listOf(data[0]))
                 })
             }
         }
@@ -151,22 +147,29 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
     }
 
     private fun List<DayListItem>.toDayListItems(): List<DayPlanItemRecyclerView> = this.map {
+
         DayPlanItemRecyclerView(it, this@TrackFoodsFragment)
     }
 
-    override fun sendCheckedStatus(check: Boolean, meal: MealListItem) {
+    override fun sendCheckedStatus(check: Boolean, meal: FoodSummery) {
         requestList.add(Pair(check, meal))
     }
 
     override fun sendWholeCheckedStatus(check: Boolean, day: DayListItem) {
-        for (meal in day.dayPlan)
-            requestList.add(Pair(check, meal))
-        //viewModel.eatOrUnEatFoodToRoom(meal, check)
+        requestList.add(Pair(check, day.breakFast))
+        requestList.add(Pair(check, day.lunch))
+        requestList.add(Pair(check, day.dinner))
+        requestList.add(Pair(check, day.snack))
     }
 
     override fun sendOneMealUnChecked() {
 
     }
 
+    override fun regenerateOneMeal(meal: FoodSummery) {
+    }
 
+    override fun regenerateWholePlan(plan: DayListItem) {
+
+    }
 }

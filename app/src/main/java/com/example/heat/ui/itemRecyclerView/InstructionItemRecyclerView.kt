@@ -3,16 +3,12 @@ package com.example.heat.ui.itemRecyclerView
 import android.util.Log
 import com.bumptech.glide.Glide
 import com.example.heat.R
-import com.example.heat.data.datamodel.recipeDetail.Step
-import com.example.heat.data.datamodel.recipeList.RecipeListItem
+import com.example.heat.data.datamodel.food.foodDetail.InstructionStep
 import com.example.heat.databinding.InstructionItemBinding
-import com.example.heat.databinding.RecipeItemBinding
-import com.example.heat.util.UiUtils
-import com.example.heat.util.UiUtils.Companion.setImageWithGlideWithView
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 
-class InstructionItemRecyclerView(val instruction: Step) : Item<GroupieViewHolder>() {
+class InstructionItemRecyclerView(val instruction: InstructionStep) : Item<GroupieViewHolder>() {
 
 
     override fun getLayout(): Int = R.layout.instruction_item

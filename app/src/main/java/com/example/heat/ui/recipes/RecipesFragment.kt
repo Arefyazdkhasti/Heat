@@ -4,12 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.heat.data.datamodel.recipeList.RecipeListItem
 import com.example.heat.databinding.FragmentRecipesBinding
 import com.example.heat.ui.base.ScopedFragment
-import com.example.heat.util.enumerian.NavigateAction
 import kotlinx.coroutines.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
@@ -46,7 +43,7 @@ class RecipesFragment : ScopedFragment(), KodeinAware {
         bindUI()
     }
 
-    @DelicateCoroutinesApi
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory).get(RecipesViewModel::class.java)
@@ -59,7 +56,7 @@ class RecipesFragment : ScopedFragment(), KodeinAware {
     }
     private fun bindUI() = launch {
 
-        val allRecipesList = viewModel.allRecipeList.await()
+        /*val allRecipesList = viewModel.allRecipeList.await()
 
         allRecipesList.observe(viewLifecycleOwner, Observer { allList ->
             if(allList == null) return@Observer
@@ -91,10 +88,10 @@ class RecipesFragment : ScopedFragment(), KodeinAware {
 
             initRecyclerViewMainCourse(mainCourseList.results)
 
-        })
+        })*/
     }
 
-    private fun initRecyclerViewAll(items: List<RecipeListItem>) {
+    /*private fun initRecyclerViewAll(items: List<RecipeListItem>) {
         binding?.allRecipesListView?.initRecycler(items, ALL , NavigateAction.SEE_ALL)
     }
 
@@ -109,7 +106,7 @@ class RecipesFragment : ScopedFragment(), KodeinAware {
 
     private fun initRecyclerViewMainCourse(items: List<RecipeListItem>) {
         binding?.mainCourseRecipesListView?.initRecycler(items, MAIN_COURSE, NavigateAction.SEE_ALL)
-    }
+    }*/
 
 
     override fun onDestroyView() {

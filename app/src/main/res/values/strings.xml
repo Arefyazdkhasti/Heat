@@ -76,6 +76,7 @@
     <string name="Sixth_page_kidney_disease">Kidney Disease</string>
     <string name="Sixth_page_anemia">Anemia</string>
 
+    <string name="Seventh_page_text">Our Daily Nutrition Suggestion</string>
     <!--Bottom Nav-->
     <string name="home">Home</string>
     <string name="search">Search</string>
@@ -90,6 +91,7 @@
     <string name="weeks_progress">Weeks Progress</string>
     <string name="current">current</string>
     <string name="carbohydrates">Carbohydrates</string>
+    <string name="carbo">Carbs</string>
     <string name="fat">Fat</string>
     <string name="protein">Protein</string>
     <string name="calories">Calories</string>
@@ -127,6 +129,33 @@
     <string name="filter_diet_type_glutenFree">glutenFree</string>
     <string name="filter_diet_type_diaryFree">diaryFree</string>
 
+    <string name="filter_cuisine_type_hint">Cuisine</string>
+    <string name="filter_cuisine_type_asian">Asian</string>
+    <string name="filter_cuisine_type_african">African</string>
+    <string name="filter_cuisine_type_american">American</string>
+    <string name="filter_cuisine_type_british">British</string>
+    <string name="filter_cuisine_type_chinese">Chinese</string>
+    <string name="filter_cuisine_type_ee">EasternEuropean</string>
+    <string name="filter_cuisine_type_ca">CentralAmerican</string>
+    <string name="filter_cuisine_type_european">European</string>
+    <string name="filter_cuisine_type_french">French</string>
+    <string name="filter_cuisine_type_german">German</string>
+    <string name="filter_cuisine_type_greek">Greek</string>
+    <string name="filter_cuisine_type_indian">Indian</string>
+    <string name="filter_cuisine_type_irish">Irish</string>
+    <string name="filter_cuisine_type_italian">Italian</string>
+    <string name="filter_cuisine_type_japanese">Japanese</string>
+    <string name="filter_cuisine_type_jewish">Jewish</string>
+    <string name="filter_cuisine_type_korean">Korean</string>
+    <string name="filter_cuisine_type_la">LatinAmerican</string>
+    <string name="filter_cuisine_type_mediterranean">Mediterranean</string>
+    <string name="filter_cuisine_type_mexican">Mexican</string>
+    <string name="filter_cuisine_type_me">MiddleEastern</string>
+    <string name="filter_cuisine_type_nordic">Nordic</string>
+    <string name="filter_cuisine_type_sa">SouthAmerican</string>
+    <string name="filter_cuisine_type_spanish">Spanish</string>
+    <string name="filter_cuisine_type_thai">Thai</string>
+    <string name="filter_cuisine_type_vietnamese">Vietnamese</string>
 
     <!--profile-->
     <string name="your_profile">Your Profile</string>
@@ -137,6 +166,7 @@
     <string name="abstract_goal">Abstract Goal</string>
     <string name="Ingredient_allergy">Ingredient Allergy</string>
     <string name="disease">Disease</string>
+    <string name="daily_nutrition">Daily Nutrition</string>
     <string name="your_Account">Your Account</string>
     <string name="upgrade_to_premium">Upgrade to Premium for more features</string>
     <string name="Logout">Logout</string>
@@ -159,9 +189,11 @@
     <string name="next">Next </string>
     <string name="previous">Previous</string>
     <string name="finish">Finish</string>
+    <string name="get_started">Get Started</string>
 
     <string name="complete_all_parts">Complete All Parts</string>
     <string name="save">save</string>
+    <string name="filter_recipes">Filter Recipes</string>
     <string name="calories_range">Calories Range</string>
     <string name="filter_search_result">Filter</string>
     <string name="generate_your_plan">Generate Your Plan</string>
@@ -210,4 +242,36 @@
         <item>@string/filter_diet_type_glutenFree</item>
         <item>@string/filter_diet_type_diaryFree</item>-->
     </string-array>
+
+    <string-array name="cuisine_type">
+        <item>@string/filter_cuisine_type_asian</item>
+        <item>@string/filter_cuisine_type_african</item>
+        <item>@string/filter_cuisine_type_american</item>
+        <item>@string/filter_cuisine_type_british</item>
+        <item>@string/filter_cuisine_type_chinese</item>
+        <item>@string/filter_cuisine_type_ee</item>
+        <item>@string/filter_cuisine_type_ca</item>
+        <item>@string/filter_cuisine_type_european</item>
+        <item>@string/filter_cuisine_type_french</item>
+        <item>@string/filter_cuisine_type_german</item>
+        <item>@string/filter_cuisine_type_greek</item>
+        <item>@string/filter_cuisine_type_indian</item>
+        <item>@string/filter_cuisine_type_irish</item>
+        <item>@string/filter_cuisine_type_italian</item>
+        <item>@string/filter_cuisine_type_japanese</item>
+        <item>@string/filter_cuisine_type_jewish</item>
+        <item>@string/filter_cuisine_type_korean</item>
+        <item>@string/filter_cuisine_type_la</item>
+        <item>@string/filter_cuisine_type_mediterranean</item>
+        <item>@string/filter_cuisine_type_mexican</item>
+        <item>@string/filter_cuisine_type_me</item>
+        <item>@string/filter_cuisine_type_nordic</item>
+        <item>@string/filter_cuisine_type_sa</item>
+        <item>@string/filter_cuisine_type_spanish</item>
+        <item>@string/filter_cuisine_type_thai</item>
+        <item>@string/filter_cuisine_type_vietnamese</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="liked_recipes">Liked Recipes</string>
 </resources>

@@ -1,12 +1,12 @@
 package com.example.heat.ui.itemRecyclerView
 
 import com.example.heat.R
-import com.example.heat.data.datamodel.recipeDetail.NutrientX
+import com.example.heat.data.datamodel.food.foodDetail.Nutrient
 import com.example.heat.databinding.NutritionItemBinding
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 
-class NutritionItemRecyclerView(val nutrient: NutrientX) : Item<GroupieViewHolder>() {
+class NutritionItemRecyclerView(val nutrient: Nutrient) : Item<GroupieViewHolder>() {
 
 
     override fun getLayout(): Int = R.layout.nutrition_item

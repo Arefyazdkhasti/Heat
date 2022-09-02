@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.likedRecipes.LikedFoodsFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_margin="@dimen/standard_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back_black"
+        />
+
+    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+        android:id="@+id/searched_recipes_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/standard_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back_arrow"
+        app:shimmer_demo_angle="20"
+        app:shimmer_demo_grid_child_count="6"
+        app:shimmer_demo_layout_manager_type="linear_vertical"
+        app:spanCount="2"
+        tools:itemCount="5"
+        tools:listitem="@layout/recipe_item_horizontal"
+        android:layout_gravity="center_horizontal"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

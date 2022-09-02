@@ -1,47 +1,43 @@
 package com.example.heat.ui.search
 
-import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.GridLayoutManager
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView
-import com.example.heat.data.datamodel.recipeList.RecipeListItem
 import com.example.heat.databinding.FragmentSearchBinding
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.itemRecyclerView.RecipeItemRecyclerView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 
 import androidx.core.widget.doOnTextChanged
-import com.arlib.floatingsearchview.FloatingSearchView
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.observe
 import com.example.heat.data.datamodel.SearchQuery
 import com.example.heat.util.enumerian.DietType
 import com.example.heat.util.enumerian.MealType
 
 import com.example.heat.util.*
-import android.app.Dialog
 
-import android.view.Gravity
-import android.view.ViewGroup.MarginLayoutParams
-import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.heat.R
+import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 import com.example.heat.databinding.FilterBottomSheetDialogBinding
+import com.example.heat.util.UiUtils.Companion.dataStore
 import com.example.heat.util.UiUtils.Companion.showToast
+import com.example.heat.util.enumerian.Cuisine
 import com.example.heat.util.enumerian.RecipeViewType
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
@@ -78,24 +74,25 @@ class SearchFragment : ScopedFragment(), KodeinAware {
     //TODO change the logics to mvvm style with sealed class in viewModel
     private fun bindUI() = launch {
         var searchQuery = SearchQuery(
+            Cuisine.NONE,
+            dietType = DietType.NONE,
             "",
-            dietType = DietType.ANY_THING,
-            mealType = MealType.all,
-            0,
-            10000
+            1700,
+            mealType = MealType.NONE,
+            0
         )
 
         val recipesListAtFirst = viewModel.recipesListAtFirst.await()
 
         recipesListAtFirst.observe(viewLifecycleOwner, Observer { list ->
             if (list == null) return@Observer
-            initRecyclerView(binding.searchedRecipesRecyclerView, list.results)
+            initRecyclerView(binding.searchedRecipesRecyclerView, list)
         })
 
         binding.apply {
             //TODO make change when submit query instead of while typing
             floatingSearchView.setOnQueryChangeListener { oldQuery, newQuery ->
-                searchQuery.query = newQuery
+                searchQuery.keyword = newQuery
                 updaterSearchQuery(searchQuery)
             }
             filterSearch.setOnClickListener {
@@ -108,48 +105,53 @@ class SearchFragment : ScopedFragment(), KodeinAware {
 
     private fun getMealType(text: String?): MealType {
         return when (text) {
-            MealType.all.toString() -> MealType.all
-            MealType.breakfast.toString() -> MealType.breakfast
-            MealType.main_course.toString() -> MealType.main_course
-            MealType.dessert.toString() -> MealType.dessert
-            MealType.appetizer.toString() -> MealType.appetizer
-            MealType.salad.toString() -> MealType.salad
-            MealType.bread.toString() -> MealType.bread
-            MealType.soup.toString() -> MealType.soup
-            MealType.beverage.toString() -> MealType.beverage
-            MealType.sauce.toString() -> MealType.sauce
-            MealType.fingerfood.toString() -> MealType.fingerfood
-            MealType.drink.toString() -> MealType.drink
-            else -> MealType.all
+            MealType.NONE.toString() -> MealType.NONE
+            MealType.BREAKFAST.toString() -> MealType.BREAKFAST
+            MealType.MAIN_COURSE.toString() -> MealType.MAIN_COURSE
+            MealType.DESSERT.toString() -> MealType.DESSERT
+            MealType.APPETIZER.toString() -> MealType.APPETIZER
+            MealType.SALAD.toString() -> MealType.SALAD
+            MealType.BREAD.toString() -> MealType.BREAD
+            MealType.SOUP.toString() -> MealType.SOUP
+            MealType.BEVERAGE.toString() -> MealType.BEVERAGE
+            MealType.SAUCE.toString() -> MealType.SAUCE
+            MealType.FINGER_FOOD.toString() -> MealType.FINGER_FOOD
+            MealType.DRINK.toString() -> MealType.DRINK
+            MealType.SNACK.toString() -> MealType.SNACK
+            MealType.SIDE_DISH.toString() -> MealType.SIDE_DISH
+            else -> MealType.NONE
         }
     }
 
     private fun getDietType(text: String?): DietType {
         return when (text) {
-            DietType.ANY_THING.toString() -> DietType.ANY_THING
-            DietType.Vegetarian.toString() -> DietType.Vegetarian
-            DietType.Vegan.toString() -> DietType.Vegan
-            else -> DietType.ANY_THING
+            DietType.NONE.toString() -> DietType.NONE
+            DietType.VEGETARIAN.toString() -> DietType.VEGETARIAN
+            DietType.VEGAN.toString() -> DietType.VEGAN
+            DietType.NOT_HALAL.toString() -> DietType.NOT_HALAL
+            DietType.NOT_KOSHER.toString() -> DietType.NOT_KOSHER
+            DietType.DAIRY_FREE.toString() -> DietType.DAIRY_FREE
+            DietType.GLUTEN_FREE.toString() -> DietType.GLUTEN_FREE
+            else -> DietType.NONE
         }
     }
 
     private fun initRecyclerView(
         recyclerView: ShimmerRecyclerView,
-        data: List<RecipeListItem>
+        data: List<FoodSummery>
     ) {
 
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
             addAll(data.toRecipeListItems())
         }
-        /*val size =
-            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 4 else 2
-        val myLayoutManager = GridLayoutManager(context, size, GridLayoutManager.VERTICAL, false)*/
 
         val swipeHandler = object : SwipeToLikeCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                //val adapter = recipeRecycleView.adapter
-                //todo send like to server
-                showToast(requireContext(), "Swiped ${viewHolder.itemView.id}")
+                val position = viewHolder.adapterPosition;
+                val recipeSwiped = data[position]
+
+                viewModel.setUserID(getUserIDFromDataStore(), recipeSwiped.id)
+                sendLikeRequest()
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
@@ -157,13 +159,13 @@ class SearchFragment : ScopedFragment(), KodeinAware {
 
         recyclerView.apply {
             adapter = groupAdapter
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
 
         groupAdapter.setOnItemClickListener { item, view ->
             (item as? RecipeItemRecyclerView)?.let {
                 val actionRecipeDetail =
-                    SearchFragmentDirections.sendRecipeIdFromSearch(it.recipeItem.id)
+                    SearchFragmentDirections.sendRecipeIdFromSearch(it.foodSummery.id)
                 Navigation.findNavController(view).navigate(actionRecipeDetail)
             }
         }
@@ -171,7 +173,13 @@ class SearchFragment : ScopedFragment(), KodeinAware {
         recyclerView.hideShimmerAdapter()
     }
 
-    private fun List<RecipeListItem>.toRecipeListItems(): List<RecipeItemRecyclerView> = this.map {
+    private fun sendLikeRequest() = launch{
+        viewModel.likeFood.await()?.observe(viewLifecycleOwner, Observer {
+            Log.i("LIKE_FROM_SEARCH", "food liked -> ${it.status}")
+        })
+    }
+
+    private fun List<FoodSummery>.toRecipeListItems(): List<RecipeItemRecyclerView> = this.map {
         RecipeItemRecyclerView(it, RecipeViewType.LARGE)
     }
 
@@ -184,11 +192,25 @@ class SearchFragment : ScopedFragment(), KodeinAware {
         viewModel.recipesListFiltered.observe(viewLifecycleOwner, Observer { list ->
             if (list == null) return@Observer
 
-            initRecyclerView(binding.searchedRecipesRecyclerView, list.results)
+            initRecyclerView(binding.searchedRecipesRecyclerView, list)
         })
     }
 
-    private fun showFilterBottomDialog(searchQuery: SearchQuery):SearchQuery{
+    private fun getUserIDFromDataStore(): Int {
+        val dataStore = context?.dataStore
+        var id = 0
+        if (dataStore != null) {
+            val userManager = UserIDManager(dataStore)
+            userManager.userIDFlow.asLiveData().observe(viewLifecycleOwner, {
+                if (it != null) {
+                    id = it
+                }
+            })
+        }
+        return id
+    }
+
+    private fun showFilterBottomDialog(searchQuery: SearchQuery): SearchQuery {
 
         val inflater = LayoutInflater.from(requireContext())
         val dialog = BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogTheme)
@@ -201,8 +223,12 @@ class SearchFragment : ScopedFragment(), KodeinAware {
             //setData from former searchQuery
             dietType.setText(searchQuery.dietType.toString())
             mealType.setText(searchQuery.mealType.toString())
+            cuisineType.setText(searchQuery.cuisine.toString())
             //TODO range slider did not set former values
-            rangeSlider.setValues(searchQuery.minCalorie.toFloat(), searchQuery.maxCalorie.toFloat())
+            rangeSlider.setValues(
+                searchQuery.minCalorie.toFloat(),
+                searchQuery.maxCalorie.toFloat()
+            )
 
             val _dietType = resources.getStringArray(R.array.diet_type)
             val arrayAdapterDiet = ArrayAdapter(requireContext(), R.layout.dropdown_item, _dietType)
@@ -212,9 +238,14 @@ class SearchFragment : ScopedFragment(), KodeinAware {
             val arrayAdapterMeal = ArrayAdapter(requireContext(), R.layout.dropdown_item, _mealType)
             mealType.setAdapter(arrayAdapterMeal)
 
+            val _cuisineType = resources.getStringArray(R.array.cuisine_type)
+            val arrayAdapterCuisine = ArrayAdapter(requireContext(), R.layout.dropdown_item, _cuisineType)
+            cuisineType.setAdapter(arrayAdapterCuisine)
+
             //no pop up keyboard on focus
             dietType.showSoftInputOnFocus = false
             mealType.showSoftInputOnFocus = false
+            cuisineType.showSoftInputOnFocus = false
 
             mealType.doOnTextChanged { text, start, count, after ->
                 searchQuery.mealType = getMealType(text.toString())
@@ -223,6 +254,11 @@ class SearchFragment : ScopedFragment(), KodeinAware {
             dietType.doOnTextChanged { text, start, count, after ->
                 searchQuery.dietType = getDietType(text.toString())
             }
+
+            cuisineType.doOnTextChanged { text, start, count, after ->
+                searchQuery.cuisine = Cuisine.valueOf(text.toString())
+            }
+
             searchQuery.minCalorie = rangeSlider.values[0].toInt()
             searchQuery.maxCalorie = rangeSlider.values[1].toInt()
 

@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/load" />
+            app:srcCompat="@drawable/healthy_food_placeholder" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/back_arrow"
@@ -42,7 +42,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recipe_image"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/recipe_detail_bg" />
+            app:srcCompat="@drawable/recipe_detail_bg"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="500"/>
 
 
         <RelativeLayout
@@ -65,6 +67,8 @@
                 android:layout_toStartOf="@id/recipe_like_icon"
                 android:textColor="@color/gray900"
                 android:textSize="@dimen/mega_font"
+                android:fontFamily="@font/kanit_font_family"
+                android:textFontWeight="700"
                 android:textStyle="bold"
                 tools:text="Pepperoni Pizza Pepperoni Pdddd" />
 
@@ -93,6 +97,8 @@
             android:layout_marginTop="@dimen/large_margin"
             android:textColor="@color/gray100"
             android:textSize="@dimen/large_font"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="300"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recipe_layout"
             tools:text="15 min 650 calories per serving" />
@@ -154,6 +160,8 @@
             android:textColor="@color/gray900"
             android:textSize="@dimen/twenty_font"
             android:textStyle="bold"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="500"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recipe_ingredient_recyclerView" />
 

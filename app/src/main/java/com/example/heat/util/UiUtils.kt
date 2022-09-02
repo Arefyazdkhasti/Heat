@@ -12,20 +12,15 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.preference.PreferenceManager
 import com.example.heat.BuildConfig
 import com.example.heat.R
 import com.example.heat.data.datamodel.DayListItem
-import com.example.heat.data.datamodel.MealListItem
-import com.example.heat.util.UiUtils.Companion.dataStore
-import com.example.heat.util.UiUtils.Companion.stringFromResourcesByName
+import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -62,14 +57,14 @@ class UiUtils {
         fun setImageWithGlideWithView(view: View, url: String, imageView: ImageView) {
             GlideApp.with(view)
                 .load(url)
-                .placeholder(R.drawable.load)
+                .placeholder(R.drawable.healthy_food_placeholder)
                 .into(imageView)
         }
 
         fun setImageWithGlideWithContext(context: Context, url: String, imageView: ImageView) {
             GlideApp.with(context)
                 .load(url)
-                .placeholder(R.drawable.load)
+                .placeholder(R.drawable.healthy_food_placeholder)
                 .into(imageView)
         }
 
@@ -127,16 +122,27 @@ class UiUtils {
             }
         }
 
+        @DelicateCoroutinesApi
+        fun saveUserIDToDataStore(context: Context, id:Int) {
+            val dataStore = context.dataStore
+            val userManager = UserIDManager(dataStore)
+            GlobalScope.launch {
+                userManager.storeUserID(id)
+            }
+        }
+
         fun getDayOrWeekFromSetting(context: Context): String{
             val preference = PreferenceManager.getDefaultSharedPreferences(context)
-            val selectedType = preference.getString("mealPlan" , "one_day_plan")
+            val selectedType = preference.getString("mealPlan" , "one_week_plan")
             return selectedType.toString()
         }
     }
 }
 
 interface SendEvent {
-    fun sendCheckedStatus(check: Boolean, meal: MealListItem)
+    fun sendCheckedStatus(check: Boolean, meal: FoodSummery)
     fun sendWholeCheckedStatus(check: Boolean, day: DayListItem)
     fun sendOneMealUnChecked()
+    fun regenerateOneMeal(meal: FoodSummery)
+    fun regenerateWholePlan(plan: DayListItem)
 }

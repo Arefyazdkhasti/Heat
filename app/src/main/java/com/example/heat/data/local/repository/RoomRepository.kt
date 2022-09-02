@@ -1,8 +1,7 @@
 package com.example.heat.data.local.repository
 
 import androidx.lifecycle.LiveData
-import com.example.heat.data.datamodel.EatenMealItem
-import com.example.heat.data.datamodel.MealListItem
+import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 import com.example.heat.data.datamodel.user.UserPreferences
 
 interface RoomRepository {
@@ -14,11 +13,11 @@ interface RoomRepository {
     suspend fun getUserPreference() : LiveData<UserPreferences>
 
     //meal
-    suspend fun insertMeal(meal : MealListItem)
-    suspend fun deleteMeal(meal : MealListItem)
-    suspend fun updateMeal(meal : MealListItem)
-    suspend fun eatMeal(meal : MealListItem, eaten:Boolean)
-    suspend fun getDayMeal(day:String) : LiveData<List<MealListItem>>
-    suspend fun getWeekMeal() : LiveData<List<MealListItem>>
+    suspend fun insertMeal(meal : FoodSummery)
+    suspend fun deleteMeal(meal : FoodSummery)
+    suspend fun updateMeal(meal : FoodSummery)
+    suspend fun eatMeal(meal : FoodSummery, eaten:Boolean)
+    suspend fun getDayMeal(day:String) : LiveData<List<FoodSummery>>
+    suspend fun getWeekMeal() : LiveData<List<FoodSummery>>
     suspend fun eatMealDBSize():LiveData<Int>
 }

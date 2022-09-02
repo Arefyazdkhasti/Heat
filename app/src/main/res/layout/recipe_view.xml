@@ -11,19 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layout"
-        android:layout_marginTop="-1dp"
         android:layout_marginBottom="9dp"
         app:shimmer_demo_angle="20"
         app:shimmer_demo_child_count="5"
         app:shimmer_demo_layout_manager_type="linear_horizontal"
         tools:itemCount="5"
-        tools:listitem="@layout/recipe_item"
-        />
+        tools:listitem="@layout/recipe_item" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="@dimen/_30sdp"
         android:layout_marginStart="@dimen/standard_margin"
         android:layout_marginTop="@dimen/standard_margin"
         android:layout_marginEnd="@dimen/standard_margin">
@@ -37,6 +36,8 @@
             android:textColor="@color/black"
             android:textSize="@dimen/extra_font"
             android:textStyle="bold"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="500"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -52,6 +53,8 @@
             android:text="@string/see_all"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/large_font"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="400"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

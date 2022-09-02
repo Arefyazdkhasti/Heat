@@ -19,12 +19,14 @@
     <color name="colorAccentBackground">#FFF3E0</color>
 
 
-    <color name="red">#FFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="red_less">#85FF0000</color>
     <color name="orange">#FF5722</color>
     <color name="green">#4CAF50</color>
     <color name="yellow">#ffeb3b</color>
     <color name="purple">#9c27b0</color>
     <color name="blue">#03A9F4</color>
+    <color name="blue_less">#8503A9F4</color>
     <color name="navyBlue">#27399A</color>
     <color name="darkBlue">#0C143A</color>
 

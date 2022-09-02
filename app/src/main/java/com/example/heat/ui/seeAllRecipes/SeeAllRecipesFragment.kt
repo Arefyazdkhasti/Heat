@@ -1,22 +1,12 @@
 package com.example.heat.ui.seeAllRecipes
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
-import androidx.recyclerview.widget.GridLayoutManager
-import com.cooltechworks.views.shimmer.ShimmerRecyclerView
-import com.example.heat.data.datamodel.recipeList.RecipeListItem
 import com.example.heat.databinding.FragmentSeeAllRecipesBinding
 import com.example.heat.ui.base.ScopedFragment
-import com.example.heat.ui.itemRecyclerView.RecipeItemRecyclerView
-import com.example.heat.util.enumerian.RecipeViewType
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.GroupieViewHolder
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
@@ -57,11 +47,11 @@ class SeeAllRecipesFragment : ScopedFragment(), KodeinAware {
             )[SeeAllRecipesViewModel::class.java]
         }
         bindUI(type)
-        initialButtons()
+        //initialButtons()
     }
 
     private fun bindUI(type:String?) = launch {
-        val recipesList = viewModel.recipe.await()
+        /*val recipesList = viewModel.recipe.await()
 
         binding.apply {
 
@@ -74,10 +64,10 @@ class SeeAllRecipesFragment : ScopedFragment(), KodeinAware {
                 if (list == null) return@Observer
                 initRecyclerView(recipesRecyclerView, list.results)
             })
-        }
+        }*/
     }
 
-    private fun initialButtons() = launch {
+    /*private fun initialButtons() = launch {
         binding.nextPage.setOnClickListener {
             pageNumber++
             viewModel.setCurrentPage(pageNumber * 10)
@@ -117,7 +107,7 @@ class SeeAllRecipesFragment : ScopedFragment(), KodeinAware {
         groupAdapter.setOnItemClickListener { item, view ->
             (item as? RecipeItemRecyclerView)?.let {
                 val actionRecipeDetail =
-                    SeeAllRecipesFragmentDirections.sendRecipeIdFromAll(it.recipeItem.id)
+                    SeeAllRecipesFragmentDirections.sendRecipeIdFromAll(it.foodSummery.id)
                 Navigation.findNavController(view).navigate(actionRecipeDetail)
             }
         }
@@ -127,5 +117,5 @@ class SeeAllRecipesFragment : ScopedFragment(), KodeinAware {
 
     private fun List<RecipeListItem>.toRecipeListItems(): List<RecipeItemRecyclerView> = this.map {
         RecipeItemRecyclerView(it,RecipeViewType.SMALL)
-    }
+    }*/
 }

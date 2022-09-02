@@ -2,14 +2,13 @@ package com.example.heat.ui.setting.personalData
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.heat.data.data.repository.RecipesRepository
+import com.example.heat.data.network.repository.HeatRepository
 import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.data.local.repository.RoomRepository
-import com.example.heat.ui.home.HomeViewModel
 
 class PersonalDataViewModelFactory (
     private val userPreferences: UserPreferences?,
-    private val recipesRepository: RecipesRepository,
+    private val heatRepository: HeatRepository,
     private val roomRepository: RoomRepository
 ): ViewModelProvider.NewInstanceFactory() {
 
@@ -17,7 +16,7 @@ class PersonalDataViewModelFactory (
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return PersonalDataViewModel(
             userPreferences,
-            recipesRepository,
+            heatRepository,
             roomRepository
         ) as T
     }

@@ -5,6 +5,8 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/large_margin"
     tools:text="TextView"
+    android:fontFamily="@font/kanit_font_family"
+    android:textFontWeight="300"
     android:textColor="@color/black"
     android:textSize="@dimen/extra_font"
     />

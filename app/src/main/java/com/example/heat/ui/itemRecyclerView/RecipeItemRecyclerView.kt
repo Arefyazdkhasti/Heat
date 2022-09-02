@@ -1,10 +1,8 @@
 package com.example.heat.ui.itemRecyclerView
 
 import android.view.animation.AnimationUtils
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.example.heat.R
-import com.example.heat.data.datamodel.recipeList.RecipeListItem
+import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 import com.example.heat.databinding.RecipeItemHorizontalBinding
 import com.example.heat.util.UiUtils.Companion.setImageWithGlideWithView
 import com.example.heat.util.enumerian.RecipeViewType
@@ -13,7 +11,7 @@ import com.xwray.groupie.Item
 
 
 
-class RecipeItemRecyclerView(val recipeItem: RecipeListItem, val type: RecipeViewType) :
+class RecipeItemRecyclerView(val foodSummery: FoodSummery, val type: RecipeViewType) :
     Item<GroupieViewHolder>() {
 
     override fun getLayout(): Int =
@@ -23,10 +21,10 @@ class RecipeItemRecyclerView(val recipeItem: RecipeListItem, val type: RecipeVie
 
         val binding = RecipeItemHorizontalBinding.bind(viewHolder.itemView)
 
-        setImageWithGlideWithView(viewHolder.itemView, recipeItem.image, binding.recipeImage)
+        setImageWithGlideWithView(viewHolder.itemView, foodSummery.imageLink, binding.recipeImage)
         binding.apply {
             recipeImage.clipToOutline = true
-            recipeName.text = recipeItem.title
+            recipeName.text = foodSummery.title
 
             recipeRoot.animation =
                 AnimationUtils.loadAnimation(viewHolder.itemView.context, R.anim.recycler_item_anim)

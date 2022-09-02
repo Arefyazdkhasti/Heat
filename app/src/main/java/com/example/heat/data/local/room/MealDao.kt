@@ -1,34 +1,30 @@
 package com.example.heat.data.local.room
 
-import android.icu.util.ULocale
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.heat.data.datamodel.MealListItem
-import com.example.heat.data.datamodel.user.UserPreferences
-import kotlinx.coroutines.flow.Flow
+import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 @Dao
 interface MealDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertMeal(meal:MealListItem)
+    suspend fun insertMeal(meal:FoodSummery)
 
     @Delete
-    suspend fun deleteMeal(meal:MealListItem)
+    suspend fun deleteMeal(meal:FoodSummery)
 
     @Update
-    suspend fun updateMeal(meal: MealListItem)
+    suspend fun updateMeal(meal: FoodSummery)
 
-    @Query ("UPDATE mealList_table SET eaten = :eaten WHERE id = :mealID")
+    @Query ("UPDATE foodSummery_list_table SET eaten = :eaten WHERE id = :mealID")
     fun eatMeal(mealID:Int, eaten: Boolean)
 
-    @Query("SELECT * FROM mealList_table WHERE date = :day")
-    fun getDayMeals(day:String): LiveData<List<MealListItem>>
+    @Query("SELECT * FROM foodSummery_list_table WHERE localDate = :day")
+    fun getDayMeals(day:String): LiveData<List<FoodSummery>>
 
-    @Query("SELECT * FROM mealList_table ")
-    fun getWeekMeals(): LiveData<List<MealListItem>>
+    @Query("SELECT * FROM foodSummery_list_table ")
+    fun getWeekMeals(): LiveData<List<FoodSummery>>
 
 
-
-    @Query("SELECT count(*) FROM mealList_table")
+    @Query("SELECT count(*) FROM foodSummery_list_table")
     fun getMealSize(): LiveData<Int>
 }

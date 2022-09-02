@@ -1,13 +1,18 @@
 package com.example.heat.util.enumerian
 
 enum class Cuisine {
+    Asian,
     African,
     American,
+    Barbecue,
+    bbq,
     British,
     Cajun,
+    Creole,
     Caribbean,
     Chinese,
     EasternEuropean,
+    CentralAmerican,
     European,
     French,
     German,
@@ -24,7 +29,9 @@ enum class Cuisine {
     MiddleEastern,
     Nordic,
     Southern,
+    SouthAmerican,
     Spanish,
     Thai,
-    Vietnamese
+    Vietnamese,
+    NONE
 }

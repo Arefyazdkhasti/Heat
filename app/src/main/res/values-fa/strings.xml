@@ -128,7 +128,33 @@
     <string name="filter_diet_type_glutenFree">glutenFree</string>
     <string name="filter_diet_type_diaryFree">diaryFree</string>
 
-
+    <string name="filter_cuisine_type_hint">Cuisine</string>
+    <string name="filter_cuisine_type_asian">Asian </string>
+    <string name="filter_cuisine_type_african">African </string>
+    <string name="filter_cuisine_type_american">American </string>
+    <string name="filter_cuisine_type_british">British </string>
+    <string name="filter_cuisine_type_chinese">Chinese </string>
+    <string name="filter_cuisine_type_ee">EasternEuropean </string>
+    <string name="filter_cuisine_type_ca">CentralAmerican </string>
+    <string name="filter_cuisine_type_european">European </string>
+    <string name="filter_cuisine_type_french">French </string>
+    <string name="filter_cuisine_type_german">German </string>
+    <string name="filter_cuisine_type_greek">Greek </string>
+    <string name="filter_cuisine_type_indian">Indian </string>
+    <string name="filter_cuisine_type_irish">Irish </string>
+    <string name="filter_cuisine_type_italian">Italian </string>
+    <string name="filter_cuisine_type_japanese">Japanese </string>
+    <string name="filter_cuisine_type_jewish">Jewish </string>
+    <string name="filter_cuisine_type_korean">Korean </string>
+    <string name="filter_cuisine_type_la">LatinAmerican </string>
+    <string name="filter_cuisine_type_mediterranean">Mediterranean </string>
+    <string name="filter_cuisine_type_mexican">Mexican </string>
+    <string name="filter_cuisine_type_me">MiddleEastern </string>
+    <string name="filter_cuisine_type_nordic">Nordic,</string>
+    <string name="filter_cuisine_type_sa">SouthAmerican,</string>
+    <string name="filter_cuisine_type_spanish">Spanish,</string>
+    <string name="filter_cuisine_type_thai">Thai,</string>
+    <string name="filter_cuisine_type_vietnamese">Vietnamese</string>
     <!--profile-->
     <string name="your_profile">حساب کاربری شما</string>
     <string name="edit_profile">ویرایش پروفایل</string>
@@ -138,6 +164,7 @@
     <string name="abstract_goal">هدف کلی</string>
     <string name="Ingredient_allergy">آلرژی به موادغذایی</string>
     <string name="disease">بیماری</string>
+    <string name="daily_nutrition">مواد مغذی روزانه</string>
     <string name="your_Account">اکانت شما</string>
     <string name="upgrade_to_premium">ارتقا به پلن ویژه جهت بهره مندی از همه قابلیت ها</string>
     <string name="Logout">خروج از حساب کاربری</string>
@@ -187,4 +214,5 @@
     <string name="meal_plan">تعداد برنامه غذایی</string>
     <string name="one_day_plan">یک روزه</string>
     <string name="one_week_plan">یک هفته</string>
+    <string name="liked_recipes">Liked Recipes</string>
 </resources>

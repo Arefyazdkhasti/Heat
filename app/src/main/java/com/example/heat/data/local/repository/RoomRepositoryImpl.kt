@@ -1,7 +1,7 @@
 package com.example.heat.data.local.repository
 
 import androidx.lifecycle.LiveData
-import com.example.heat.data.datamodel.MealListItem
+import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.data.local.room.MealDataBase
 import com.example.heat.data.local.room.UserPreferenceDataBase
@@ -22,19 +22,19 @@ class RoomRepositoryImpl(
     override suspend fun getUserPreference(): LiveData<UserPreferences> =
         userPreferenceDataBase.userPreferenceDao().getUserPreference()
 
-    override suspend fun insertMeal(meal: MealListItem) = mealDataBase.mealDao().insertMeal(meal)
+    override suspend fun insertMeal(meal: FoodSummery) = mealDataBase.mealDao().insertMeal(meal)
 
-    override suspend fun deleteMeal(meal: MealListItem) = mealDataBase.mealDao().deleteMeal(meal)
+    override suspend fun deleteMeal(meal: FoodSummery) = mealDataBase.mealDao().deleteMeal(meal)
 
-    override suspend fun updateMeal(meal: MealListItem) = mealDataBase.mealDao().updateMeal(meal)
+    override suspend fun updateMeal(meal: FoodSummery) = mealDataBase.mealDao().updateMeal(meal)
 
-    override suspend fun eatMeal(meal: MealListItem, eaten: Boolean) =
+    override suspend fun eatMeal(meal: FoodSummery, eaten: Boolean) =
         mealDataBase.mealDao().eatMeal(meal.id, eaten)
 
-    override suspend fun getDayMeal(day:String): LiveData<List<MealListItem>> =
+    override suspend fun getDayMeal(day:String): LiveData<List<FoodSummery>> =
         mealDataBase.mealDao().getDayMeals(day)
 
-    override suspend fun getWeekMeal(): LiveData<List<MealListItem>>  =
+    override suspend fun getWeekMeal(): LiveData<List<FoodSummery>>  =
         mealDataBase.mealDao().getWeekMeals()
 
     override suspend fun eatMealDBSize(): LiveData<Int> = mealDataBase.mealDao().getMealSize()

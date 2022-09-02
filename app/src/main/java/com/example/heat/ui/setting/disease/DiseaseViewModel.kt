@@ -1,17 +1,18 @@
 package com.example.heat.ui.setting.disease
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.heat.data.data.repository.RecipesRepository
+import androidx.lifecycle.*
+import com.example.heat.data.network.repository.HeatRepository
 import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.data.local.repository.RoomRepository
+import com.example.heat.util.enumerian.*
+import com.example.heat.util.lazyDeferred
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class DiseaseViewModel (
+class DiseaseViewModel(
     private val userPreferences: UserPreferences?,
-    private val recipesRepository: RecipesRepository,
+    private val heatRepository: HeatRepository,
     private val roomRepository: RoomRepository
 ) : ViewModel() {
 
@@ -44,9 +45,42 @@ class DiseaseViewModel (
         roomRepository.insertUserPreferences(userPreferences)
     }
 
+    private val userPref = MutableLiveData(
+        UserPreferences(
+            0,
+            "",
+            0.0,
+            0.0,
+            0,
+            Gender.MALE,
+            ActiveLevel.NONE,
+            AbstractGoal.NONE,
+            UserDietType.ANY_THING,
+            arrayListOf(),
+            arrayListOf()
+        )
+    )
+
+    val userPreference = userPref.switchMap { p ->
+        liveData<UserPreferences> {
+            heatRepository.saveUserPreferences(p)
+        }
+    }
+
+    fun setCurrentUserProf(userPreference: UserPreferences) {
+        userPref.value = userPreference
+    }
+
+    val sendUserPreferenceRequest by lazyDeferred{
+        userPref.value?.let { heatRepository.saveUserPreferences(it) }
+    }
+
     sealed class DiseaseTransactionsEvents() {
         object ShouldFillAllPart : DiseaseTransactionsEvents()
-        data class NavigateToHomeScreen(val userPreference: UserPreferences) : DiseaseTransactionsEvents()
-        data class NavigateBackToIngredientAllergyScreen(val userPreference: UserPreferences) : DiseaseTransactionsEvents()
+        data class NavigateToHomeScreen(val userPreference: UserPreferences) :
+            DiseaseTransactionsEvents()
+
+        data class NavigateBackToIngredientAllergyScreen(val userPreference: UserPreferences) :
+            DiseaseTransactionsEvents()
     }
 }
