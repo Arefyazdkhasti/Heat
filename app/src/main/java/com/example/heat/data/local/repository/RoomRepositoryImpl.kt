@@ -16,6 +16,8 @@ class RoomRepositoryImpl(
     override suspend fun deleteUserPreferences(userPreference: UserPreferences) =
         userPreferenceDataBase.userPreferenceDao().deleteUserPreferences(userPreference)
 
+    override suspend fun deleteAllUserPreferences() = userPreferenceDataBase.userPreferenceDao().deleteAllUserPreferences()
+
     override suspend fun updateUserPreferences(userPreference: UserPreferences) =
         userPreferenceDataBase.userPreferenceDao().updateUserPreferences(userPreference)
 
@@ -25,6 +27,8 @@ class RoomRepositoryImpl(
     override suspend fun insertMeal(meal: FoodSummery) = mealDataBase.mealDao().insertMeal(meal)
 
     override suspend fun deleteMeal(meal: FoodSummery) = mealDataBase.mealDao().deleteMeal(meal)
+
+    override suspend fun deleteAllMeals()  = mealDataBase.mealDao().deleteAllMeal()
 
     override suspend fun updateMeal(meal: FoodSummery) = mealDataBase.mealDao().updateMeal(meal)
 

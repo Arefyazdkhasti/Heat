@@ -105,20 +105,20 @@ class SearchFragment : ScopedFragment(), KodeinAware {
 
     private fun getMealType(text: String?): MealType {
         return when (text) {
-            MealType.NONE.toString() -> MealType.NONE
-            MealType.BREAKFAST.toString() -> MealType.BREAKFAST
-            MealType.MAIN_COURSE.toString() -> MealType.MAIN_COURSE
-            MealType.DESSERT.toString() -> MealType.DESSERT
-            MealType.APPETIZER.toString() -> MealType.APPETIZER
-            MealType.SALAD.toString() -> MealType.SALAD
-            MealType.BREAD.toString() -> MealType.BREAD
-            MealType.SOUP.toString() -> MealType.SOUP
-            MealType.BEVERAGE.toString() -> MealType.BEVERAGE
-            MealType.SAUCE.toString() -> MealType.SAUCE
-            MealType.FINGER_FOOD.toString() -> MealType.FINGER_FOOD
-            MealType.DRINK.toString() -> MealType.DRINK
-            MealType.SNACK.toString() -> MealType.SNACK
-            MealType.SIDE_DISH.toString() -> MealType.SIDE_DISH
+            getString(R.string.filter_meal_type_all)-> MealType.NONE
+            getString(R.string.filter_meal_type_breakfast) -> MealType.BREAKFAST
+            getString(R.string.filter_meal_type_main_course) -> MealType.MAIN_COURSE
+            getString(R.string.filter_meal_type_dessert) -> MealType.DESSERT
+            getString(R.string.filter_meal_type_appetizer) -> MealType.APPETIZER
+            getString(R.string.filter_meal_type_salad) -> MealType.SALAD
+            getString(R.string.filter_meal_type_bread) -> MealType.BREAD
+            getString(R.string.filter_meal_type_soup) -> MealType.SOUP
+            getString(R.string.filter_meal_type_beverage) -> MealType.BEVERAGE
+            getString(R.string.filter_meal_type_sauce) -> MealType.SAUCE
+            getString(R.string.filter_meal_type_finger_food) -> MealType.FINGER_FOOD
+            getString(R.string.filter_meal_type_drink) -> MealType.DRINK
+            getString(R.string.filter_meal_type_snack) -> MealType.SNACK
+            getString(R.string.filter_meal_type_side_dish) -> MealType.SIDE_DISH
             else -> MealType.NONE
         }
     }
@@ -191,8 +191,10 @@ class SearchFragment : ScopedFragment(), KodeinAware {
     private fun bindSearchResult() {
         viewModel.recipesListFiltered.observe(viewLifecycleOwner, Observer { list ->
             if (list == null) return@Observer
-
-            initRecyclerView(binding.searchedRecipesRecyclerView, list)
+            if(list.isNotEmpty())
+                initRecyclerView(binding.searchedRecipesRecyclerView, list)
+            else
+                binding.animationNoResult.visibility = View.VISIBLE
         })
     }
 

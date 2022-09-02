@@ -19,4 +19,7 @@ interface UserPreferenceDao {
 
     @Query("SELECT * FROM userPreference_table")
     fun getUserPreference(): LiveData<UserPreferences>
+
+    @Query("DELETE FROM userPreference_table")
+    fun deleteAllUserPreferences()
 }

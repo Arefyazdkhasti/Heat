@@ -29,7 +29,9 @@
         android:textSize="@dimen/big_font"
         app:layout_constraintEnd_toEndOf="@+id/appCompatImageView"
         app:layout_constraintStart_toStartOf="@+id/appCompatImageView"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/appCompatImageView"
+        android:fontFamily="@font/kanit_font_family"
+        android:textFontWeight="700"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/register_intro"
@@ -43,7 +45,9 @@
         android:textSize="@dimen/twenty_font"
         app:layout_constraintEnd_toEndOf="@+id/appCompatImageView"
         app:layout_constraintStart_toStartOf="@+id/appCompatImageView"
-        app:layout_constraintTop_toBottomOf="@+id/app_name" />
+        app:layout_constraintTop_toBottomOf="@+id/app_name"
+        android:fontFamily="@font/kanit_font_family"
+        android:textFontWeight="500"/>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/appCompatImageView2"
@@ -84,7 +88,9 @@
             android:id="@+id/username_register_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="400"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,7 +115,9 @@
             android:id="@+id/email_register_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="400"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -128,13 +136,18 @@
         app:boxCornerRadiusTopStart="@dimen/standard_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/colorPrimary"
         app:layout_constraintTop_toBottomOf="@+id/email_register">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password_register_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
+            android:inputType="textPassword"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="400"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -163,7 +176,9 @@
         app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView2"
         app:layout_constraintEnd_toEndOf="@+id/appCompatImageView2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_register" />
+        app:layout_constraintTop_toBottomOf="@+id/password_register"
+        android:fontFamily="@font/kanit_font_family"
+        android:textFontWeight="400"/>
 
     <LinearLayout
         android:id="@+id/already_have_account_btn"
@@ -180,14 +195,18 @@
             android:layout_height="wrap_content"
             android:text="@string/already_have_an_account"
             android:textColor="@color/white"
-            android:textSize="@dimen/large_font" />
+            android:textSize="@dimen/large_font"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="400"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/large_font" />
+            android:textSize="@dimen/large_font"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="500"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

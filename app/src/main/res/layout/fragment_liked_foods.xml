@@ -32,4 +32,18 @@
         tools:itemCount="5"
         tools:listitem="@layout/recipe_item_horizontal"
         android:layout_gravity="center_horizontal"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_empty_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/mega_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back_arrow"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:visibility="invisible"
+        app:lottie_rawRes="@raw/no_result_in_search" />
 </androidx.constraintlayout.widget.ConstraintLayout>

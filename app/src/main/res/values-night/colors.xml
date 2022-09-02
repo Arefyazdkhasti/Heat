@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="pure_white">#FF000000</color>
+    <color name="white">#f7f7f7</color>
+    <color name="black">#FFFFFF</color>
+
+    <color name="colorPrimary">#1bcb7b</color>
+    <color name="colorPrimaryDark">#185C5C</color>
+    <!--#EC6431-->
+    <color name="colorSecondary">#1bcb7b</color>
+    <color name="colorSecondaryDark">#9F2F05</color>
+    <color name="colorSecondaryLight">#F5A623</color>
+
+    <color name="colorAccentBackground">#FFF3E0</color>
+
+
+    <color name="red">#FF0000</color>
+    <color name="red_less">#85FF0000</color>
+    <color name="orange">#FF5722</color>
+    <color name="green">#4CAF50</color>
+    <color name="yellow">#ffeb3b</color>
+    <color name="purple">#9c27b0</color>
+    <color name="blue">#03A9F4</color>
+    <color name="blue_less">#8503A9F4</color>
+    <color name="navyBlue">#27399A</color>
+    <color name="darkBlue">#0C143A</color>
+
+    <color name="gray">#EEEEF3</color>
+    <color name="colorGrey">#dddddd</color>
+    <color name="gray900">#A7A8AE</color>
+    <color name="gray500">#6A6B73</color>
+    <color name="gray100">#363639</color>
+
+    <color name="material_light_primary_text">#DE000000</color>
+    <color name="material_light_hint_text">#61000000</color>
+    <color name="material_light_active_icon">#8A000000</color>
+    <color name="material_ripple_light">#1F000000</color>
+    <color name="divider_color">#1F000000</color>
+    <color name="active_icon_color">#8A000000</color>
+    <color name="cards_and_dialogs_color">@android:color/white</color>
+    <color name="quantum_grey_600">#757575</color>
+
+    <color name="calories_green">#00FF44</color>
+    <color name="calories_green_light">#D5EDDB</color>
+    <color name="carbo_red">#FF042F</color>
+    <color name="carbo_red_light">#ECC8CE</color>
+    <color name="fat_yellow">#FFD500</color>
+    <color name="fat_yellow_light">#E8E1C1</color>
+    <color name="protein_blue">#0044FF</color>
+    <color name="protein_blue_light">#BECBEF</color>
+
+</resources>

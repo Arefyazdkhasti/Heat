@@ -9,9 +9,9 @@
     <application
         android:name=".di.HeatApplication"
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/main_logo"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/icon"
+        android:roundIcon="@drawable/main_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Heat"
         android:networkSecurityConfig="@xml/network_secutrity_config"

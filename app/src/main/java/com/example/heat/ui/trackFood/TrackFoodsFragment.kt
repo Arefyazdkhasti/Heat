@@ -1,10 +1,12 @@
 package com.example.heat.ui.trackFood
 
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -25,6 +27,7 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 
+@RequiresApi(Build.VERSION_CODES.O)
 class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
     override val kodein by closestKodein()
     private val viewModelFactory: TrackFoodsViewModelFactory by instance()

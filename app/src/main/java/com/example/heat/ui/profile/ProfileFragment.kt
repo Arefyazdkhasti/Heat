@@ -213,7 +213,7 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
             ) { dialogInterface, i ->
                 dialogInterface.dismiss()
                 context.cacheDir.deleteRecursively()
-               //TODO clearAppData() crash the app as well
+                clearAppData()
                 saveUserLoginStatusToDataStore(requireContext(),false)
                 viewModel.logoutClicked()
             }
@@ -225,19 +225,8 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
             show()
         }
     }
-    private fun clearAppData() {
-        try {
-            // clearing app data
-            if (Build.VERSION_CODES.KITKAT <= Build.VERSION.SDK_INT) {
-                (requireContext().getSystemService(ACTIVITY_SERVICE) as ActivityManager?)!!.clearApplicationUserData() // note: it has a return value!
-            } else {
-                val packageName: String = requireContext().packageName
-                val runtime = Runtime.getRuntime()
-                runtime.exec("pm clear $packageName")
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+    private fun clearAppData() = launch {
+        viewModel.deleteDataInRoom.await()
     }
 
 }

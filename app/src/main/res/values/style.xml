@@ -6,6 +6,12 @@
         <item name="android:textColorSecondary">@color/colorPrimary</item>
     </style>
 
+    <style name="BottomNavigationViewStyle"
+        parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/kanit_font_family</item>
+        <item name="fontWeight">400</item>
+    </style>
+
     <style name="CustomCheckboxStyle" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:button">@drawable/checkbox_selector</item>
         <item name="android:background">@android:color/transparent</item>

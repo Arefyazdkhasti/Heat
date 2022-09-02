@@ -78,7 +78,13 @@ class LikedFoodsFragment : ScopedFragment(), KodeinAware {
 
     private fun loadData() = launch {
         viewModel.likedRecipesList.await()?.observe(viewLifecycleOwner, Observer {
-            if (it != null) initLikedRecipesRecyclerView(it)
+            if (it != null)
+                if(it.isNotEmpty())
+                    initLikedRecipesRecyclerView(it)
+                else
+                    binding.animationEmptyList.visibility = View.VISIBLE
+
+            binding.searchedRecipesRecyclerView.hideShimmerAdapter()
         })
     }
 
@@ -101,7 +107,6 @@ class LikedFoodsFragment : ScopedFragment(), KodeinAware {
             }
         }
 
-        binding.searchedRecipesRecyclerView.hideShimmerAdapter()
     }
 
 

@@ -12,6 +12,9 @@ interface MealDao {
     @Delete
     suspend fun deleteMeal(meal:FoodSummery)
 
+    @Query("DELETE FROM foodSummery_list_table")
+    fun deleteAllMeal()
+
     @Update
     suspend fun updateMeal(meal: FoodSummery)
 

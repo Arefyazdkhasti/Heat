@@ -52,6 +52,10 @@ class ProfileViewModel(
         roomRepository.getUserPreference()
     }
 
+    val deleteDataInRoom by lazyDeferred{
+        roomRepository.deleteAllMeals()
+        roomRepository.deleteAllUserPreferences()
+    }
     sealed class ProfileTransactionEvent{
         object NavigateToSettingScreen : ProfileTransactionEvent()
         object NavigateToPersonalDataScreen : ProfileTransactionEvent()

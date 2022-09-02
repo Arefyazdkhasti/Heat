@@ -112,6 +112,8 @@
         app:boxCornerRadiusTopEnd="@dimen/standard_margin"
         app:boxCornerRadiusTopStart="@dimen/standard_margin"
         app:layout_constraintEnd_toEndOf="parent"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email_login">
 
@@ -119,7 +121,7 @@
             android:id="@+id/password_login_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
+            android:inputType="textPassword"
             android:fontFamily="@font/kanit_font_family"
             android:textFontWeight="400"/>
 

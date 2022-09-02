@@ -120,11 +120,13 @@
     <string name="filter_meal_type_sauce">sauce</string>
     <string name="filter_meal_type_finger_food">fingerfood</string>
     <string name="filter_meal_type_drink">drink</string>
+    <string name="filter_meal_type_snack">snack</string>
+    <string name="filter_meal_type_side_dish">side dish</string>
 
     <string name="filter_diet_type_hint">Diet Type</string>
-    <string name="filter_diet_type_all">all</string>
-    <string name="filter_diet_type_vegetarian">Vegetarian</string>
-    <string name="filter_diet_type_vegan">Vegan</string>
+    <string name="filter_diet_type_all">NONE</string>
+    <string name="filter_diet_type_vegetarian">VEGETARIAN</string>
+    <string name="filter_diet_type_vegan">VEGAN</string>
     <string name="filter_diet_type_very_healthy">veryHealthy</string>
     <string name="filter_diet_type_glutenFree">glutenFree</string>
     <string name="filter_diet_type_diaryFree">diaryFree</string>
@@ -232,6 +234,8 @@
         <item>@string/filter_meal_type_sauce</item>
         <item>@string/filter_meal_type_sauce</item>
         <item>@string/filter_meal_type_drink</item>
+        <item>@string/filter_meal_type_snack</item>
+        <item>@string/filter_meal_type_side_dish</item>
     </string-array>
 
     <string-array name="diet_type">

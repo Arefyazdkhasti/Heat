@@ -19,10 +19,12 @@ import com.example.heat.databinding.FragmentHomeBinding
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.itemRecyclerView.NutritionChartItemRecyclerView
 import com.example.heat.ui.recipes.ALL
+import com.example.heat.util.UiUtils
 import com.example.heat.util.UiUtils.Companion.dataStore
 import com.example.heat.util.UiUtils.Companion.getDayOrWeekFromSetting
 import com.example.heat.util.UserIDManager
 import com.example.heat.util.enumerian.NavigateAction
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -30,7 +32,7 @@ import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
-
+@RequiresApi(Build.VERSION_CODES.O)
 class HomeFragment : ScopedFragment(), KodeinAware {
     override val kodein by closestKodein()
     private val viewModelFactory: HomeViewModelFactory by instance()
@@ -55,13 +57,11 @@ class HomeFragment : ScopedFragment(), KodeinAware {
         viewModel = ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindUI()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun bindUI() = launch {
 
         val userID = getUserIDFromDataStore()
@@ -77,7 +77,7 @@ class HomeFragment : ScopedFragment(), KodeinAware {
                     layoutGenerateFood.visibility = View.VISIBLE
                     todayMealsTitleWhenNoPlan.visibility = View.VISIBLE
                     layoutGenerateFood.setOnClickListener {
-                        showConfirmSnackBar()
+                        showConfirmDialog()
                     }
                 } else {
                     todayMealsRecipesListView.visibility = View.VISIBLE
@@ -247,7 +247,7 @@ class HomeFragment : ScopedFragment(), KodeinAware {
             }
         }
     }
-    @RequiresApi(Build.VERSION_CODES.O)
+
     private fun savePlanToRoom() = launch {
         viewModel.generatePlanRequest.await()?.observe(viewLifecycleOwner, Observer {
             viewModel.saveFoodToRoom(it)
@@ -261,8 +261,7 @@ class HomeFragment : ScopedFragment(), KodeinAware {
         })
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun showConfirmSnackBar() {
+    private fun showConfirmDialog() {
         var days = ""
         var number = 0
         if (getDayOrWeekFromSetting(requireContext()) == "One Day") {
@@ -273,18 +272,26 @@ class HomeFragment : ScopedFragment(), KodeinAware {
             number = 7
         }
 
-        Snackbar.make(
-            binding.root,
-            "Your plan will be generated for $days according to your preferences.",
-            Snackbar.LENGTH_INDEFINITE
-        ).setAction("Ok") {
-            viewModel.setNumberOfDays(number)
-            viewModel.setUserID(getUserIDFromDataStore())
+        val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
+        dialog.apply {
+            setTitle("Generate Plan")
+            setMessage("Your plan will be generated for $days according to your preferences.")
+            setPositiveButton(
+                "OK"
+            ) { dialogInterface, i ->
+                dialogInterface.dismiss()
+                viewModel.setNumberOfDays(number)
+                viewModel.setUserID(getUserIDFromDataStore())
+                savePlanToRoom()
+            }
+            setNeutralButton(
+                "Forget it"
+            ) { dialogInterface, i ->
+                dialogInterface.dismiss()
+            }
+            show()
+        }
 
-            savePlanToRoom()
-
-
-        }.show()
     }
 
     private fun initRecyclerViewTodayMeals(items: List<FoodSummery>) = launch {
