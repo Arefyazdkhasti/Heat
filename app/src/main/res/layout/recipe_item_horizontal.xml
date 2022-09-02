@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/_8sdp"
-        app:cardBackgroundColor="@color/red"
+        app:cardBackgroundColor="@color/white"
         app:cardElevation="2dp"
         app:cardPreventCornerOverlap="false"
         app:contentPadding="0dp"
@@ -41,7 +41,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@drawable/breakfast_sample" />
+                 />
 
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -56,6 +56,8 @@
                 android:maxLines="2"
                 android:textColor="@color/gray900"
                 android:textSize="@dimen/large_font"
+                android:fontFamily="@font/kanit_font_family"
+                android:textFontWeight="700"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/recipe_image"
@@ -75,6 +77,8 @@
                 android:maxLines="2"
                 android:textColor="@color/gray100"
                 android:textSize="@dimen/small_font"
+                android:fontFamily="@font/kanit_font_family"
+                android:textFontWeight="400"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/recipe_name"
                 app:layout_constraintStart_toStartOf="@+id/recipe_name"

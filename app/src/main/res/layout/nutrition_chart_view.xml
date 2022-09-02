@@ -2,36 +2,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/nutrition_chart_view_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/_8sdp"
         android:layout_margin="@dimen/standard_margin"
-        >
+        app:cardCornerRadius="@dimen/_8sdp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/nutrition_chart_view_root_constraint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/chart_view_nutrition_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/standard_margin"
+                android:fontFamily="@font/kanit_font_family"
                 android:textColor="@color/gray500"
+                android:textFontWeight="400"
                 android:textSize="@dimen/large_font"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/calories"
-                android:layout_margin ="@dimen/standard_margin"
-                />
+                tools:text="@string/calories" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/chart_view_nutrition_icon"
@@ -43,47 +41,90 @@
                 app:layout_constraintTop_toTopOf="@id/chart_view_nutrition_name"
                 tools:src="@drawable/ic_calories" />
 
-            <!--<com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/nutrition_chart"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_100sdp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/_32sdp"
-                android:layout_marginBottom="@dimen/mega_margin"
-                android:layout_marginStart="@dimen/extra_margin"
-                android:layout_marginEnd="@dimen/extra_margin"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />-->
-
             <ProgressBar
-                android:id="@+id/progress_bar_nutrition"
+                android:id="@+id/progress_bar_nutrition_calorie"
                 style="@style/CircularDeterminateProgressBarCalories"
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="@dimen/_100sdp"
-                tools:progress="75"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/_32sdp"
-                android:layout_marginBottom="@dimen/extra_margin"
                 android:layout_marginStart="@dimen/extra_margin"
+                android:layout_marginTop="@dimen/_32sdp"
                 android:layout_marginEnd="@dimen/extra_margin"
+                android:layout_marginBottom="@dimen/extra_margin"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                tools:progress="75"
+                android:visibility="invisible"/>
+
+            <ProgressBar
+                android:id="@+id/progress_bar_nutrition_fat"
+                style="@style/CircularDeterminateProgressBarFat"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/extra_margin"
+                android:layout_marginTop="@dimen/_32sdp"
+                android:layout_marginEnd="@dimen/extra_margin"
+                android:layout_marginBottom="@dimen/extra_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:progress="75"
+                android:visibility="invisible"/>
+
+
+            <ProgressBar
+                android:id="@+id/progress_bar_nutrition_protein"
+                style="@style/CircularDeterminateProgressBarProtein"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/extra_margin"
+                android:layout_marginTop="@dimen/_32sdp"
+                android:layout_marginEnd="@dimen/extra_margin"
+                android:layout_marginBottom="@dimen/extra_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:progress="75"
+                android:visibility="invisible"/>
+
+
+            <ProgressBar
+                android:id="@+id/progress_bar_nutrition_carbo"
+                style="@style/CircularDeterminateProgressBarCarbo"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/extra_margin"
+                android:layout_marginTop="@dimen/_32sdp"
+                android:layout_marginEnd="@dimen/extra_margin"
+                android:layout_marginBottom="@dimen/extra_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:progress="75"
+                android:visibility="invisible"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/progress_percentage_nutrition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/kanit_font_family"
                 android:textColor="@color/calories_green"
-                app:layout_constraintBottom_toBottomOf="@+id/progress_bar_nutrition"
-                app:layout_constraintEnd_toEndOf="@+id/progress_bar_nutrition"
-                app:layout_constraintStart_toStartOf="@+id/progress_bar_nutrition"
-                app:layout_constraintTop_toTopOf="@+id/progress_bar_nutrition"
-                tools:text="75%"
-                android:textSize="@dimen/extra_font"/>
+                android:textFontWeight="400"
+                android:textSize="@dimen/extra_font"
+                app:layout_constraintBottom_toBottomOf="@+id/progress_bar_nutrition_calorie"
+                app:layout_constraintEnd_toEndOf="@+id/progress_bar_nutrition_calorie"
+                app:layout_constraintStart_toStartOf="@+id/progress_bar_nutrition_calorie"
+                app:layout_constraintTop_toTopOf="@+id/progress_bar_nutrition_calorie"
+                tools:text="75%" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </FrameLayout>

@@ -8,16 +8,13 @@ import android.widget.FrameLayout
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.example.heat.R
-import com.example.heat.data.datamodel.recipeList.RecipeListItem
+import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 import com.example.heat.ui.home.HomeFragmentDirections
 import com.example.heat.ui.itemRecyclerView.RecipeItemRecyclerView
 import com.example.heat.ui.recipes.RecipesFragmentDirections
-import com.example.heat.util.SwipeToLikeCallback
 import com.example.heat.util.enumerian.NavigateAction
 import com.example.heat.util.enumerian.RecipeViewType
 import com.xwray.groupie.GroupAdapter
@@ -56,11 +53,11 @@ class RecipeView(
 
     }
 
-    private fun List<RecipeListItem>.toRecipeListItems(): List<RecipeItemRecyclerView> = this.map {
+    private fun List<FoodSummery>.toRecipeListItems(): List<RecipeItemRecyclerView> = this.map {
         RecipeItemRecyclerView(it, RecipeViewType.SMALL)
     }
 
-    fun initRecycler(data: List<RecipeListItem>, type: String, navigateAction: NavigateAction) {
+    fun initRecycler(data: List<FoodSummery>, type: String, navigateAction: NavigateAction) {
 
         recipeRecycleView.showShimmerAdapter()
 
@@ -86,13 +83,13 @@ class RecipeView(
                 when (navigateAction) {
                     NavigateAction.SEE_ALL -> {
                         val actionRecipeDetail =
-                            RecipesFragmentDirections.sendRecipeId(it.recipeItem.id)
+                            RecipesFragmentDirections.sendRecipeId(it.foodSummery.id)
                         Navigation.findNavController(view).navigate(actionRecipeDetail)
                     }
                     NavigateAction.TRACK_FOODS -> {
-                        val actionRecipeDetail =
-                            HomeFragmentDirections.sendRecipeIDFromHome(it.recipeItem.id)
-                        Navigation.findNavController(view).navigate(actionRecipeDetail)
+                        /*val actionRecipeDetail =
+                            HomeFragmentDirections.sendRecipeIDFromHome(it.foodSummery.id)
+                        Navigation.findNavController(view).navigate(actionRecipeDetail)*/
                     }
                 }
             }

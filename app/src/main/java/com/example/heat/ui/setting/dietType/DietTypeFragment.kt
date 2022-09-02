@@ -17,6 +17,7 @@ import com.example.heat.util.UiUtils
 import com.example.heat.util.UiUtils.Companion.getColor
 import com.example.heat.util.enumerian.ComeFrom
 import com.example.heat.util.enumerian.DietType
+import com.example.heat.util.enumerian.UserDietType
 import com.example.heat.util.exhaustive
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
@@ -70,11 +71,11 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
 
         binding.apply {
             when (userPreferences.dietType) {
-                DietType.ANY_THING -> anythingCardView.setBackgroundColor(selectColor)
-                DietType.Vegetarian -> vegetarianCardView.setBackgroundColor(selectColor)
-                DietType.Vegan -> veganCardView.setBackgroundColor(selectColor)
-                DietType.Muslim -> muslimCardView.setBackgroundColor(selectColor)
-                DietType.Kosher -> kosherCardView.setBackgroundColor(selectColor)
+                UserDietType.ANY_THING -> anythingCardView.setBackgroundColor(selectColor)
+                UserDietType.VEGETARIAN -> vegetarianCardView.setBackgroundColor(selectColor)
+                UserDietType.VEGAN -> veganCardView.setBackgroundColor(selectColor)
+                UserDietType.HALAL -> muslimCardView.setBackgroundColor(selectColor)
+                UserDietType.KOSHER -> kosherCardView.setBackgroundColor(selectColor)
             }
         }
     }
@@ -104,11 +105,11 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
 
             val selectColor = getColor(requireContext(), R.color.gray)
             val disselectColor = getColor(requireContext(), R.color.pure_white)
-            var selectedDietType = DietType.ANY_THING
+            var selectedDietType = UserDietType.ANY_THING
 
             //TODO move to a separate function
             anythingCardView.setOnClickListener {
-                selectedDietType = DietType.ANY_THING
+                selectedDietType =UserDietType.ANY_THING
                 anythingCardView.setBackgroundColor(selectColor)
                 veganCardView.setBackgroundColor(disselectColor)
                 vegetarianCardView.setBackgroundColor(disselectColor)
@@ -116,7 +117,7 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
                 kosherCardView.setBackgroundColor(disselectColor)
             }
             vegetarianCardView.setOnClickListener {
-                selectedDietType = DietType.Vegetarian
+                selectedDietType = UserDietType.VEGETARIAN
                 anythingCardView.setBackgroundColor(disselectColor)
                 veganCardView.setBackgroundColor(disselectColor)
                 vegetarianCardView.setBackgroundColor(selectColor)
@@ -124,7 +125,7 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
                 kosherCardView.setBackgroundColor(disselectColor)
             }
             veganCardView.setOnClickListener {
-                selectedDietType = DietType.Vegan
+                selectedDietType = UserDietType.VEGAN
                 anythingCardView.setBackgroundColor(disselectColor)
                 veganCardView.setBackgroundColor(selectColor)
                 vegetarianCardView.setBackgroundColor(disselectColor)
@@ -132,7 +133,7 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
                 kosherCardView.setBackgroundColor(disselectColor)
             }
             muslimCardView.setOnClickListener {
-                selectedDietType = DietType.Muslim
+                    selectedDietType = UserDietType.HALAL
                 anythingCardView.setBackgroundColor(disselectColor)
                 veganCardView.setBackgroundColor(disselectColor)
                 vegetarianCardView.setBackgroundColor(disselectColor)
@@ -140,7 +141,7 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
                 kosherCardView.setBackgroundColor(disselectColor)
             }
             kosherCardView.setOnClickListener {
-                selectedDietType = DietType.Kosher
+                selectedDietType = UserDietType.KOSHER
                 anythingCardView.setBackgroundColor(disselectColor)
                 veganCardView.setBackgroundColor(disselectColor)
                 vegetarianCardView.setBackgroundColor(disselectColor)
@@ -215,7 +216,7 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
         binding: FragmentDietTypeBinding,
         userPreference: UserPreferences,
         itemView: View,
-        dietType: DietType
+        dietType: UserDietType
     ) {
         binding.apply {
 

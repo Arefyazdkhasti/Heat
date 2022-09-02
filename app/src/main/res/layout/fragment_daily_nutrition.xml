@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.setting.dailyNutrition.DailyNutritionFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_margin="@dimen/standard_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_back_black" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title_daily_nutrition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/mega_margin"
+            android:fontFamily="@font/kanit_font_family"
+            android:text="@string/Seventh_page_text"
+            android:textColor="@color/black"
+            android:textFontWeight="500"
+            android:textSize="@dimen/big_font"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/back_arrow" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart_daily_nutrition"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_130sdp"
+            android:layout_marginTop="@dimen/mega_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_daily_nutrition"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginBottom="@dimen/mega_margin"
+            />
+
+        <LinearLayout
+            android:id="@+id/calorie_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/pieChart_daily_nutrition"
+            app:layout_constraintTop_toTopOf="@+id/pieChart_daily_nutrition">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_gravity="center_vertical"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_calories" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/kanit_font_family"
+                android:gravity="center"
+                android:minWidth="@dimen/_75sdp"
+                android:padding="@dimen/small_margin"
+                android:text="@string/calories"
+                android:textColor="@color/gray900"
+                android:textFontWeight="500"
+                android:textSize="@dimen/twenty_font" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/calories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/kanit_font_family"
+                android:gravity="center"
+                android:minWidth="@dimen/_75sdp"
+                android:padding="@dimen/small_margin"
+                android:textColor="@color/calories_green"
+                android:textFontWeight="300"
+                android:textSize="@dimen/large_font"
+                tools:text="2600 kcal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/protein_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/pieChart_daily_nutrition"
+            app:layout_constraintTop_toBottomOf="@+id/calorie_layout">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_gravity="center_vertical"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_protein" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/kanit_font_family"
+                android:gravity="center"
+                android:minWidth="@dimen/_75sdp"
+                android:padding="@dimen/small_margin"
+                android:text="@string/protein"
+                android:textColor="@color/gray900"
+                android:textFontWeight="500"
+                android:textSize="@dimen/twenty_font" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/proteins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/kanit_font_family"
+                android:gravity="center"
+                android:minWidth="@dimen/_75sdp"
+                android:padding="@dimen/small_margin"
+                android:textColor="@color/protein_blue"
+                android:textFontWeight="300"
+                android:textSize="@dimen/large_font"
+                tools:text="2600 kcal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fat_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/pieChart_daily_nutrition"
+            app:layout_constraintTop_toBottomOf="@+id/protein_layout">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_gravity="center_vertical"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_fat" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/kanit_font_family"
+                android:gravity="center"
+                android:minWidth="@dimen/_75sdp"
+                android:padding="@dimen/small_margin"
+                android:text="@string/fat"
+                android:textColor="@color/gray900"
+                android:textFontWeight="500"
+                android:textSize="@dimen/twenty_font" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/fats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/kanit_font_family"
+                android:gravity="center"
+                android:minWidth="@dimen/_75sdp"
+                android:padding="@dimen/small_margin"
+                android:textColor="@color/fat_yellow"
+                android:textFontWeight="300"
+                android:textSize="@dimen/large_font"
+                tools:text="2600 kcal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/carbo_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/pieChart_daily_nutrition"
+            app:layout_constraintTop_toBottomOf="@+id/fat_layout">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_gravity="center_vertical"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_carbo" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/kanit_font_family"
+                android:gravity="center"
+                android:minWidth="@dimen/_75sdp"
+                android:padding="@dimen/small_margin"
+                android:text="@string/carbo"
+                android:textColor="@color/gray900"
+                android:textFontWeight="500"
+                android:textSize="@dimen/twenty_font" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/carbos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/kanit_font_family"
+                android:gravity="center"
+                android:minWidth="@dimen/_75sdp"
+                android:padding="@dimen/small_margin"
+                android:textColor="@color/carbo_red"
+                android:textFontWeight="300"
+                android:textSize="@dimen/large_font"
+                tools:text="2600 kcal" />
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/getStarted"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_margin="@dimen/standard_margin"
+            android:fontFamily="@font/kanit_font_family"
+            android:gravity="center"
+            android:padding="@dimen/small_margin"
+            android:text="@string/get_started"
+            android:textColor="@color/colorPrimary"
+            android:textFontWeight="400"
+            android:textSize="@dimen/extra_font"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view_generate_food"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_250sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pieChart_daily_nutrition"
+            app:lottie_autoPlay="true"
+            android:layout_marginTop="@dimen/mega_margin"
+            android:layout_marginBottom="@dimen/mega_margin"
+            app:lottie_rawRes="@raw/suggested_daily_nutrition" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

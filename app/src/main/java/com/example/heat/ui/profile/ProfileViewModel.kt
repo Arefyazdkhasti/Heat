@@ -2,7 +2,7 @@ package com.example.heat.ui.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.heat.data.data.repository.RecipesRepository
+import com.example.heat.data.network.repository.HeatRepository
 import com.example.heat.data.local.repository.RoomRepository
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import com.example.heat.util.lazyDeferred
 
 class ProfileViewModel(
-    private val recipesRepository: RecipesRepository,
+    private val heatRepository: HeatRepository,
     private val roomRepository: RoomRepository
 
 ) : ViewModel() {
@@ -42,6 +42,12 @@ class ProfileViewModel(
     fun logoutClicked() = viewModelScope.launch {
         profileTransactionEvent.send(ProfileTransactionEvent.NavigateToLoginScreen)
     }
+    fun dailyNutritionClicked() = viewModelScope.launch {
+        profileTransactionEvent.send(ProfileTransactionEvent.NavigateToDailyNutritionScreen)
+    }
+    fun likedFoodsClicked() = viewModelScope.launch {
+        profileTransactionEvent.send(ProfileTransactionEvent.NavigateToLikedFoodsScreen)
+    }
     val getUserPreference by lazyDeferred{
         roomRepository.getUserPreference()
     }
@@ -55,5 +61,7 @@ class ProfileViewModel(
         object NavigateToIngredientAllergyScreen : ProfileTransactionEvent()
         object NavigateToDiseaseScreen : ProfileTransactionEvent()
         object NavigateToLoginScreen : ProfileTransactionEvent()
+        object NavigateToDailyNutritionScreen : ProfileTransactionEvent()
+        object NavigateToLikedFoodsScreen : ProfileTransactionEvent()
     }
 }

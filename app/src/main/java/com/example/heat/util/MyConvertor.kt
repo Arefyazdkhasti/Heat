@@ -1,6 +1,12 @@
 package com.example.heat.util
 
+import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
+import com.example.heat.data.datamodel.food.foodSummery.Calorie
+import com.example.heat.data.datamodel.food.foodSummery.Carbohydrates
+import com.example.heat.data.datamodel.food.foodSummery.Fat
+import com.example.heat.data.datamodel.food.foodSummery.Protein
+import com.example.heat.util.enumerian.DietType
 import com.example.heat.util.enumerian.Disease
 import com.example.heat.util.enumerian.IngredientAllergy
 import com.google.gson.Gson
@@ -10,24 +16,12 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class MyConvertor {
-    /*val gson = Gson()
-
-    @TypeConverter
-    fun recipeToString(recipe: String): String {
-        return gson.toJson(recipe)
-    }
-
-    @TypeConverter
-    fun stringToRecipe(recipeString: String): String {
-        val objectType = object : TypeToken<String>() {}.type
-        return gson.fromJson(recipeString, objectType)
-    }*/
+public class MyConvertor {
 
     var gson = Gson()
 
     @TypeConverter
-    fun stringToSomeObjectList(data: String?): ArrayList<String>{
+    fun stringToSomeObjectList(data: String?): ArrayList<String> {
         if (data == null) {
             return arrayListOf()
         }
@@ -39,15 +33,4 @@ class MyConvertor {
     fun someObjectListToString(someObjects: List<String>): String? {
         return gson.toJson(someObjects)
     }
-        /* @TypeConverter
-         fun toIngredientsAllergyType(value :String) = enumValueOf<IngredientAllergy>(value)
-
-         @TypeConverter
-         fun toDiseaseType(value :String) = enumValueOf<Disease>(value)
-         @TypeConverter
-         fun listToJson(value: ArrayList<String>?) = Gson().toJson(value)
-
-         @TypeConverter
-         fun jsonToList(value: String) = Gson().fromJson(value, Array<String>::class.java).toList()
-     */
 }

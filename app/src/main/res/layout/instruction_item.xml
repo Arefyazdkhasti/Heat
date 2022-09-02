@@ -15,6 +15,8 @@
         android:textColor="@color/colorPrimary"
         android:layout_gravity="center_vertical"
         tools:text="1"
+        android:fontFamily="@font/kanit_font_family"
+        android:textFontWeight="700"
         android:layout_margin="@dimen/standard_margin"/>
 
 
@@ -27,6 +29,8 @@
         android:layout_marginEnd="@dimen/standard_margin"
         android:textSize="@dimen/standard_font"
         android:layout_gravity="center_vertical"
+        android:fontFamily="@font/kanit_font_family"
+        android:textFontWeight="400"
         tools:text="@string/detail_sample_instruction" />
 
 

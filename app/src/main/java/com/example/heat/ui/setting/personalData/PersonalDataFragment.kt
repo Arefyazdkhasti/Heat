@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.heat.R
@@ -13,8 +14,11 @@ import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.databinding.FragmentPersonalDataBinding
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.survey.SurveyFragmentDirections
+import com.example.heat.util.UiUtils.Companion.dataStore
 import com.example.heat.util.UiUtils.Companion.isEditTextEmpty
 import com.example.heat.util.UiUtils.Companion.showSimpleSnackBar
+import com.example.heat.util.UserIDManager
+import com.example.heat.util.UserManager
 import com.example.heat.util.enumerian.*
 import com.example.heat.util.exhaustive
 import kotlinx.coroutines.launch
@@ -60,11 +64,11 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
 
         if (userPref != null) {
             setData(userPref)
-        }else{
+        } else {
             shouldUserSurveyDir = true
         }
-        if(comeFrom == ComeFrom.PROFILE) isFromProfile = true
-        bindUI(isFromProfile,shouldUserSurveyDir, userPref)
+        if (comeFrom == ComeFrom.PROFILE) isFromProfile = true
+        bindUI(isFromProfile, shouldUserSurveyDir, userPref)
     }
 
     private fun setData(userPreferences: UserPreferences) {
@@ -80,9 +84,25 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
         }
     }
 
-    private fun bindUI(isFromProfile: Boolean, shouldUserSurveyDir: Boolean, userPreference: UserPreferences?) = launch {
-
-        val userPref : UserPreferences = userPreference ?: UserPreferences(0,"",0.0,0.0,0,Gender.MALE,ActiveLevel.MODERATELY,AbstractGoal.MAINTAIN,DietType.ANY_THING,arrayListOf(),arrayListOf())
+    private fun bindUI(
+        isFromProfile: Boolean,
+        shouldUserSurveyDir: Boolean,
+        userPreference: UserPreferences?
+    ) = launch {
+        val id = getUserIDFromDataStore()
+        val userPref: UserPreferences = userPreference ?: UserPreferences(
+            id,
+            "",
+            0.0,
+            0.0,
+            0,
+            Gender.MALE,
+            ActiveLevel.MODERATELY,
+            AbstractGoal.MAINTAIN,
+            UserDietType.ANY_THING,
+            arrayListOf(),
+            arrayListOf()
+        )
 
         if (isFromProfile) {
             binding.navigationLayout.visibility = View.GONE
@@ -112,7 +132,7 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
                     saveData(binding, userPref)
                 }
             }
-                toolbarLayout.backArrow.setOnClickListener {
+            toolbarLayout.backArrow.setOnClickListener {
                 saveData(binding, userPref)
             }
         }
@@ -127,13 +147,14 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
                                 requireActivity().onBackPressed()
                             }
                             false -> {
-                                if(shouldUserSurveyDir){
-                                    val actionAdd = SurveyFragmentDirections.actionSurveyFragmentToActiveLevelFragment(
-                                        userPref,
-                                        ComeFrom.SURVEY
-                                    )
+                                if (shouldUserSurveyDir) {
+                                    val actionAdd =
+                                        SurveyFragmentDirections.actionSurveyFragmentToActiveLevelFragment(
+                                            userPref,
+                                            ComeFrom.SURVEY
+                                        )
                                     findNavController().navigate(actionAdd)
-                                }else {
+                                } else {
                                     val actionAdd =
                                         PersonalDataFragmentDirections.actionPersonalDataFragmentToActiveLevelFragment(
                                             userPref,
@@ -153,7 +174,24 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
         }.exhaustive
     }
 
-    private fun saveData(binding: FragmentPersonalDataBinding, userPreference: UserPreferences) {
+    private fun getUserIDFromDataStore(): Int {
+        val dataStore = context?.dataStore
+        var id = 0
+        if (dataStore != null) {
+            val userManager = UserIDManager(dataStore)
+            userManager.userIDFlow.asLiveData().observe(viewLifecycleOwner, {
+                if (it != null) {
+                    id = it
+                }
+            })
+        }
+        return id
+    }
+
+    private fun saveData(
+        binding: FragmentPersonalDataBinding,
+        userPreference: UserPreferences
+    ) {
         binding.apply {
 
             if (!isEditTextEmpty(name) and !isEditTextEmpty(weight) and !isEditTextEmpty(height) and !isEditTextEmpty(

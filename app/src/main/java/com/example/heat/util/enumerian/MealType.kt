@@ -1,6 +1,18 @@
 package com.example.heat.util.enumerian
 
-//TODO use this main course -> private const val main_course = "main course"
 enum class MealType {
-    all,breakfast,main_course,dessert,appetizer,salad,bread,soup,beverage,sauce,fingerfood,drink
+    BREAKFAST,
+    MAIN_COURSE,
+    SIDE_DISH,
+    DESSERT,
+    APPETIZER,
+    SALAD,
+    BREAD,
+    SOUP,
+    BEVERAGE,
+    SAUCE,
+    FINGER_FOOD,
+    DRINK,
+    SNACK,
+    NONE,
 }

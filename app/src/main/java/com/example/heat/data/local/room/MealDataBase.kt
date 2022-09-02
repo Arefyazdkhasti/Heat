@@ -4,13 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import com.example.heat.data.datamodel.MealListItem
-import com.example.heat.data.datamodel.user.UserPreferences
-import com.example.heat.util.MyConvertor
+import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 
 
-@Database(entities = [MealListItem::class], version = 1, exportSchema = false)
+@Database(entities = [FoodSummery::class], version = 2, exportSchema = false)
 abstract class MealDataBase(
 ) : RoomDatabase() {
     abstract fun mealDao(): MealDao
@@ -27,7 +24,7 @@ abstract class MealDataBase(
             }
 
         private fun buildDatabase(appContext: Context) =
-            Room.databaseBuilder(appContext, MealDataBase::class.java, "mealList")
+            Room.databaseBuilder(appContext, MealDataBase::class.java, "FoodSummeryList")
                 .fallbackToDestructiveMigration()
                 .build()
     }

@@ -1,20 +1,15 @@
 package com.example.heat.ui.seeAllRecipes
 
 import androidx.lifecycle.*
-import com.example.heat.data.data.repository.RecipesRepository
-import com.example.heat.data.datamodel.recipeList.RecipeList
-import com.example.heat.ui.recipes.BREAKFAST
-import com.example.heat.ui.recipes.MAIN_COURSE
-import com.example.heat.ui.recipes.SNACK
-import com.example.heat.util.lazyDeferred
+import com.example.heat.data.network.repository.HeatRepository
 
 class SeeAllRecipesViewModel (
     private val type: String,
-    private val recipesRepository: RecipesRepository
+    private val heatRepository: HeatRepository
 ) : ViewModel() {
 
 
-    val recipe by lazyDeferred {
+   /* val recipe by lazyDeferred {
         returnApi()
     }
 
@@ -46,5 +41,5 @@ class SeeAllRecipesViewModel (
             SNACK -> recipesRepository.getSnackRecipesList(SNACK,offset)
             else -> recipesRepository.getRecipesList(offset)
         }
-    }
+    }*/
 }

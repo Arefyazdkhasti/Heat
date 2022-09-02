@@ -57,6 +57,8 @@
                     android:text="@string/Forth_page_any_thin"
                     android:textColor="@color/gray900"
                     android:textSize="@dimen/twenty_font"
+                    android:fontFamily="@font/kanit_font_family"
+                    android:textFontWeight="500"
                     />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -66,7 +68,8 @@
                     android:text="@string/Forth_page_any_thing_exclude"
                     android:textColor="@color/gray100"
                     android:textSize="@dimen/large_font"
-                    />
+                    android:fontFamily="@font/kanit_font_family"
+                    android:textFontWeight="300" />
 
             </LinearLayout>
 
@@ -119,6 +122,8 @@
                     android:text="@string/Forth_page_vegetarian"
                     android:textColor="@color/gray900"
                     android:textSize="@dimen/twenty_font"
+                    android:fontFamily="@font/kanit_font_family"
+                    android:textFontWeight="500"
                     />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -128,6 +133,8 @@
                     android:text="@string/Forth_page_vegetarian_exclude"
                     android:textColor="@color/gray100"
                     android:textSize="@dimen/large_font"
+                    android:fontFamily="@font/kanit_font_family"
+                    android:textFontWeight="300"
                     />
 
             </LinearLayout>
@@ -176,7 +183,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/Forth_page_vegan"
                     android:textColor="@color/gray900"
-                    android:textSize="@dimen/twenty_font" />
+                    android:textSize="@dimen/twenty_font"
+                    android:fontFamily="@font/kanit_font_family"
+                    android:textFontWeight="500"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/vegan_exclude"
@@ -184,7 +193,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/Forth_page_vegan_exclude"
                     android:textColor="@color/gray100"
-                    android:textSize="@dimen/large_font" />
+                    android:textSize="@dimen/large_font"
+                    android:fontFamily="@font/kanit_font_family"
+                    android:textFontWeight="300"/>
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -232,7 +243,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/Forth_page_kosher"
                     android:textColor="@color/gray900"
-                    android:textSize="@dimen/twenty_font" />
+                    android:textSize="@dimen/twenty_font"
+                    android:fontFamily="@font/kanit_font_family"
+                    android:textFontWeight="500"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/kosher_exclude"
@@ -240,7 +253,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/Forth_page_kosher_exclude"
                     android:textColor="@color/gray100"
-                    android:textSize="@dimen/large_font" />
+                    android:textSize="@dimen/large_font"
+                    android:fontFamily="@font/kanit_font_family"
+                    android:textFontWeight="300" />
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -289,7 +304,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/Forth_page_muslim"
                     android:textColor="@color/gray900"
-                    android:textSize="@dimen/twenty_font" />
+                    android:textSize="@dimen/twenty_font"
+                    android:fontFamily="@font/kanit_font_family"
+                    android:textFontWeight="500"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/muslim_exclude"
@@ -297,7 +314,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/Forth_page_muslin_exclude"
                     android:textColor="@color/gray100"
-                    android:textSize="@dimen/large_font" />
+                    android:textSize="@dimen/large_font"
+                    android:fontFamily="@font/kanit_font_family"
+                    android:textFontWeight="300"/>
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -326,6 +345,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="300"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -339,7 +360,9 @@
             android:background="@drawable/next_btn_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf= "parent" />
+            app:layout_constraintEnd_toEndOf= "parent"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="300"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

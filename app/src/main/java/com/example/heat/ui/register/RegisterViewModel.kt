@@ -1,15 +1,34 @@
 package com.example.heat.ui.register
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.heat.data.data.repository.RecipesRepository
+import androidx.lifecycle.*
+import com.example.heat.data.network.repository.HeatRepository
+import com.example.heat.data.datamodel.user.RegisterRequest
+import com.example.heat.data.datamodel.user.UserRelatedResponse
+import com.example.heat.util.lazyDeferred
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(
-    private val recipesRepository: RecipesRepository,
+    private val heatRepository: HeatRepository,
 ) : ViewModel() {
+
+
+    private val register = MutableLiveData(RegisterRequest("","",""))
+
+    val registerUser = register.switchMap {  p ->
+        liveData<UserRelatedResponse> {
+            heatRepository.register(p)
+        }
+    }
+
+    fun setRegisterUser(registerRequest: RegisterRequest) {
+        register.value = registerRequest
+    }
+
+    val registerRequest by lazyDeferred {
+        register.value?.let { heatRepository.register(it) }
+    }
 
     private val registerTransactionEvent = Channel<RegisterTransactionEvent>()
     val registerEvent = registerTransactionEvent.receiveAsFlow()

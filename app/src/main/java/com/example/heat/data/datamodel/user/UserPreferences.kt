@@ -19,7 +19,7 @@ data class UserPreferences(
     var gender: Gender,
     var activeLevel: ActiveLevel,
     var abstractGoal: AbstractGoal,
-    var dietType: DietType,
+    var dietType: UserDietType,
     var ingredientsAllergy: ArrayList<String>,
     var disease: ArrayList<String>
 ): Parcelable

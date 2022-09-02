@@ -13,7 +13,7 @@ import com.example.heat.util.UiUtils.Companion.showToast
 
 abstract class SwipeToLikeCallback(context: Context) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
-    private val deleteIcon = ContextCompat.getDrawable(context, R.drawable.ic_like_red)
+    private val deleteIcon = ContextCompat.getDrawable(context, R.drawable.ic_like_black)
     private val intrinsicWidth = deleteIcon?.intrinsicWidth
     private val intrinsicHeight = deleteIcon?.intrinsicHeight
     private val background = ColorDrawable()

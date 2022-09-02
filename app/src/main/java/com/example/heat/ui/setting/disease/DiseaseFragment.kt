@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -157,7 +158,7 @@ class DiseaseFragment : ScopedFragment(), KodeinAware {
         binding: FragmentDiseaseBinding,
         userPreference: UserPreferences,
         itemView: View
-    ) {
+    ) = launch {
         binding.apply {
             val selectedItems = arrayListOf<Disease>()
             userPreference.disease.clear()
@@ -180,8 +181,14 @@ class DiseaseFragment : ScopedFragment(), KodeinAware {
             else if (itemView == finish) {
                 //save userPreference to Room database
                 viewModel.saveUserPreferences(userPreference)
+                viewModel.setCurrentUserProf(userPreference)
+                viewModel.sendUserPreferenceRequest.await()?.observe(viewLifecycleOwner, Observer {
+                  if(it!=null)
+                      viewModel.onNextClicked(userPreference)
+
+                })
+
                 //TODO show success/fail toast
-                viewModel.onNextClicked(userPreference)
             }
         }
     }

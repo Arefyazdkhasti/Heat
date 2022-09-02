@@ -11,10 +11,13 @@ import android.view.ViewGroup
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.heat.R
+import com.example.heat.data.datamodel.user.LoginRequest
+import com.example.heat.data.datamodel.user.RegisterRequest
 import com.example.heat.databinding.FragmentHomeBinding
 import com.example.heat.databinding.FragmentLoginBinding
 import com.example.heat.ui.MainActivity
@@ -27,8 +30,10 @@ import com.example.heat.util.UiUtils
 import com.example.heat.util.UiUtils.Companion.dataStore
 import com.example.heat.util.UiUtils.Companion.isEditTextEmpty
 import com.example.heat.util.UiUtils.Companion.isEmailValid
+import com.example.heat.util.UiUtils.Companion.saveUserIDToDataStore
 import com.example.heat.util.UiUtils.Companion.saveUserLoginStatusToDataStore
 import com.example.heat.util.UiUtils.Companion.showSimpleSnackBar
+import com.example.heat.util.UiUtils.Companion.showToast
 import com.example.heat.util.UserManager
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -46,7 +51,6 @@ class LoginFragment : ScopedFragment(), KodeinAware {
     private var _binding: FragmentLoginBinding? = null
     private val binding
         get() = _binding!!
-
 
 
     override fun onCreateView(
@@ -79,17 +83,8 @@ class LoginFragment : ScopedFragment(), KodeinAware {
                 if (validInput()) {
                     if (validEmail()) {
                         loading.visibility = View.VISIBLE
-                        //TODO send server request
-                        val handler = Handler()
-                        handler.postDelayed(Runnable {
-                            // Actions to do after 10 seconds
-                            loading.visibility = View.GONE
-                            //TODO get user id from server then get userPreferences from server and save it in roomDB
-                            viewModel.navigateToHomeScreen()
 
-                            saveUserLoginStatusToDataStore(requireContext(), true)
-
-                        }, 5000)
+                        sendLoginRequest()
 
                     } else {
                         viewModel.showInvalidInputToast("Your Email format is not correct")
@@ -122,6 +117,53 @@ class LoginFragment : ScopedFragment(), KodeinAware {
         }
     }
 
+    private fun sendLoginRequest() = launch {
+        val user = LoginRequest(
+            binding.passwordLoginEt.text.toString(),
+            binding.emailLoginEt.text.toString(),
+        )
+        viewModel.setRegisterUser(user)
+        //TODO send server request
+        viewModel.loginRequest.await()?.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                when (it.id) {
+                    404 ->{
+                        binding.loading.visibility = View.GONE
+                        showToast(requireContext(), "Username Not Found!")
+                    }
+                    406 -> {
+                        binding.loading.visibility = View.GONE
+                        showToast(requireContext(), "Your Password is not correct!")
+                    }
+                    408 -> {
+                        binding.loading.visibility = View.GONE
+                        showToast(requireContext(), "Something went wrong in login. Try again later.")
+                    }
+                    else -> {
+                        viewModel.setUserIDLogin(it.id)
+                        binding.loading.visibility = View.GONE
+                        saveUserLoginStatusToDataStore(requireContext(), true)
+                        saveUserIDToDataStore(requireContext(), it.id)
+                        viewModel.navigateToHomeScreen()
+                    }
+                }
+
+            }
+        })
+
+
+    }
+
+    private fun getUserPreferenceFromServer() = launch {
+        viewModel.getUserPreferences.await()?.observe(viewLifecycleOwner, {
+            //TODO viewModel.saveUserPreferences(it)
+            binding.loading.visibility = View.GONE
+            saveUserLoginStatusToDataStore(requireContext(), true)
+            saveUserIDToDataStore(requireContext(), it.id)
+            viewModel.navigateToHomeScreen()
+        })
+    }
+
     private fun validInput(): Boolean {
         binding.apply {
             return !isEditTextEmpty(emailLoginEt) && !isEditTextEmpty(passwordLoginEt)
@@ -130,7 +172,7 @@ class LoginFragment : ScopedFragment(), KodeinAware {
 
     private fun validEmail(): Boolean {
         binding.apply {
-            return isEmailValid(emailLoginEt.text.toString())
+            return /*isEmailValid(emailLoginEt.text.toString())*/ true
         }
     }
 

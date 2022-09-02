@@ -11,17 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:floatingSearch_close_search_on_keyboard_dismiss="true"
+        app:floatingSearch_leftActionMode="noLeftAction"
         app:floatingSearch_searchBarMarginLeft="@dimen/standard_margin"
         app:floatingSearch_searchBarMarginRight="@dimen/standard_margin"
         app:floatingSearch_searchBarMarginTop="@dimen/standard_margin"
         app:floatingSearch_searchHint="@string/search_recipes"
         app:floatingSearch_showSearchKey="false"
         app:floatingSearch_suggestionsListAnimDuration="250"
-        app:floatingSearch_leftActionMode="noLeftAction"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/filter_search"

@@ -27,6 +27,8 @@
         tools:text="21 January 2021"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/extra_font"
+        android:fontFamily="@font/kanit_font_family"
+        android:textFontWeight="400"
         app:layout_constraintBottom_toBottomOf="@+id/checkbox_tick_all_day"
         app:layout_constraintStart_toEndOf="@+id/checkbox_tick_all_day"
         app:layout_constraintTop_toTopOf="@+id/checkbox_tick_all_day" />

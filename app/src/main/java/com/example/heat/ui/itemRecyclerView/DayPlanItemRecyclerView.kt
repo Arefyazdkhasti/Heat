@@ -1,22 +1,16 @@
 package com.example.heat.ui.itemRecyclerView
 
-import android.os.Build
-import android.util.Log
 import android.view.View
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.example.heat.R
 import com.example.heat.data.datamodel.DayListItem
-import com.example.heat.data.datamodel.MealListItem
+import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 import com.example.heat.databinding.ItemDayPlanBinding
-import com.example.heat.ui.trackFood.TrackFoodsFragmentDirections
 import com.example.heat.util.SendEvent
-import com.example.heat.util.UiUtils.Companion.formatDate
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
-import java.lang.IllegalArgumentException
 
 
 class DayPlanItemRecyclerView(val list: DayListItem, val sendEvent: SendEvent) :
@@ -29,12 +23,9 @@ class DayPlanItemRecyclerView(val list: DayListItem, val sendEvent: SendEvent) :
         binding = ItemDayPlanBinding.bind(viewHolder.itemView)
 
         binding.apply {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                //dayPlanDate.text = formatDate(list.dayPlan[0].date)
-            }
-            dayPlanDate.text = list.dayPlan[0].date
+            dayPlanDate.text = list.breakFast.localDate.toString()
 
-            if (list.dayPlan[0].eaten and list.dayPlan[1].eaten and list.dayPlan[2].eaten and list.dayPlan[3].eaten) {
+            if (list.breakFast.eaten and list.lunch.eaten and list.dinner.eaten and list.snack.eaten) {
                 checkboxTickAllDay.isChecked = true
                 refreshWholeDayPlan.visibility = View.INVISIBLE
             }
@@ -43,32 +34,37 @@ class DayPlanItemRecyclerView(val list: DayListItem, val sendEvent: SendEvent) :
                 sendEvent.sendWholeCheckedStatus(checked, list)
                 if (checked) {
                     refreshWholeDayPlan.visibility = View.INVISIBLE
-                    for (element in list.dayPlan) {
-                        element.eaten = true
+                    list.apply {
+                        breakFast.eaten = true
+                        lunch.eaten = true
+                        dinner.eaten = true
+                        snack.eaten = true
                     }
                 } else {
                     if (!unCheckOne) {
                         refreshWholeDayPlan.visibility = View.VISIBLE
-                        for (element in list.dayPlan) {
-                            element.eaten = false
+                        list.apply {
+                            breakFast.eaten = false
+                            lunch.eaten = false
+                            dinner.eaten = false
+                            snack.eaten = false
                         }
                     }
                 }
-                initRecyclerView(dayPlanRecyclerView, list.dayPlan)
-                unCheckOne = false
+                initRecyclerView(dayPlanRecyclerView, list)
             }
 
-            initRecyclerView(dayPlanRecyclerView, list.dayPlan)
+            initRecyclerView(dayPlanRecyclerView, list)
         }
     }
 
     private fun initRecyclerView(
         recyclerView: ShimmerRecyclerView,
-        data: List<MealListItem>
+        data: DayListItem,
     ) {
-
+        val listOfFoodSummery = listOf(data.breakFast, data.lunch, data.dinner, data.snack)
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
-            addAll(data.toRecipeListItems())
+            addAll(listOfFoodSummery.toRecipeListItems())
         }
 
         recyclerView.apply {
@@ -86,11 +82,11 @@ class DayPlanItemRecyclerView(val list: DayListItem, val sendEvent: SendEvent) :
 
     }
 
-    private fun List<MealListItem>.toRecipeListItems(): List<MealItemRecyclerView> = this.map {
+    private fun List<FoodSummery>.toRecipeListItems(): List<MealItemRecyclerView> = this.map {
         MealItemRecyclerView(it, this@DayPlanItemRecyclerView)
     }
 
-    override fun sendCheckedStatus(check: Boolean, meal: MealListItem) {
+    override fun sendCheckedStatus(check: Boolean, meal: FoodSummery) {
         sendEvent.sendCheckedStatus(check, meal)
     }
 
@@ -98,8 +94,16 @@ class DayPlanItemRecyclerView(val list: DayListItem, val sendEvent: SendEvent) :
     }
 
     override fun sendOneMealUnChecked() {
-        // binding.refreshWholeDayPlan.visibility = View.VISIBLE
-        // binding.checkboxTickAllDay.isChecked = false
-        // unCheckOne = true
+        binding.refreshWholeDayPlan.visibility = View.VISIBLE
+        binding.checkboxTickAllDay.isChecked = false
+        unCheckOne = true
+    }
+
+    override fun regenerateOneMeal(meal: FoodSummery) {
+
+    }
+
+    override fun regenerateWholePlan(plan: DayListItem) {
+        TODO("Not yet implemented")
     }
 }

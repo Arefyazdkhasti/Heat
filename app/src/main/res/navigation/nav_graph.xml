@@ -119,6 +119,12 @@
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_dailyNutritionFragment"
+            app:destination="@id/dailyNutritionFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_likedFoodsFragment"
+            app:destination="@id/likedFoodsFragment" />
     </fragment>
     <fragment
         android:id="@+id/recipesFragment"
@@ -310,8 +316,31 @@
             android:id="@+id/action_settingsFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/dailyNutritionFragment"
+        android:name="com.example.heat.ui.setting.dailyNutrition.DailyNutritionFragment"
+        android:label="fragment_daily_nutrition"
+        tools:layout="@layout/fragment_daily_nutrition" >
+        <action
+            android:id="@+id/action_dailyNutritionFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <argument
+            android:name="userPreferences"
+            app:argType="com.example.heat.data.datamodel.user.UserPreferences" />
+        <argument
+            android:name="comeFrom"
+            app:argType="com.example.heat.util.enumerian.ComeFrom" />
 
-
+    </fragment>
+    <fragment
+        android:id="@+id/likedFoodsFragment"
+        android:name="com.example.heat.ui.likedRecipes.LikedFoodsFragment"
+        android:label="fragment_liked_foods"
+        tools:layout="@layout/fragment_liked_foods" >
+        <action
+            android:id="@+id/action_likedFoodsFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
+    </fragment>
 
 
 </navigation>

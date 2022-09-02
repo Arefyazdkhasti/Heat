@@ -24,6 +24,8 @@
         android:textColor="@color/gray900"
         android:textSize="@dimen/extra_font"
         android:maxLength="11"
+        android:fontFamily="@font/kanit_font_family"
+        android:textFontWeight="500"
         app:layout_constraintBottom_toBottomOf="@id/back_arrow"
         app:layout_constraintStart_toEndOf="@id/back_arrow"
         app:layout_constraintTop_toTopOf="@id/back_arrow"

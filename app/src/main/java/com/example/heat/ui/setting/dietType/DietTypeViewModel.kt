@@ -2,7 +2,7 @@ package com.example.heat.ui.setting.dietType
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.heat.data.data.repository.RecipesRepository
+import com.example.heat.data.network.repository.HeatRepository
 import com.example.heat.data.datamodel.user.UserPreferences
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class DietTypeViewModel (
     private val userPreferences: UserPreferences?,
-    private val recipesRepository: RecipesRepository
+    private val heatRepository: HeatRepository
 ) : ViewModel() {
 
     private val transactionsEventChannel = Channel<DietTypeTransactionsEvents>()

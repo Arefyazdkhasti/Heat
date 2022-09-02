@@ -22,6 +22,8 @@
         android:text="@string/First_page_text"
         android:textColor="@color/black"
         android:textSize="@dimen/big_font"
+        android:fontFamily="@font/kanit_font_family"
+        android:textFontWeight="500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar_layout" />
@@ -42,7 +44,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="400"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,6 +59,7 @@
         android:layout_marginTop="@dimen/extra_margin"
         android:layout_marginEnd="@dimen/mega_margin"
         android:hint="@string/First_page_height"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_personal_data">
@@ -63,7 +68,9 @@
             android:id="@+id/height"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number" />
+            android:inputType="number"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="400"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,7 +112,9 @@
             android:id="@+id/age"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number" />
+            android:inputType="number"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="400"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,6 +129,8 @@
         android:textSize="@dimen/extra_font"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/kanit_font_family"
+        android:textFontWeight="400"
         app:layout_constraintTop_toBottomOf="@+id/age_personal_data" />
 
     <com.google.android.material.button.MaterialButtonToggleGroup
@@ -142,7 +153,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:enabled="true"
-            android:text="@string/First_page_male" />
+            android:text="@string/First_page_male"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="400"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/female"
@@ -150,7 +163,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/First_page_female" />
+            android:text="@string/First_page_female"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="400"/>
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -188,6 +203,8 @@
             android:text="@string/next"
             android:textColor="@color/white"
             android:textSize="@dimen/extra_font"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="400"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

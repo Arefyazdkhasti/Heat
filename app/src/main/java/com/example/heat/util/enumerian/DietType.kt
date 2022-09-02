@@ -2,5 +2,11 @@ package com.example.heat.util.enumerian
 
 
 enum class DietType {
-    ANY_THING,Vegetarian,Vegan,Muslim,Kosher
+    VEGETARIAN,
+    VEGAN,
+    NOT_HALAL,
+    NOT_KOSHER,
+    DAIRY_FREE,
+    GLUTEN_FREE,
+    NONE
 }

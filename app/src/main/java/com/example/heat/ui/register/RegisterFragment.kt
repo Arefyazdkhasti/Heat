@@ -1,27 +1,23 @@
 package com.example.heat.ui.register
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.heat.R
-import com.example.heat.databinding.FragmentLoginBinding
+import com.example.heat.data.datamodel.user.RegisterRequest
 import com.example.heat.databinding.FragmentRegisterBinding
-import com.example.heat.ui.MainActivity
 import com.example.heat.ui.base.ScopedFragment
-import com.example.heat.ui.login.LoginFragmentDirections
-import com.example.heat.ui.login.LoginViewModel
-import com.example.heat.ui.login.LoginViewModelFactory
 import com.example.heat.util.UiUtils
 import com.example.heat.util.UiUtils.Companion.isEditTextEmpty
 import com.example.heat.util.UiUtils.Companion.isEmailValid
+import com.example.heat.util.UiUtils.Companion.saveUserIDToDataStore
 import com.example.heat.util.UiUtils.Companion.saveUserLoginStatusToDataStore
+import com.example.heat.util.UiUtils.Companion.showToast
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
@@ -63,17 +59,13 @@ class RegisterFragment : ScopedFragment(), KodeinAware {
             alreadyHaveAccountBtn.setOnClickListener {
                 viewModel.navigateToRegisterClicked()
             }
+
             registerBtn.setOnClickListener {
                 if (validInput()) {
                     if (validEmail()) {
                         loading.visibility = View.VISIBLE
-                        //TODO send server request
-                        val handler = Handler()
-                        handler.postDelayed(Runnable {
-                            loading.visibility = View.GONE
-                            viewModel.navigateToSurveyScreen()
-                        }, 5000)
-                        saveUserLoginStatusToDataStore(requireContext(), true)
+
+                        sendRegisterRequest()
 
                     } else {
                         viewModel.showInvalidInputToast("Your Email format is not correct")
@@ -107,9 +99,40 @@ class RegisterFragment : ScopedFragment(), KodeinAware {
         }
     }
 
+    private fun sendRegisterRequest() = launch {
+        val user = RegisterRequest(
+            binding.emailRegisterEt.text.toString(),
+            binding.passwordRegisterEt.text.toString(),
+            binding.usernameRegisterEt.text.toString(),
+        )
+        viewModel.setRegisterUser(user)
+        //TODO send server request
+        viewModel.registerRequest.await()?.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                binding.loading.visibility = View.GONE
+                when (it.id){
+                    409 -> {
+                        showToast(requireContext(), "Username already taken. Choose a new one.")
+                    }
+                    408 -> {
+                        showToast(requireContext(), "Something went wrong in Register. Try again later.")
+                    }
+                    else ->{
+                        viewModel.navigateToSurveyScreen()
+                        saveUserLoginStatusToDataStore(requireContext(), true)
+                        saveUserIDToDataStore(requireContext(),it.id)
+                    }
+                }
+
+            }
+        })
+    }
+
     private fun validInput(): Boolean {
         binding.apply {
-            return !isEditTextEmpty(emailRegisterEt) && !isEditTextEmpty(passwordRegisterEt) && !isEditTextEmpty(usernameRegisterEt)
+            return !isEditTextEmpty(emailRegisterEt) && !isEditTextEmpty(passwordRegisterEt) && !isEditTextEmpty(
+                usernameRegisterEt
+            )
         }
     }
 

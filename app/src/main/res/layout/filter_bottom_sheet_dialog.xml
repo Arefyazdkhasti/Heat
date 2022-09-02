@@ -11,9 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/standard_margin"
-        android:text="@string/calories_range"
+        android:text="@string/filter_recipes"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/mega_font"
+        android:fontFamily="@font/kanit_font_family"
+        android:textFontWeight="500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,12 +39,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="none"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="400"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/diet_type_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,7 +62,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:inputType="none" />
+            android:inputType="none"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="400"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_margin"
+        android:layout_weight="1"
+        android:hint="@string/filter_cuisine_type_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/diet_type_layout">
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/cuisine_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="none"
+            android:fontFamily="@font/kanit_font_family"
+            android:textFontWeight="400"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -69,6 +97,8 @@
         android:text="@string/calories_range"
         android:textColor="@color/gray900"
         android:textSize="@dimen/large_font"
+        android:fontFamily="@font/kanit_font_family"
+        android:textFontWeight="500"
         app:layout_constraintBottom_toBottomOf="@+id/range_slider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/range_slider" />
@@ -81,7 +111,7 @@
         android:stepSize="100"
         android:theme="@style/RangeSlideTheme"
         android:valueFrom="0"
-        android:valueTo="10000"
+        android:valueTo="1700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/appCompatTextView"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
@@ -94,6 +124,8 @@
         android:layout_margin="@dimen/standard_margin"
         android:background="@drawable/next_btn_bg"
         android:text="@string/filter_search_result"
+        android:fontFamily="@font/kanit_font_family"
+        android:textFontWeight="500"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
