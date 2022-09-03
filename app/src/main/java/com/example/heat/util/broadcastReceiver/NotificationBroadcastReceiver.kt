@@ -5,15 +5,8 @@ import android.content.Context
 
 import android.content.BroadcastReceiver
 import android.content.Intent
-import android.text.format.DateFormat
-import android.util.Log
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.example.heat.R
-import com.example.heat.util.Service.NotificationService
-
-import java.util.*
-import java.util.concurrent.TimeUnit
 
 const val breakfastNotificationID = 1
 const val lunchNotificationID = 2
