@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.heat.R
@@ -14,7 +15,9 @@ import com.example.heat.databinding.FragmentDietTypeBinding
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.setting.activeLevel.ActiveLevelFragmentArgs
 import com.example.heat.util.UiUtils
+import com.example.heat.util.UiUtils.Companion.dataStore
 import com.example.heat.util.UiUtils.Companion.getColor
+import com.example.heat.util.UserIDManager
 import com.example.heat.util.enumerian.ComeFrom
 import com.example.heat.util.enumerian.DietType
 import com.example.heat.util.enumerian.UserDietType
@@ -109,7 +112,7 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
 
             //TODO move to a separate function
             anythingCardView.setOnClickListener {
-                selectedDietType =UserDietType.ANY_THING
+                selectedDietType = UserDietType.ANY_THING
                 anythingCardView.setBackgroundColor(selectColor)
                 veganCardView.setBackgroundColor(disselectColor)
                 vegetarianCardView.setBackgroundColor(disselectColor)
@@ -133,7 +136,7 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
                 kosherCardView.setBackgroundColor(disselectColor)
             }
             muslimCardView.setOnClickListener {
-                    selectedDietType = UserDietType.HALAL
+                selectedDietType = UserDietType.HALAL
                 anythingCardView.setBackgroundColor(disselectColor)
                 veganCardView.setBackgroundColor(disselectColor)
                 vegetarianCardView.setBackgroundColor(disselectColor)
@@ -151,7 +154,11 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
 
             if (isFromProfile) {
                 toolbarLayout.save.setOnClickListener {
-                    saveData(binding, userPreference, it, selectedDietType)
+                    val user = saveData(binding, userPreference, it, selectedDietType)
+
+                    //send updated user pref to server
+                    if(UiUtils.isNetworkConnected(requireActivity()))
+                        viewModel.updateUserPreferencesToServer(user)
                 }
             } else {
                 next.setOnClickListener {
@@ -217,7 +224,7 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
         userPreference: UserPreferences,
         itemView: View,
         dietType: UserDietType
-    ) {
+    ): UserPreferences {
         binding.apply {
 
             if (dietType != null) {
@@ -231,5 +238,21 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
                 viewModel.shouldShowFillAllPartSnackBar()
             }
         }
+        return userPreference
+    }
+
+    private fun getUserIDFromDataStore(): Int {
+        val dataStore = context?.dataStore
+        var id = 0
+        if (dataStore != null) {
+            val userManager = UserIDManager(dataStore)
+            userManager.userIDFlow.asLiveData().observe(viewLifecycleOwner, {
+                if (it != null) {
+                    id = it
+                }
+            })
+        }
+        return id
     }
 }
+

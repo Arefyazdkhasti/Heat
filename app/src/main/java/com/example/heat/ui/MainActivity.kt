@@ -28,8 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
-    // No Internet Dialog
-    private var noInternetDialog: NoInternetDialogPendulum? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,40 +51,10 @@ class MainActivity : AppCompatActivity() {
 
         //setupActionBarWithNavController(navController)
 
-        checkForInternet()
 
         initDestinationListener()
     }
 
-    private fun checkForInternet() {
-        noInternetDialog = NoInternetDialogPendulum.Builder(
-            this,
-            lifecycle
-        ).apply {
-            dialogProperties.apply {
-                connectionCallback = object : ConnectionCallback { // Optional
-                    override fun hasActiveConnection(hasActiveConnection: Boolean) {
-                        // ...
-                    }
-                }
-
-                cancelable = false // Optional
-                noInternetConnectionTitle = "No Internet" // Optional
-                noInternetConnectionMessage =
-                    "Check your Internet connection and try again." // Optional
-                showInternetOnButtons = true // Optional
-                pleaseTurnOnText = "Please turn on" // Optional
-                wifiOnButtonText = "Wifi" // Optional
-                mobileDataOnButtonText = "Mobile data" // Optional
-
-                onAirplaneModeTitle = "No Internet" // Optional
-                onAirplaneModeMessage = "You have turned on the airplane mode." // Optional
-                pleaseTurnOffText = "Please turn off" // Optional
-                airplaneModeOffButtonText = "Airplane mode" // Optional
-                showAirplaneModeOffButtons = true // Optional
-            }
-        }.build()
-    }
 
     /*override fun onSupportNavigateUp(): Boolean =
         navController.navigateUp()*/

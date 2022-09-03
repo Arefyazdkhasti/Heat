@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.heat.R
@@ -14,6 +15,8 @@ import com.example.heat.databinding.FragmentAbstractGoalBinding
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.setting.activeLevel.ActiveLevelFragmentArgs
 import com.example.heat.util.UiUtils
+import com.example.heat.util.UiUtils.Companion.dataStore
+import com.example.heat.util.UserIDManager
 import com.example.heat.util.enumerian.AbstractGoal
 import com.example.heat.util.enumerian.ComeFrom
 import com.example.heat.util.exhaustive
@@ -96,7 +99,11 @@ class AbstractGoalFragment  : ScopedFragment(), KodeinAware {
         binding.apply {
             if (isFromProfile) {
                 toolbarLayout.save.setOnClickListener {
-                    saveData(binding, userPreference, it)
+                    val user = saveData(binding, userPreference, it)
+
+                    //send updated user pref to server
+                    if(UiUtils.isNetworkConnected(requireActivity()))
+                        viewModel.updateUserPreferencesToServer(user)
                 }
             } else {
                 next.setOnClickListener {
@@ -151,9 +158,10 @@ class AbstractGoalFragment  : ScopedFragment(), KodeinAware {
         }.exhaustive
     }
 
-    private fun saveData(binding: FragmentAbstractGoalBinding, userPreference: UserPreferences, itemView: View) {
+    private fun saveData(binding: FragmentAbstractGoalBinding, userPreference: UserPreferences, itemView: View): UserPreferences {
         binding.apply {
 
+            userPreference.id = getUserIDFromDataStore()
             if (toggleButtonGroupAbstractGoal.checkedButtonId != View.NO_ID) {
                 when {
                     lose.isChecked -> userPreference.abstractGoal = AbstractGoal.LOSE
@@ -168,6 +176,23 @@ class AbstractGoalFragment  : ScopedFragment(), KodeinAware {
             } else {
                 viewModel.shouldShowFillAllPartSnackBar()
             }
+            return userPreference
         }
     }
+
+    private fun getUserIDFromDataStore(): Int {
+        val dataStore = context?.dataStore
+        var id = 0
+        if (dataStore != null) {
+            val userManager = UserIDManager(dataStore)
+            userManager.userIDFlow.asLiveData().observe(viewLifecycleOwner, {
+                if (it != null) {
+                    id = it
+                }
+            })
+        }
+        return id
+    }
+
+
 }

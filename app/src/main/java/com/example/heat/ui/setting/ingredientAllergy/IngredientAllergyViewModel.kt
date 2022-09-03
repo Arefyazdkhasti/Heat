@@ -37,6 +37,11 @@ class IngredientAllergyViewModel(
         transactionsEventChannel.send(IngredientAllergyTransactionsEvents.ShouldFillAllPart)
     }
 
+    fun updateUserPreferencesToServer(userPreferences: UserPreferences) = viewModelScope.launch {
+        heatRepository.saveUserPreferences(userPreferences)
+    }
+
+
     sealed class IngredientAllergyTransactionsEvents() {
         object ShouldFillAllPart : IngredientAllergyTransactionsEvents()
         data class NavigateToDiseaseScreen(val userPreference: UserPreferences) : IngredientAllergyTransactionsEvents()

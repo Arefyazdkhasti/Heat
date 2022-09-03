@@ -25,6 +25,7 @@ import com.example.heat.ui.search.SearchFragmentDirections
 import com.example.heat.ui.search.SearchViewModel
 import com.example.heat.ui.search.SearchViewModelFactory
 import com.example.heat.util.SwipeToLikeCallback
+import com.example.heat.util.UiUtils.Companion.checkForInternet
 import com.example.heat.util.UiUtils.Companion.dataStore
 import com.example.heat.util.UserIDManager
 import com.example.heat.util.enumerian.RecipeViewType
@@ -62,7 +63,8 @@ class LikedFoodsFragment : ScopedFragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bindUI()
+        if (checkForInternet(requireActivity(), lifecycle))
+            bindUI()
     }
 
     private fun bindUI() = launch {
@@ -73,13 +75,13 @@ class LikedFoodsFragment : ScopedFragment(), KodeinAware {
         val handler = Handler()
         handler.postDelayed(Runnable {
             loadData()
-        },100)
+        }, 100)
     }
 
     private fun loadData() = launch {
         viewModel.likedRecipesList.await()?.observe(viewLifecycleOwner, Observer {
             if (it != null)
-                if(it.isNotEmpty())
+                if (it.isNotEmpty())
                     initLikedRecipesRecyclerView(it)
                 else
                     binding.animationEmptyList.visibility = View.VISIBLE

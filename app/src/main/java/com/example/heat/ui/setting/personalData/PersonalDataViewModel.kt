@@ -36,6 +36,10 @@ class PersonalDataViewModel(
         roomRepository.updateUserPreferences(userPreferences)
     }
 
+    fun updateUserPreferencesToServer(userPreferences: UserPreferences) = viewModelScope.launch {
+        heatRepository.saveUserPreferences(userPreferences)
+    }
+
     sealed class PersonalDataTransactionsEvents() {
         object ShouldFillAllPart : PersonalDataTransactionsEvents()
         data class NavigateToActiveLevelScreen(val userPreference: UserPreferences) :

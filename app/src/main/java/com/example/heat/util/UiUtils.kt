@@ -1,5 +1,6 @@
 package com.example.heat.util
 
+import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Typeface
@@ -16,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.Lifecycle
 import androidx.preference.PreferenceManager
 import com.example.heat.BuildConfig
 import com.example.heat.R
@@ -26,9 +28,17 @@ import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.imaginativeworld.oopsnointernet.callbacks.ConnectionCallback
+import org.imaginativeworld.oopsnointernet.dialogs.pendulum.NoInternetDialogPendulum
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import androidx.core.content.ContextCompat.getSystemService
+
+import android.net.ConnectivityManager
+
+
+
 
 
 class UiUtils {
@@ -149,6 +159,50 @@ class UiUtils {
             }
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
             return current.format(formatter)
+        }
+
+        fun checkForInternet(activity: Activity,lifecycle: Lifecycle): Boolean {
+
+            var isConnected = false
+
+            // No Internet Dialog
+            var noInternetDialog = NoInternetDialogPendulum.Builder(
+                activity,
+                lifecycle
+            ).apply {
+                dialogProperties.apply {
+                    connectionCallback = object : ConnectionCallback { // Optional
+                        override fun hasActiveConnection(hasActiveConnection: Boolean) {
+                            isConnected = hasActiveConnection
+                        }
+                    }
+
+                    cancelable = false // Optional
+                    noInternetConnectionTitle = "No Internet" // Optional
+                    noInternetConnectionMessage =
+                        "Check your Internet connection and try again." // Optional
+                    showInternetOnButtons = true // Optional
+                    pleaseTurnOnText = "Please turn on" // Optional
+                    wifiOnButtonText = "Wifi" // Optional
+                    mobileDataOnButtonText = "Mobile data" // Optional
+
+                    onAirplaneModeTitle = "No Internet" // Optional
+                    onAirplaneModeMessage = "You have turned on the airplane mode." // Optional
+                    pleaseTurnOffText = "Please turn off" // Optional
+                    airplaneModeOffButtonText = "Airplane mode" // Optional
+                    showAirplaneModeOffButtons = true // Optional
+                }
+            }.build()
+
+            return  isConnected
+        }
+
+        fun isNetworkConnected(activity:Activity): Boolean {
+            val cm = activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+            if (cm != null) {
+                return cm.activeNetworkInfo != null && cm.activeNetworkInfo!!.isConnected
+            }
+            return false
         }
     }
 }

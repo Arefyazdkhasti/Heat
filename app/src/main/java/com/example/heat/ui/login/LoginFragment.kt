@@ -154,15 +154,6 @@ class LoginFragment : ScopedFragment(), KodeinAware {
 
     }
 
-    private fun getUserPreferenceFromServer() = launch {
-        viewModel.getUserPreferences.await()?.observe(viewLifecycleOwner, {
-            //TODO viewModel.saveUserPreferences(it)
-            binding.loading.visibility = View.GONE
-            saveUserLoginStatusToDataStore(requireContext(), true)
-            saveUserIDToDataStore(requireContext(), it.id)
-            viewModel.navigateToHomeScreen()
-        })
-    }
 
     private fun validInput(): Boolean {
         binding.apply {

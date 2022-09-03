@@ -42,11 +42,6 @@ class LoginViewModel(
         userID.postValue(id)
     }
 
-    val getUserPreferences by lazyDeferred {
-        userID.value?.let {
-            heatRepository.getUserPreferences(it)
-        }
-    }
 
     private val loginTransactionEvent = Channel<LoginTransactionEvent>()
     val loginEvent = loginTransactionEvent.receiveAsFlow()
@@ -63,9 +58,6 @@ class LoginViewModel(
         loginTransactionEvent.send(LoginTransactionEvent.NavigateToHomeScreen)
     }
 
-    fun saveUserPreferences(userPreferences: UserPreferences) = GlobalScope.launch {
-        roomRepository.insertUserPreferences(userPreferences)
-    }
 
     sealed class LoginTransactionEvent {
         object NavigateToRegisterScreen : LoginTransactionEvent()

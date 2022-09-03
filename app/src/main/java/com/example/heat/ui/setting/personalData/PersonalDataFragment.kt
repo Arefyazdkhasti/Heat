@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +17,7 @@ import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.survey.SurveyFragmentDirections
 import com.example.heat.util.UiUtils.Companion.dataStore
 import com.example.heat.util.UiUtils.Companion.isEditTextEmpty
+import com.example.heat.util.UiUtils.Companion.isNetworkConnected
 import com.example.heat.util.UiUtils.Companion.showSimpleSnackBar
 import com.example.heat.util.UserIDManager
 import com.example.heat.util.UserManager
@@ -122,10 +124,16 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
         binding.apply {
             if (isFromProfile) {
                 toolbarLayout.save.setOnClickListener {
-                    //update user preferences
-                    viewModel.updateUserPreferences(userPref)
 
-                    saveData(binding, userPref)
+                    val user = saveData(binding, userPref)
+
+                    //update user preferences
+                    viewModel.updateUserPreferences(user)
+
+                    //send updated user pref to server
+                    if(isNetworkConnected(requireActivity()))
+                        viewModel.updateUserPreferencesToServer(user)
+
                 }
             } else {
                 next.setOnClickListener {
@@ -191,13 +199,14 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
     private fun saveData(
         binding: FragmentPersonalDataBinding,
         userPreference: UserPreferences
-    ) {
+    ):UserPreferences {
         binding.apply {
 
             if (!isEditTextEmpty(name) and !isEditTextEmpty(weight) and !isEditTextEmpty(height) and !isEditTextEmpty(
                     age
                 )
             ) {
+                userPreference.id = getUserIDFromDataStore()
                 userPreference.name = name.text.toString()
                 userPreference.height = height.text.toString().toDouble()
                 userPreference.weight = weight.text.toString().toDouble()
@@ -205,12 +214,13 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
                 when {
                     male.isChecked -> userPreference.gender = Gender.MALE
                     female.isChecked -> userPreference.gender = Gender.FEMALE
-                    //TODO show toast is none is checked
                     else -> userPreference.gender = Gender.MALE
                 }
                 viewModel.onNextClicked(userPreference)
+                return userPreference
             } else {
                 viewModel.shouldShowFillAllPartSnackBar()
+                return userPreference
             }
         }
     }

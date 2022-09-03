@@ -12,6 +12,7 @@ interface RoomRepository {
     suspend fun deleteAllUserPreferences()
     suspend fun updateUserPreferences(userPreference :UserPreferences)
     suspend fun getUserPreference() : LiveData<UserPreferences>
+    suspend fun userPreferenceSize() : LiveData<Int>
 
     //meal
     suspend fun insertMeal(meal : FoodSummery)

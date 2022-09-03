@@ -35,6 +35,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.heat.R
 import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 import com.example.heat.databinding.FilterBottomSheetDialogBinding
+import com.example.heat.util.UiUtils.Companion.checkForInternet
 import com.example.heat.util.UiUtils.Companion.dataStore
 import com.example.heat.util.UiUtils.Companion.showToast
 import com.example.heat.util.enumerian.Cuisine
@@ -63,7 +64,9 @@ class SearchFragment : ScopedFragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bindUI()
+
+        if(checkForInternet(requireActivity(),lifecycle))
+            bindUI()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

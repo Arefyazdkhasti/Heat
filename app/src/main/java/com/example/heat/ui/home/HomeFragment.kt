@@ -2,6 +2,7 @@ package com.example.heat.ui.home
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -93,7 +94,29 @@ class HomeFragment : ScopedFragment(), KodeinAware {
                 }
             })
 
+            viewModel.getUserPreferenceDbSize.await().observe(viewLifecycleOwner, Observer {
+                println("local userPref size -> $it")
+                if(it != null)
+                    if (it == 0)
+                        getUserPreferenceFromServer()
+
+            })
+
         }
+    }
+
+    private fun getUserPreferenceFromServer() = launch{
+        viewModel.getUserPreferences.await()?.observe(viewLifecycleOwner, Observer {
+            if(it != null) {
+                Log.wtf("TESTPASHM", it.toString())
+
+                if(it.disease == null) it.disease = arrayListOf()
+                if(it.ingredientsAllergy == null) it.ingredientsAllergy = arrayListOf()
+
+                Log.wtf("TESTPASHM2", it.toString())
+                viewModel.saveUserPreferences(it)
+            }
+        })
     }
 
     private fun initCharts() = launch {

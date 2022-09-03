@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.heat.R
@@ -14,6 +15,8 @@ import com.example.heat.databinding.FragmentIngredientAllergyBinding
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.setting.activeLevel.ActiveLevelFragmentArgs
 import com.example.heat.util.UiUtils
+import com.example.heat.util.UiUtils.Companion.dataStore
+import com.example.heat.util.UserIDManager
 import com.example.heat.util.enumerian.ComeFrom
 import com.example.heat.util.enumerian.IngredientAllergy
 import com.example.heat.util.exhaustive
@@ -98,7 +101,12 @@ class IngredientAllergyFragment : ScopedFragment(), KodeinAware {
         binding.apply {
             if (isFromProfile) {
                 toolbarLayout.save.setOnClickListener {
-                    saveData(binding, userPreference, it)
+                    val user = saveData(binding, userPreference, it)
+
+                    //send updated user pref to server
+                    //TODO update ingredient allergy to server
+                    //if(UiUtils.isNetworkConnected(requireActivity()))
+                       //viewModel.updateUserPreferencesToServer(user)
                 }
             } else {
                 next.setOnClickListener {
@@ -157,8 +165,10 @@ class IngredientAllergyFragment : ScopedFragment(), KodeinAware {
         binding: FragmentIngredientAllergyBinding,
         userPreference: UserPreferences,
         itemView: View
-    ) {
+    ): UserPreferences {
         binding.apply {
+
+            userPreference.id = getUserIDFromDataStore()
             val selectedItems = arrayListOf<IngredientAllergy>()
             userPreference.ingredientsAllergy.clear()
 
@@ -179,5 +189,20 @@ class IngredientAllergyFragment : ScopedFragment(), KodeinAware {
                 viewModel.onPreviousClicked(userPreference)
 
         }
+        return userPreference
+    }
+
+    private fun getUserIDFromDataStore(): Int {
+        val dataStore = context?.dataStore
+        var id = 0
+        if (dataStore != null) {
+            val userManager = UserIDManager(dataStore)
+            userManager.userIDFlow.asLiveData().observe(viewLifecycleOwner, {
+                if (it != null) {
+                    id = it
+                }
+            })
+        }
+        return id
     }
 }

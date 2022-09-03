@@ -37,6 +37,11 @@ class AbstractGoalViewModel (
         transactionsEventChannel.send(AbstractGoalTransactionsEvents.ShouldFillAllPart)
     }
 
+    fun updateUserPreferencesToServer(userPreferences: UserPreferences) = viewModelScope.launch {
+        heatRepository.saveUserPreferences(userPreferences)
+    }
+
+    
     sealed class AbstractGoalTransactionsEvents() {
         object ShouldFillAllPart : AbstractGoalTransactionsEvents()
         data class NavigateToDietTypeScreen(val userPreference: UserPreferences) : AbstractGoalTransactionsEvents()

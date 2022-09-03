@@ -11,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class UserPreferences(
     @PrimaryKey(autoGenerate = false)
-    val id: Int = 0,
+    var id: Int = 0,
     var name: String,
     var weight: Double,
     var height: Double,

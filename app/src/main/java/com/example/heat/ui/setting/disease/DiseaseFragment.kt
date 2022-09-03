@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.heat.R
@@ -17,7 +18,9 @@ import com.example.heat.ui.MainActivity
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.setting.activeLevel.ActiveLevelFragmentArgs
 import com.example.heat.util.UiUtils
+import com.example.heat.util.UiUtils.Companion.dataStore
 import com.example.heat.util.UiUtils.Companion.showToast
+import com.example.heat.util.UserIDManager
 import com.example.heat.util.enumerian.ComeFrom
 import com.example.heat.util.enumerian.Disease
 import com.example.heat.util.exhaustive
@@ -103,7 +106,12 @@ class DiseaseFragment : ScopedFragment(), KodeinAware {
         binding.apply {
             if (isFromProfile) {
                 toolbarLayout.save.setOnClickListener {
-                    saveData(binding, userPreference, it)
+                    val user = saveData(binding, userPreference, it)
+
+                    //send updated user pref to server
+                    //TODO update disease to server
+                    //if(UiUtils.isNetworkConnected(requireActivity()))
+                        //viewModel.updateUserPreferencesToServer(user)
                 }
             } else {
                 finish.setOnClickListener {
@@ -128,7 +136,8 @@ class DiseaseFragment : ScopedFragment(), KodeinAware {
                                 requireActivity().onBackPressed()
                             }
                             false -> {
-                                val action =DiseaseFragmentDirections.actionDiseaseFragmentToHomeFragment()
+                                val action =
+                                    DiseaseFragmentDirections.actionDiseaseFragmentToHomeFragment()
                                 findNavController().navigate(action)
                             }
                         }
@@ -158,38 +167,55 @@ class DiseaseFragment : ScopedFragment(), KodeinAware {
         binding: FragmentDiseaseBinding,
         userPreference: UserPreferences,
         itemView: View
-    ) = launch {
-        binding.apply {
-            val selectedItems = arrayListOf<Disease>()
-            userPreference.disease.clear()
+    ): UserPreferences {
+        launch {
+            userPreference.id = getUserIDFromDataStore()
+            binding.apply {
+                val selectedItems = arrayListOf<Disease>()
+                userPreference.disease.clear()
 
-            if (chipDiabetes.isChecked) selectedItems.add(Disease.Diabetes)
-            if (chipOsteoporosis.isChecked) selectedItems.add(Disease.Osteoporosis)
-            if (chipHeartDisease.isChecked) selectedItems.add(Disease.HeartDisease)
-            if (chipHighBloodPressure.isChecked) selectedItems.add(Disease.HighBloodPressure)
-            if (chipKidneyDisease.isChecked) selectedItems.add(Disease.KidneyDisease)
-            if (chipAnemia.isChecked) selectedItems.add(Disease.Anemia)
+                if (chipDiabetes.isChecked) selectedItems.add(Disease.Diabetes)
+                if (chipOsteoporosis.isChecked) selectedItems.add(Disease.Osteoporosis)
+                if (chipHeartDisease.isChecked) selectedItems.add(Disease.HeartDisease)
+                if (chipHighBloodPressure.isChecked) selectedItems.add(Disease.HighBloodPressure)
+                if (chipKidneyDisease.isChecked) selectedItems.add(Disease.KidneyDisease)
+                if (chipAnemia.isChecked) selectedItems.add(Disease.Anemia)
 
-            for (item in selectedItems) {
-                if (!userPreference.disease.contains(item.toString()))
-                    userPreference.disease.add(item.toString())
-            }
-            if (itemView == toolbarLayout.save || itemView == toolbarLayout.backArrow)
-                viewModel.onNextClicked(userPreference)
-            else if (itemView == previous)
-                viewModel.onPreviousClicked(userPreference)
-            else if (itemView == finish) {
-                //save userPreference to Room database
-                viewModel.saveUserPreferences(userPreference)
-                viewModel.setCurrentUserProf(userPreference)
-                viewModel.sendUserPreferenceRequest.await()?.observe(viewLifecycleOwner, Observer {
-                  if(it!=null)
-                      viewModel.onNextClicked(userPreference)
+                for (item in selectedItems) {
+                    if (!userPreference.disease.contains(item.toString()))
+                        userPreference.disease.add(item.toString())
+                }
+                if (itemView == toolbarLayout.save || itemView == toolbarLayout.backArrow)
+                    viewModel.onNextClicked(userPreference)
+                else if (itemView == previous)
+                    viewModel.onPreviousClicked(userPreference)
+                else if (itemView == finish) {
+                    //save userPreference to Room database
+                    viewModel.saveUserPreferences(userPreference)
+                    viewModel.setCurrentUserProf(userPreference)
+                    viewModel.sendUserPreferenceRequest.await()
+                        ?.observe(viewLifecycleOwner, Observer {
+                            if (it != null)
+                                viewModel.onNextClicked(userPreference)
 
-                })
-
-                //TODO show success/fail toast
+                        })
+                }
             }
         }
+        return userPreference
+    }
+
+    private fun getUserIDFromDataStore(): Int {
+        val dataStore = context?.dataStore
+        var id = 0
+        if (dataStore != null) {
+            val userManager = UserIDManager(dataStore)
+            userManager.userIDFlow.asLiveData().observe(viewLifecycleOwner, {
+                if (it != null) {
+                    id = it
+                }
+            })
+        }
+        return id
     }
 }

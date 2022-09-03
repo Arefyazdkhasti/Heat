@@ -24,6 +24,8 @@ class RoomRepositoryImpl(
     override suspend fun getUserPreference(): LiveData<UserPreferences> =
         userPreferenceDataBase.userPreferenceDao().getUserPreference()
 
+    override suspend fun userPreferenceSize(): LiveData<Int> = userPreferenceDataBase.userPreferenceDao().getUserPreferenceSize()
+
     override suspend fun insertMeal(meal: FoodSummery) = mealDataBase.mealDao().insertMeal(meal)
 
     override suspend fun deleteMeal(meal: FoodSummery) = mealDataBase.mealDao().deleteMeal(meal)

@@ -75,6 +75,10 @@ class DiseaseViewModel(
         userPref.value?.let { heatRepository.saveUserPreferences(it) }
     }
 
+    fun updateUserPreferencesToServer(userPreferences: UserPreferences) = viewModelScope.launch {
+        heatRepository.saveUserPreferences(userPreferences)
+    }
+
     sealed class DiseaseTransactionsEvents() {
         object ShouldFillAllPart : DiseaseTransactionsEvents()
         data class NavigateToHomeScreen(val userPreference: UserPreferences) :

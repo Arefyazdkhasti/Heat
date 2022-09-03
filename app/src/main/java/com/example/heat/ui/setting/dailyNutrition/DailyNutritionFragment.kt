@@ -202,9 +202,9 @@ class DailyNutritionFragment : ScopedFragment(), KodeinAware {
                 dataEntries.add(PieEntry(fat.toFloat(), "Fat"))
 
                 val colors: ArrayList<Int> = ArrayList()
-                colors.add(getColor(requireContext(), R.color.protein_blue))
-                colors.add(getColor(requireContext(), R.color.carbo_red))
-                colors.add(getColor(requireContext(), R.color.fat_yellow))
+                colors.add(getColor(requireContext(), R.color.blue))
+                colors.add(getColor(requireContext(), R.color.red))
+                colors.add(getColor(requireContext(), R.color.yellow))
 
                 val dataSet = PieDataSet(dataEntries, "")
                 val _data = PieData(dataSet)

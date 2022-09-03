@@ -7,6 +7,7 @@ import com.example.heat.R
 import com.example.heat.data.network.repository.HeatRepository
 import com.example.heat.data.datamodel.DayListItem
 import com.example.heat.data.datamodel.food.foodSummery.*
+import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.data.local.repository.RoomRepository
 import com.example.heat.util.UiUtils.Companion.getCurrentDate
 import com.example.heat.util.UiUtils.Companion.getURLForResource
@@ -136,5 +137,18 @@ class HomeViewModel(
 
     fun deletePreviousRecords(day:String) = GlobalScope.launch {
         roomRepository.deletePreviousRecords(day)
+    }
+
+    val getUserPreferenceDbSize by lazyDeferred{
+        roomRepository.userPreferenceSize()
+    }
+
+    val getUserPreferences by lazyDeferred {
+        user.value?.let {
+            heatRepository.getUserPreferences(it)
+        }
+    }
+    fun saveUserPreferences(userPreferences: UserPreferences) = viewModelScope.launch {
+        roomRepository.insertUserPreferences(userPreferences)
     }
 }

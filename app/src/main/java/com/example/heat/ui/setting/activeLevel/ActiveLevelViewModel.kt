@@ -37,6 +37,10 @@ class ActiveLevelViewModel (
         transactionsEventChannel.send(ActiveLevelTransactionsEvents.ShouldFillAllPart)
     }
 
+    fun updateUserPreferencesToServer(userPreferences: UserPreferences) = viewModelScope.launch {
+        heatRepository.saveUserPreferences(userPreferences)
+    }
+
     sealed class ActiveLevelTransactionsEvents() {
         object ShouldFillAllPart : ActiveLevelTransactionsEvents()
         data class NavigateToAbstractGoalScreen(val userPreference: UserPreferences) : ActiveLevelTransactionsEvents()

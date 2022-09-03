@@ -22,4 +22,7 @@ interface UserPreferenceDao {
 
     @Query("DELETE FROM userPreference_table")
     fun deleteAllUserPreferences()
+
+    @Query("SELECT count(*) FROM userPreference_table")
+    fun getUserPreferenceSize(): LiveData<Int>
 }

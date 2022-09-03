@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 
 
-@Database(entities = [FoodSummery::class], version = 2, exportSchema = false)
+@Database(entities = [FoodSummery::class], version = 1, exportSchema = false)
 abstract class MealDataBase(
 ) : RoomDatabase() {
     abstract fun mealDao(): MealDao
