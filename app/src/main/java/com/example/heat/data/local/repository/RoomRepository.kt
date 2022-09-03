@@ -22,4 +22,5 @@ interface RoomRepository {
     suspend fun getDayMeal(day:String) : LiveData<List<FoodSummery>>
     suspend fun getWeekMeal() : LiveData<List<FoodSummery>>
     suspend fun eatMealDBSize():LiveData<Int>
+    suspend fun deletePreviousRecords(day:String)
 }

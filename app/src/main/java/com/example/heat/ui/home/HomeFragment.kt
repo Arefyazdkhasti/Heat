@@ -21,6 +21,7 @@ import com.example.heat.ui.itemRecyclerView.NutritionChartItemRecyclerView
 import com.example.heat.ui.recipes.ALL
 import com.example.heat.util.UiUtils
 import com.example.heat.util.UiUtils.Companion.dataStore
+import com.example.heat.util.UiUtils.Companion.getCurrentDate
 import com.example.heat.util.UiUtils.Companion.getDayOrWeekFromSetting
 import com.example.heat.util.UserIDManager
 import com.example.heat.util.enumerian.NavigateAction
@@ -63,6 +64,8 @@ class HomeFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun bindUI() = launch {
+        //Delete old records from local database
+        viewModel.deletePreviousRecords(getCurrentDate())
 
         val userID = getUserIDFromDataStore()
         viewModel.setUserID(userID)

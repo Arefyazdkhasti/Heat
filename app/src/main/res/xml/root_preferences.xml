@@ -1,8 +1,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/appearance"
-        >
+
+    <PreferenceCategory app:title="@string/appearance">
 
 
         <ListPreference
@@ -42,26 +42,50 @@
 
         <SwitchPreferenceCompat
             app:key="notification"
-            app:title="@string/show_notification"
-            />
+            app:title="@string/show_notification" />
 
         <SwitchPreferenceCompat
+            android:summaryOff="Remind you to eat breakfast"
             app:dependency="notification"
             app:key="breakfast_notification"
             app:title="@string/breakfast_notification" />
+        <Preference
+            app:dependency="breakfast_notification"
+            app:key="breakfast_time"
+            app:title="7.30 a.m" />
 
         <SwitchPreferenceCompat
+            android:summaryOff="Remind you to eat lunch"
             app:dependency="notification"
             app:key="lunch_notification"
             app:title="@string/lunch_notification" />
+        <Preference
+            app:dependency="lunch_notification"
+            app:key="lunch_time"
+            app:title="1.30 a.m" />
+
         <SwitchPreferenceCompat
+            android:summaryOff="Remind you to eat dinner"
             app:dependency="notification"
             app:key="dinner_notification"
             app:title="@string/dinner_notification" />
+        <Preference
+            app:dependency="dinner_notification"
+            app:key="dinner_time"
+            app:title="20.30 a.m" />
+
         <SwitchPreferenceCompat
+            android:summaryOff="Remind you to eat snack"
             app:dependency="notification"
             app:key="snack_notification"
             app:title="@string/snack_notification" />
+        <Preference
+            app:dependency="snack_notification"
+            app:key="snack_time"
+            app:title="17.30 a.m" />
     </PreferenceCategory>
 
+    <SwitchPreferenceCompat
+        app:key="waterReminder"
+        app:title="@string/water_reminder" />
 </PreferenceScreen>

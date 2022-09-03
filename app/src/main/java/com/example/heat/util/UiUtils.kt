@@ -27,11 +27,14 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 
 class UiUtils {
     companion object {
+
+
         val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_prefs")
 
         fun setTypeFace(context: Context, textView: AppCompatTextView) {
@@ -135,6 +138,17 @@ class UiUtils {
             val preference = PreferenceManager.getDefaultSharedPreferences(context)
             val selectedType = preference.getString("mealPlan" , "one_week_plan")
             return selectedType.toString()
+        }
+
+        fun getCurrentDate(): String {
+
+            val current = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                LocalDateTime.now()
+            } else {
+                TODO("VERSION.SDK_INT < O")
+            }
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            return current.format(formatter)
         }
     }
 }

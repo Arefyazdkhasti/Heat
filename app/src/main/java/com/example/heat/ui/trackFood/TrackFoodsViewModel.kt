@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.heat.data.network.repository.HeatRepository
 import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 import com.example.heat.data.local.repository.RoomRepository
+import com.example.heat.util.UiUtils.Companion.getCurrentDate
 import com.example.heat.util.lazyDeferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -18,12 +19,10 @@ class TrackFoodsViewModel(
     private val roomRepository: RoomRepository
 ) : ViewModel() {
 
-    private val current = LocalDateTime.now()
-    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-    private val formatted = current.format(formatter)
+
 
     val getDayMeals by lazyDeferred {
-        roomRepository.getDayMeal(formatted)
+        roomRepository.getDayMeal(getCurrentDate())
     }
     val getWeekMeals by lazyDeferred {
         roomRepository.getWeekMeal()

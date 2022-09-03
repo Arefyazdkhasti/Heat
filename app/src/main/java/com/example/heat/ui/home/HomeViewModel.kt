@@ -8,6 +8,7 @@ import com.example.heat.data.network.repository.HeatRepository
 import com.example.heat.data.datamodel.DayListItem
 import com.example.heat.data.datamodel.food.foodSummery.*
 import com.example.heat.data.local.repository.RoomRepository
+import com.example.heat.util.UiUtils.Companion.getCurrentDate
 import com.example.heat.util.UiUtils.Companion.getURLForResource
 import com.example.heat.util.lazyDeferred
 import kotlinx.coroutines.GlobalScope
@@ -22,10 +23,6 @@ class HomeViewModel(
     private val roomRepository: RoomRepository
 ) : ViewModel() {
 
-    private val current = LocalDateTime.now()
-    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-    private val formatted = current.format(formatter)
-
     fun generateDayFakeData(): List<FoodSummery> {
 
 
@@ -38,7 +35,7 @@ class HomeViewModel(
             Fat(0.0, 0, "", ""),
             0,
             getURLForResource(R.drawable.breakfast),
-            formatted,
+            getCurrentDate(),
             listOf(),
             Protein(0.0, 0, "", ""),
             "",
@@ -54,7 +51,7 @@ class HomeViewModel(
             Fat(0.0, 0, "", ""),
             1,
             getURLForResource(R.drawable.lunch),
-            formatted,
+            getCurrentDate(),
             listOf(),
             Protein(0.0, 0, "", ""),
             "",
@@ -70,7 +67,7 @@ class HomeViewModel(
             Fat(0.0, 0, "", ""),
             2,
             getURLForResource(R.drawable.dinner),
-            formatted,
+            getCurrentDate(),
             listOf(),
             Protein(0.0, 0, "", ""),
             "",
@@ -86,7 +83,7 @@ class HomeViewModel(
             Fat(0.0, 0, "", ""),
             3,
             getURLForResource(R.drawable.snack),
-            formatted,
+            getCurrentDate(),
             listOf(),
             Protein(0.0, 0, "", ""),
             "",
@@ -130,10 +127,14 @@ class HomeViewModel(
     }
 
     val userDayMeal by lazyDeferred {
-        roomRepository.getDayMeal(formatted)
+        roomRepository.getDayMeal(getCurrentDate())
     }
+
     val userWeekMeals by lazyDeferred {
         roomRepository.getWeekMeal()
     }
 
+    fun deletePreviousRecords(day:String) = GlobalScope.launch {
+        roomRepository.deletePreviousRecords(day)
+    }
 }

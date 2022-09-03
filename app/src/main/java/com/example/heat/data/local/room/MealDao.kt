@@ -30,4 +30,7 @@ interface MealDao {
 
     @Query("SELECT count(*) FROM foodSummery_list_table")
     fun getMealSize(): LiveData<Int>
+
+    @Query("DELETE FROM foodSummery_list_table WHERE localDate < :day")
+    fun deletePreviousRecords(day:String)
 }

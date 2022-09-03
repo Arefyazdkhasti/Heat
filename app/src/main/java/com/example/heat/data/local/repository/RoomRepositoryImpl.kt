@@ -43,4 +43,6 @@ class RoomRepositoryImpl(
 
     override suspend fun eatMealDBSize(): LiveData<Int> = mealDataBase.mealDao().getMealSize()
 
+    override suspend fun deletePreviousRecords(day: String) = mealDataBase.mealDao().deletePreviousRecords(day)
+
 }
