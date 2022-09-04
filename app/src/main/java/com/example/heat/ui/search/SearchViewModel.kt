@@ -22,8 +22,8 @@ class SearchViewModel(
             SearchQuery(
                 Cuisine.NONE,
                 DietType.NONE,
-                "egg",
-                10000,
+                "m",
+                1700,
                 MealType.NONE,
                 0
             )

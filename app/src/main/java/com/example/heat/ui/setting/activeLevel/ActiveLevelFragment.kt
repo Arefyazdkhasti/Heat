@@ -188,17 +188,4 @@ class ActiveLevelFragment : ScopedFragment(), KodeinAware {
         return userPreference
     }
 
-    private fun getUserIDFromDataStore(): Int {
-        val dataStore = context?.dataStore
-        var id = 0
-        if (dataStore != null) {
-            val userManager = UserIDManager(dataStore)
-            userManager.userIDFlow.asLiveData().observe(viewLifecycleOwner, {
-                if (it != null) {
-                    id = it
-                }
-            })
-        }
-        return id
-    }
 }

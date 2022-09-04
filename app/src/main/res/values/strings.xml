@@ -171,6 +171,7 @@
     <string name="daily_nutrition">Daily Nutrition</string>
     <string name="your_Account">Your Account</string>
     <string name="upgrade_to_premium">Upgrade to Premium for more features</string>
+    <string name="contact_us">Contact Us</string>
     <string name="Logout">Logout</string>
     <string name="general_setting">General Setting</string>
 
@@ -279,7 +280,19 @@
         <item>@string/filter_cuisine_type_thai</item>
         <item>@string/filter_cuisine_type_vietnamese</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="liked_recipes">Liked Recipes</string>
+
+    <string name="phone_number">Phone number</string>
+    <string name="email">Email</string>
+    <string name="developers_phone">+989010118193 / +989901876797</string>
+    <string name="developers_emails">aligoli079@gmail.com\naref.yazdkhasti@gmail.com</string>
+
+
+    <string name="upgrade_to_premium_title">Upgrade To PREMIUM</string>
+    <string name="premium_freature_one">Unlock Cook Mode</string>
+    <string name="premium_freature_two">Unlock Food Diary</string>
+    <string name="premium_freature_three">Get awesome analytics for your diet</string>
+    <string name="premium_freature_four">Re-Generate Meals unlimited number of times per day</string>
+    <string name="premium_freature_cost">start from 50.000 tomans per month</string>
+    <string name="updgare_now">Upgrade Now!</string>
 </resources>

@@ -47,4 +47,8 @@ class RoomRepositoryImpl(
 
     override suspend fun deletePreviousRecords(day: String) = mealDataBase.mealDao().deletePreviousRecords(day)
 
+    override suspend fun deleteDayPlanByDate(date: String)  = mealDataBase.mealDao().deleteDayPlanByDate(date)
+
+    override suspend fun deleteDayPlanByDateAndLabel(date: String, label: String, id:Int) = mealDataBase.mealDao().deleteDayPlanByDateAndLabel(date, label, id)
+
 }

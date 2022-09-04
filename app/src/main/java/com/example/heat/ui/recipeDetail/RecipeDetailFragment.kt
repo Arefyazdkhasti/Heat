@@ -23,6 +23,7 @@ import com.example.heat.ui.itemRecyclerView.InstructionItemRecyclerView
 import com.example.heat.ui.itemRecyclerView.NutritionItemRecyclerView
 import com.example.heat.util.UiUtils
 import com.example.heat.util.UiUtils.Companion.dataStore
+import com.example.heat.util.UiUtils.Companion.getUserIDFromDataStore
 import com.example.heat.util.UiUtils.Companion.showToast
 import com.example.heat.util.UserIDManager
 import com.xwray.groupie.GroupAdapter
@@ -67,7 +68,7 @@ class RecipeDetailFragment : ScopedFragment(), KodeinAware {
 
     @SuppressLint("SetTextI18n")
     private fun bindUI() = launch {
-        viewModel.setUserID(getUserIDFromDataStore())
+        viewModel.setUserID(getUserIDFromDataStore(requireContext(), viewLifecycleOwner))
 
         val recipeDetail = viewModel.recipeDetail.await()
         binding.backArrow.setOnClickListener {
@@ -189,17 +190,5 @@ class RecipeDetailFragment : ScopedFragment(), KodeinAware {
         _binding = null
     }
 
-    private fun getUserIDFromDataStore(): Int {
-        val dataStore = context?.dataStore
-        var id = 0
-        if (dataStore != null) {
-            val userManager = UserIDManager(dataStore)
-            userManager.userIDFlow.asLiveData().observe(viewLifecycleOwner, {
-                if (it != null) {
-                    id = it
-                }
-            })
-        }
-        return id
-    }
+
 }

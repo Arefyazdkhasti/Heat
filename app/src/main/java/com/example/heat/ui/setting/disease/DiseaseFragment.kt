@@ -169,7 +169,7 @@ class DiseaseFragment : ScopedFragment(), KodeinAware {
         itemView: View
     ): UserPreferences {
         launch {
-            userPreference.id = getUserIDFromDataStore()
+            userPreference.id = UiUtils.getUserIDFromDataStore(requireContext(), viewLifecycleOwner)
             binding.apply {
                 val selectedItems = arrayListOf<Disease>()
                 userPreference.disease.clear()
@@ -205,17 +205,4 @@ class DiseaseFragment : ScopedFragment(), KodeinAware {
         return userPreference
     }
 
-    private fun getUserIDFromDataStore(): Int {
-        val dataStore = context?.dataStore
-        var id = 0
-        if (dataStore != null) {
-            val userManager = UserIDManager(dataStore)
-            userManager.userIDFlow.asLiveData().observe(viewLifecycleOwner, {
-                if (it != null) {
-                    id = it
-                }
-            })
-        }
-        return id
-    }
 }

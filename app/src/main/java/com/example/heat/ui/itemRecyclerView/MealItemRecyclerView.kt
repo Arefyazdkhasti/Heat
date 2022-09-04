@@ -46,6 +46,9 @@ class MealItemRecyclerView(val mealItem: FoodSummery, val sendEvent: SendEvent) 
                     mealRefresh.visibility = View.VISIBLE
                 }
             }
+            mealRefresh.setOnClickListener {
+                sendEvent.regenerateOneMeal(mealItem)
+            }
         }
     }
 

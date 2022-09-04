@@ -124,6 +124,12 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
             likedFoodsLayout.setOnClickListener {
                 viewModel.likedFoodsClicked()
             }
+            contactUsLayout.setOnClickListener{
+                viewModel.contactUsClicked()
+            }
+            upgradeToPremiumLayout.setOnClickListener {
+                viewModel.upgradeToPremiumClicked()
+            }
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.profileEvent.collect { event ->
@@ -196,6 +202,8 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
                             ProfileFragmentDirections.actionProfileFragmentToLikedFoodsFragment()
                         findNavController().navigate(actionAdd)
                     }
+                    is ProfileViewModel.ProfileTransactionEvent.NavigateToContactUsScreen -> showContactUsDialog()
+                    is ProfileViewModel.ProfileTransactionEvent.NavigateToUpgradeToPremiumScreen -> showUpgradeToPremiumDialog()
                 }
             }
         }.exhaustive
@@ -229,4 +237,17 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
         viewModel.deleteDataInRoom.await()
     }
 
+    private fun showContactUsDialog(){
+        val builder = MaterialAlertDialogBuilder(requireContext(),R.style.AlertDialogTheme).create()
+        val view = layoutInflater.inflate(R.layout.dialog_contact_us,null)
+        builder.setView(view)
+        builder.show()
+    }
+
+    private fun showUpgradeToPremiumDialog(){
+        val builder = MaterialAlertDialogBuilder(requireContext(),R.style.AlertDialogTheme).create()
+        val view = layoutInflater.inflate(R.layout.dialog_upgrade_to_premium,null)
+        builder.setView(view)
+        builder.show()
+    }
 }

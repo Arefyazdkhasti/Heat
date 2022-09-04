@@ -36,9 +36,10 @@ import java.time.format.DateTimeFormatter
 import androidx.core.content.ContextCompat.getSystemService
 
 import android.net.ConnectivityManager
-
-
-
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.observe
+import com.example.heat.util.UiUtils.Companion.dataStore
 
 
 class UiUtils {
@@ -161,6 +162,19 @@ class UiUtils {
             return current.format(formatter)
         }
 
+        fun getAheadDate(dayAhead:Int): String {
+
+            val current = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                LocalDateTime.now()
+            } else {
+                TODO("VERSION.SDK_INT < O")
+            }
+            val day = current.plusDays(dayAhead.toLong())
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            return day.format(formatter)
+        }
+
+
         fun checkForInternet(activity: Activity,lifecycle: Lifecycle): Boolean {
 
             var isConnected = false
@@ -204,6 +218,20 @@ class UiUtils {
             }
             return false
         }
+
+        fun getUserIDFromDataStore(context:Context, lifecycleOwner: LifecycleOwner) :Int {
+            val dataStore = context.dataStore
+            var id = 0
+            if (dataStore != null) {
+                val userManager = UserIDManager(dataStore)
+                userManager.userIDFlow.asLiveData().observe(lifecycleOwner, {
+                    if (it != null) {
+                        id = it
+                    }
+                })
+            }
+            return id
+        }
     }
 }
 
@@ -212,5 +240,6 @@ interface SendEvent {
     fun sendWholeCheckedStatus(check: Boolean, day: DayListItem)
     fun sendOneMealUnChecked()
     fun regenerateOneMeal(meal: FoodSummery)
+    fun regenerateOneMealToHome(meal: FoodSummery)
     fun regenerateWholePlan(plan: DayListItem)
 }

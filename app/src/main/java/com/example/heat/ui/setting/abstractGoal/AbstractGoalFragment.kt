@@ -161,7 +161,7 @@ class AbstractGoalFragment  : ScopedFragment(), KodeinAware {
     private fun saveData(binding: FragmentAbstractGoalBinding, userPreference: UserPreferences, itemView: View): UserPreferences {
         binding.apply {
 
-            userPreference.id = getUserIDFromDataStore()
+            userPreference.id = UiUtils.getUserIDFromDataStore(requireContext(), viewLifecycleOwner)
             if (toggleButtonGroupAbstractGoal.checkedButtonId != View.NO_ID) {
                 when {
                     lose.isChecked -> userPreference.abstractGoal = AbstractGoal.LOSE
@@ -179,20 +179,5 @@ class AbstractGoalFragment  : ScopedFragment(), KodeinAware {
             return userPreference
         }
     }
-
-    private fun getUserIDFromDataStore(): Int {
-        val dataStore = context?.dataStore
-        var id = 0
-        if (dataStore != null) {
-            val userManager = UserIDManager(dataStore)
-            userManager.userIDFlow.asLiveData().observe(viewLifecycleOwner, {
-                if (it != null) {
-                    id = it
-                }
-            })
-        }
-        return id
-    }
-
 
 }

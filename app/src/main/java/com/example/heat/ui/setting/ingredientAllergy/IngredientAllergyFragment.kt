@@ -168,7 +168,10 @@ class IngredientAllergyFragment : ScopedFragment(), KodeinAware {
     ): UserPreferences {
         binding.apply {
 
-            userPreference.id = getUserIDFromDataStore()
+            userPreference.id = UiUtils.getUserIDFromDataStore(
+                requireContext(),
+                viewLifecycleOwner
+            )
             val selectedItems = arrayListOf<IngredientAllergy>()
             userPreference.ingredientsAllergy.clear()
 
@@ -192,17 +195,4 @@ class IngredientAllergyFragment : ScopedFragment(), KodeinAware {
         return userPreference
     }
 
-    private fun getUserIDFromDataStore(): Int {
-        val dataStore = context?.dataStore
-        var id = 0
-        if (dataStore != null) {
-            val userManager = UserIDManager(dataStore)
-            userManager.userIDFlow.asLiveData().observe(viewLifecycleOwner, {
-                if (it != null) {
-                    id = it
-                }
-            })
-        }
-        return id
-    }
 }

@@ -25,6 +25,7 @@ import com.example.heat.ui.search.SearchFragmentDirections
 import com.example.heat.ui.search.SearchViewModel
 import com.example.heat.ui.search.SearchViewModelFactory
 import com.example.heat.util.SwipeToLikeCallback
+import com.example.heat.util.UiUtils
 import com.example.heat.util.UiUtils.Companion.checkForInternet
 import com.example.heat.util.UiUtils.Companion.dataStore
 import com.example.heat.util.UserIDManager
@@ -63,7 +64,7 @@ class LikedFoodsFragment : ScopedFragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (checkForInternet(requireActivity(), lifecycle))
+        //if (checkForInternet(requireActivity(), lifecycle))
             bindUI()
     }
 
@@ -71,7 +72,7 @@ class LikedFoodsFragment : ScopedFragment(), KodeinAware {
         binding.backArrow.setOnClickListener {
             requireActivity().onBackPressed()
         }
-        viewModel.setUserID(getUserIDFromDataStore())
+        viewModel.setUserID(UiUtils.getUserIDFromDataStore(requireContext(), viewLifecycleOwner))
         val handler = Handler()
         handler.postDelayed(Runnable {
             loadData()
@@ -116,17 +117,4 @@ class LikedFoodsFragment : ScopedFragment(), KodeinAware {
         RecipeItemRecyclerView(it, RecipeViewType.LARGE)
     }
 
-    private fun getUserIDFromDataStore(): Int {
-        val dataStore = context?.dataStore
-        var id = 0
-        if (dataStore != null) {
-            val userManager = UserIDManager(dataStore)
-            userManager.userIDFlow.asLiveData().observe(viewLifecycleOwner, {
-                if (it != null) {
-                    id = it
-                }
-            })
-        }
-        return id
-    }
 }

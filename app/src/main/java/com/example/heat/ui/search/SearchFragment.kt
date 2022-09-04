@@ -65,7 +65,7 @@ class SearchFragment : ScopedFragment(), KodeinAware {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(checkForInternet(requireActivity(),lifecycle))
+        //if(checkForInternet(requireActivity(),lifecycle))
             bindUI()
     }
 
@@ -153,7 +153,11 @@ class SearchFragment : ScopedFragment(), KodeinAware {
                 val position = viewHolder.adapterPosition;
                 val recipeSwiped = data[position]
 
-                viewModel.setUserID(getUserIDFromDataStore(), recipeSwiped.id)
+                viewModel.setUserID(
+                    UiUtils.getUserIDFromDataStore(
+                        requireContext(),
+                        viewLifecycleOwner
+                    ), recipeSwiped.id)
                 sendLikeRequest()
             }
         }
@@ -201,19 +205,6 @@ class SearchFragment : ScopedFragment(), KodeinAware {
         })
     }
 
-    private fun getUserIDFromDataStore(): Int {
-        val dataStore = context?.dataStore
-        var id = 0
-        if (dataStore != null) {
-            val userManager = UserIDManager(dataStore)
-            userManager.userIDFlow.asLiveData().observe(viewLifecycleOwner, {
-                if (it != null) {
-                    id = it
-                }
-            })
-        }
-        return id
-    }
 
     private fun showFilterBottomDialog(searchQuery: SearchQuery): SearchQuery {
 

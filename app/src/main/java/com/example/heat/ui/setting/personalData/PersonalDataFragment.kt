@@ -16,6 +16,7 @@ import com.example.heat.databinding.FragmentPersonalDataBinding
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.survey.SurveyFragmentDirections
 import com.example.heat.util.UiUtils.Companion.dataStore
+import com.example.heat.util.UiUtils.Companion.getUserIDFromDataStore
 import com.example.heat.util.UiUtils.Companion.isEditTextEmpty
 import com.example.heat.util.UiUtils.Companion.isNetworkConnected
 import com.example.heat.util.UiUtils.Companion.showSimpleSnackBar
@@ -91,7 +92,7 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
         shouldUserSurveyDir: Boolean,
         userPreference: UserPreferences?
     ) = launch {
-        val id = getUserIDFromDataStore()
+        val id = getUserIDFromDataStore(requireContext(),viewLifecycleOwner)
         val userPref: UserPreferences = userPreference ?: UserPreferences(
             id,
             "",
@@ -182,20 +183,6 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
         }.exhaustive
     }
 
-    private fun getUserIDFromDataStore(): Int {
-        val dataStore = context?.dataStore
-        var id = 0
-        if (dataStore != null) {
-            val userManager = UserIDManager(dataStore)
-            userManager.userIDFlow.asLiveData().observe(viewLifecycleOwner, {
-                if (it != null) {
-                    id = it
-                }
-            })
-        }
-        return id
-    }
-
     private fun saveData(
         binding: FragmentPersonalDataBinding,
         userPreference: UserPreferences
@@ -206,7 +193,7 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
                     age
                 )
             ) {
-                userPreference.id = getUserIDFromDataStore()
+                userPreference.id = getUserIDFromDataStore(requireContext(),viewLifecycleOwner)
                 userPreference.name = name.text.toString()
                 userPreference.height = height.text.toString().toDouble()
                 userPreference.weight = weight.text.toString().toDouble()

@@ -48,7 +48,15 @@ class ProfileViewModel(
     fun likedFoodsClicked() = viewModelScope.launch {
         profileTransactionEvent.send(ProfileTransactionEvent.NavigateToLikedFoodsScreen)
     }
-    val getUserPreference by lazyDeferred{
+    fun contactUsClicked() = viewModelScope.launch {
+        profileTransactionEvent.send(ProfileTransactionEvent.NavigateToContactUsScreen)
+    }
+
+    fun upgradeToPremiumClicked() = viewModelScope.launch{
+        profileTransactionEvent.send(ProfileTransactionEvent.NavigateToUpgradeToPremiumScreen)
+    }
+
+        val getUserPreference by lazyDeferred{
         roomRepository.getUserPreference()
     }
 
@@ -67,5 +75,7 @@ class ProfileViewModel(
         object NavigateToLoginScreen : ProfileTransactionEvent()
         object NavigateToDailyNutritionScreen : ProfileTransactionEvent()
         object NavigateToLikedFoodsScreen : ProfileTransactionEvent()
+        object NavigateToContactUsScreen : ProfileTransactionEvent()
+        object NavigateToUpgradeToPremiumScreen : ProfileTransactionEvent()
     }
 }
