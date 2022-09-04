@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/logo"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_margin="@dimen/mega_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/phone_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/kanit_font_family"
+        android:text="@string/phone_number"
+        android:textFontWeight="500"
+        android:textColor="@color/gray900"
+        android:textSize="@dimen/mega_font"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        android:padding="@dimen/large_margin"
+        android:gravity="center"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/developers_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/kanit_font_family"
+        android:text="@string/developers_phone"
+        android:textFontWeight="400"
+        android:textSize="@dimen/twenty_font"
+        app:layout_constraintTop_toBottomOf="@+id/phone_tv"
+        android:gravity="center"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/email_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/kanit_font_family"
+        android:text="@string/email"
+        android:textFontWeight="500"
+        android:textColor="@color/gray900"
+        android:textSize="@dimen/mega_font"
+        app:layout_constraintTop_toBottomOf="@+id/developers_phone"
+        android:padding="@dimen/large_margin"
+        android:gravity="center"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/developers_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/kanit_font_family"
+        android:gravity="center"
+        android:text="@string/developers_emails"
+        android:textFontWeight="400"
+        android:textSize="@dimen/twenty_font"
+        app:layout_constraintTop_toBottomOf="@+id/email_tv"
+        android:paddingBottom="@dimen/large_margin"
+        android:layout_marginBottom="@dimen/mega_margin"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

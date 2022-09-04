@@ -24,7 +24,7 @@ interface MealDao {
     @Query("SELECT * FROM foodSummery_list_table WHERE localDate = :day")
     fun getDayMeals(day:String): LiveData<List<FoodSummery>>
 
-    @Query("SELECT * FROM foodSummery_list_table ")
+    @Query("SELECT * FROM foodSummery_list_table ORDER BY localDate")
     fun getWeekMeals(): LiveData<List<FoodSummery>>
 
 
@@ -33,4 +33,11 @@ interface MealDao {
 
     @Query("DELETE FROM foodSummery_list_table WHERE localDate < :day")
     fun deletePreviousRecords(day:String)
+
+
+    @Query("DELETE FROM foodSummery_list_table WHERE localDate = :day")
+    fun deleteDayPlanByDate(day:String)
+
+    @Query("DELETE FROM foodSummery_list_table WHERE (localDate = :day AND mealLabel = :label AND id = :id)")
+    fun deleteDayPlanByDateAndLabel(day:String, label:String, id:Int)
 }

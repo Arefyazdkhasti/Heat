@@ -14,6 +14,7 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.example.heat.R
+import com.example.heat.data.datamodel.DayListItem
 import com.example.heat.data.datamodel.NutritionType
 import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 import com.example.heat.databinding.FragmentHomeBinding
@@ -22,8 +23,11 @@ import com.example.heat.ui.itemRecyclerView.NutritionChartItemRecyclerView
 import com.example.heat.ui.recipes.ALL
 import com.example.heat.util.UiUtils
 import com.example.heat.util.UiUtils.Companion.dataStore
+import com.example.heat.util.UiUtils.Companion.getAheadDate
 import com.example.heat.util.UiUtils.Companion.getCurrentDate
 import com.example.heat.util.UiUtils.Companion.getDayOrWeekFromSetting
+import com.example.heat.util.UiUtils.Companion.getUserIDFromDataStore
+import com.example.heat.util.UiUtils.Companion.showToast
 import com.example.heat.util.UserIDManager
 import com.example.heat.util.enumerian.NavigateAction
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -34,6 +38,7 @@ import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
+
 @RequiresApi(Build.VERSION_CODES.O)
 class HomeFragment : ScopedFragment(), KodeinAware {
     override val kodein by closestKodein()
@@ -68,9 +73,8 @@ class HomeFragment : ScopedFragment(), KodeinAware {
         //Delete old records from local database
         viewModel.deletePreviousRecords(getCurrentDate())
 
-        val userID = getUserIDFromDataStore()
+        val userID = getUserIDFromDataStore(requireContext(), viewLifecycleOwner)
         viewModel.setUserID(userID)
-
         binding.apply {
             viewModel.mealDbSize.await().observe(viewLifecycleOwner, Observer {
                 println("local db size -> $it")
@@ -96,7 +100,7 @@ class HomeFragment : ScopedFragment(), KodeinAware {
 
             viewModel.getUserPreferenceDbSize.await().observe(viewLifecycleOwner, Observer {
                 println("local userPref size -> $it")
-                if(it != null)
+                if (it != null)
                     if (it == 0)
                         getUserPreferenceFromServer()
 
@@ -105,13 +109,13 @@ class HomeFragment : ScopedFragment(), KodeinAware {
         }
     }
 
-    private fun getUserPreferenceFromServer() = launch{
+    private fun getUserPreferenceFromServer() = launch {
         viewModel.getUserPreferences.await()?.observe(viewLifecycleOwner, Observer {
-            if(it != null) {
+            if (it != null) {
                 Log.wtf("TESTPASHM", it.toString())
 
-                if(it.disease == null) it.disease = arrayListOf()
-                if(it.ingredientsAllergy == null) it.ingredientsAllergy = arrayListOf()
+                if (it.disease == null) it.disease = arrayListOf()
+                if (it.ingredientsAllergy == null) it.ingredientsAllergy = arrayListOf()
 
                 Log.wtf("TESTPASHM2", it.toString())
                 viewModel.saveUserPreferences(it)
@@ -126,74 +130,76 @@ class HomeFragment : ScopedFragment(), KodeinAware {
                 getDayOrWeekFromSetting(requireContext()) == "One Day" -> {
                     processTitle.text = "Day Prcocess"
                     viewModel.userDayMeal.await().observe(viewLifecycleOwner, Observer { list ->
-                        var eatenCalories = 0.0
-                        var allCalories = 0.0
-                        for (item in list) {
-                            if (item.eaten)
-                                eatenCalories += item.calorie.amount
-                            allCalories += item.calorie.amount
-                        }
-                        var eatenProtein = 0.0
-                        var allProtein = 0.0
-                        for (item in list) {
-                            if (item.eaten)
-                                eatenProtein += item.protein.amount
-                            allProtein += item.protein.amount
-                        }
-                        var eatenFat = 0.0
-                        var allFat = 0.0
-                        for (item in list) {
-                            if (item.eaten)
-                                eatenFat += item.fat.amount
-                            allFat += item.fat.amount
-                        }
-                        var eatenCarbo = 0.0
-                        var allCarbo = 0.0
-                        for (item in list) {
-                            if (item.eaten)
-                                eatenCarbo += item.carbohydrates.amount
-                            allCarbo += item.carbohydrates.amount
-                        }
-                        var result = arrayListOf<NutritionType>()
+                        if(list.isNotEmpty()) {
+                            var eatenCalories = 0.0
+                            var allCalories = 0.0
+                            for (item in list) {
+                                if (item.eaten)
+                                    eatenCalories += item.calorie.amount
+                                allCalories += item.calorie.amount
+                            }
+                            var eatenProtein = 0.0
+                            var allProtein = 0.0
+                            for (item in list) {
+                                if (item.eaten)
+                                    eatenProtein += item.protein.amount
+                                allProtein += item.protein.amount
+                            }
+                            var eatenFat = 0.0
+                            var allFat = 0.0
+                            for (item in list) {
+                                if (item.eaten)
+                                    eatenFat += item.fat.amount
+                                allFat += item.fat.amount
+                            }
+                            var eatenCarbo = 0.0
+                            var allCarbo = 0.0
+                            for (item in list) {
+                                if (item.eaten)
+                                    eatenCarbo += item.carbohydrates.amount
+                                allCarbo += item.carbohydrates.amount
+                            }
+                            var result = arrayListOf<NutritionType>()
 
-                        if (allCalories != 0.0) {
-                            val calories = NutritionType(
-                                "Calories",
-                                R.drawable.ic_calories,
-                                ((eatenCalories.toFloat() / (allCalories.toFloat())) * 100).toInt()
-                            )
-                            result.add(calories)
-                        }
-                        if (allProtein != 0.0) {
-                            val protein = NutritionType(
-                                "Protein",
-                                R.drawable.ic_protein,
-                                ((eatenProtein.toFloat() / (allProtein.toFloat())) * 100).toInt()
-                            )
-                            result.add(protein)
-                        }
-                        if (allFat != 0.0) {
-                            val fat = NutritionType(
-                                "Fat",
-                                R.drawable.ic_fat,
-                                ((eatenFat.toFloat() / (allFat.toFloat())) * 100).toInt()
-                            )
-                            result.add(fat)
-                        }
-                        if (allCarbo != 0.0) {
-                            val carbo = NutritionType(
-                                "Carbo",
-                                R.drawable.ic_carbo,
-                                ((eatenCarbo.toFloat() / (allCarbo.toFloat())) * 100).toInt()
-                            )
-                            result.add(carbo)
-                        }
+                            if (allCalories != 0.0) {
+                                val calories = NutritionType(
+                                    "Calories",
+                                    R.drawable.ic_calories,
+                                    ((eatenCalories.toFloat() / (allCalories.toFloat())) * 100).toInt()
+                                )
+                                result.add(calories)
+                            }
+                            if (allProtein != 0.0) {
+                                val protein = NutritionType(
+                                    "Protein",
+                                    R.drawable.ic_protein,
+                                    ((eatenProtein.toFloat() / (allProtein.toFloat())) * 100).toInt()
+                                )
+                                result.add(protein)
+                            }
+                            if (allFat != 0.0) {
+                                val fat = NutritionType(
+                                    "Fat",
+                                    R.drawable.ic_fat,
+                                    ((eatenFat.toFloat() / (allFat.toFloat())) * 100).toInt()
+                                )
+                                result.add(fat)
+                            }
+                            if (allCarbo != 0.0) {
+                                val carbo = NutritionType(
+                                    "Carbo",
+                                    R.drawable.ic_carbo,
+                                    ((eatenCarbo.toFloat() / (allCarbo.toFloat())) * 100).toInt()
+                                )
+                                result.add(carbo)
+                            }
 
-                        if (result.isEmpty()) {
-                            layout.visibility = View.GONE
-                            nutritionChartsRecyclerView.visibility = View.GONE
+                            if (result.isEmpty()) {
+                                layout.visibility = View.GONE
+                                nutritionChartsRecyclerView.visibility = View.GONE
+                            }
+                            initRecyclerViewNutritionChart(nutritionChartsRecyclerView, result)
                         }
-                        initRecyclerViewNutritionChart(nutritionChartsRecyclerView, result)
                     }
                     )
                 }
@@ -276,6 +282,19 @@ class HomeFragment : ScopedFragment(), KodeinAware {
 
     private fun savePlanToRoom() = launch {
         viewModel.generatePlanRequest.await()?.observe(viewLifecycleOwner, Observer {
+
+            for (i in it.indices) {
+                it[i].breakFast.mealLabel = "Breakfast"
+                it[i].lunch.mealLabel = "Lunch"
+                it[i].dinner.mealLabel = "Dinner"
+                it[i].snack.mealLabel = "Snack"
+            }
+            for (i in 1 until it.size) {
+                it[i].breakFast.localDate = getAheadDate(i)
+                it[i].lunch.localDate = getAheadDate(i)
+                it[i].dinner.localDate = getAheadDate(i)
+                it[i].snack.localDate = getAheadDate(i)
+            }
             viewModel.saveFoodToRoom(it)
 
             initRecyclerViewTodayMeals(viewModel.generateDayFakeData())
@@ -307,7 +326,12 @@ class HomeFragment : ScopedFragment(), KodeinAware {
             ) { dialogInterface, i ->
                 dialogInterface.dismiss()
                 viewModel.setNumberOfDays(number)
-                viewModel.setUserID(getUserIDFromDataStore())
+                viewModel.setUserID(
+                    UiUtils.getUserIDFromDataStore(
+                        requireContext(),
+                        viewLifecycleOwner
+                    )
+                )
                 savePlanToRoom()
             }
             setNeutralButton(
@@ -353,17 +377,4 @@ class HomeFragment : ScopedFragment(), KodeinAware {
             NutritionChartItemRecyclerView(it)
         }
 
-    private fun getUserIDFromDataStore(): Int {
-        val dataStore = context?.dataStore
-        var id = 0
-        if (dataStore != null) {
-            val userManager = UserIDManager(dataStore)
-            userManager.userIDFlow.asLiveData().observe(viewLifecycleOwner, {
-                if (it != null) {
-                    id = it
-                }
-            })
-        }
-        return id
-    }
 }

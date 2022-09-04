@@ -521,6 +521,42 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+        <!--Upgrade to Premium-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/contact_us_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mega_margin"
+            android:layout_marginTop="@dimen/extra_margin"
+            android:layout_marginEnd="@dimen/mega_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/upgrade_to_premium_layout">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/contact_us_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contact_us"
+                android:textColor="@color/gray900"
+                android:textSize="@dimen/large_font"
+                android:fontFamily="@font/kanit_font_family"
+                android:textFontWeight="500"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ic_arrow_right_contact_us"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                app:layout_constraintBottom_toBottomOf="@id/contact_us_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/contact_us_title"
+                app:srcCompat="@drawable/ic_info" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <!--Logout-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/logout_layout"
@@ -533,7 +569,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/upgrade_to_premium_layout"
+            app:layout_constraintTop_toBottomOf="@id/contact_us_layout"
             app:layout_goneMarginEnd="@dimen/mega_margin">
 
             <androidx.appcompat.widget.AppCompatTextView

@@ -1,13 +1,16 @@
 package com.example.heat.ui.itemRecyclerView
 
 import android.view.View
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.example.heat.R
 import com.example.heat.data.datamodel.DayListItem
 import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 import com.example.heat.databinding.ItemDayPlanBinding
+import com.example.heat.ui.trackFood.TrackFoodsFragmentDirections
 import com.example.heat.util.SendEvent
+import com.example.heat.util.UiUtils.Companion.showToast
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
@@ -15,8 +18,8 @@ import com.xwray.groupie.Item
 
 class DayPlanItemRecyclerView(val list: DayListItem, val sendEvent: SendEvent) :
     Item<GroupieViewHolder>(), SendEvent {
+
     private lateinit var binding: ItemDayPlanBinding
-    private var unCheckOne = false
     override fun getLayout(): Int = R.layout.item_day_plan
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
 
@@ -30,7 +33,13 @@ class DayPlanItemRecyclerView(val list: DayListItem, val sendEvent: SendEvent) :
                 refreshWholeDayPlan.visibility = View.INVISIBLE
             }
 
+            refreshWholeDayPlan.setOnClickListener {
+                sendEvent.regenerateWholePlan(list)
+            }
             checkboxTickAllDay.setOnCheckedChangeListener { compoundButton, checked ->
+                if(!compoundButton.isPressed) {
+                    return@setOnCheckedChangeListener;
+                }
                 sendEvent.sendWholeCheckedStatus(checked, list)
                 if (checked) {
                     refreshWholeDayPlan.visibility = View.INVISIBLE
@@ -41,14 +50,12 @@ class DayPlanItemRecyclerView(val list: DayListItem, val sendEvent: SendEvent) :
                         snack.eaten = true
                     }
                 } else {
-                    if (!unCheckOne) {
-                        refreshWholeDayPlan.visibility = View.VISIBLE
-                        list.apply {
-                            breakFast.eaten = false
-                            lunch.eaten = false
-                            dinner.eaten = false
-                            snack.eaten = false
-                        }
+                    refreshWholeDayPlan.visibility = View.VISIBLE
+                    list.apply {
+                        breakFast.eaten = false
+                        lunch.eaten = false
+                        dinner.eaten = false
+                        snack.eaten = false
                     }
                 }
                 initRecyclerView(dayPlanRecyclerView, list)
@@ -74,9 +81,9 @@ class DayPlanItemRecyclerView(val list: DayListItem, val sendEvent: SendEvent) :
 
         groupAdapter.setOnItemClickListener { item, view ->
             (item as? MealItemRecyclerView)?.let {
-                //TODO un commnet when real data come
-                /*val navigate = TrackFoodsFragmentDirections.actionTrackFoodsFragmentToRecipeDetailFragment(it.mealItem.id)
-                    Navigation.findNavController(view).navigate(navigate)*/
+                val navigate =
+                    TrackFoodsFragmentDirections.actionTrackFoodsFragmentToRecipeDetailFragment(it.mealItem.id)
+                Navigation.findNavController(view).navigate(navigate)
             }
         }
 
@@ -94,16 +101,18 @@ class DayPlanItemRecyclerView(val list: DayListItem, val sendEvent: SendEvent) :
     }
 
     override fun sendOneMealUnChecked() {
-        binding.refreshWholeDayPlan.visibility = View.VISIBLE
         binding.checkboxTickAllDay.isChecked = false
-        unCheckOne = true
     }
 
     override fun regenerateOneMeal(meal: FoodSummery) {
-
+        sendEvent.regenerateOneMealToHome(meal)
     }
 
     override fun regenerateWholePlan(plan: DayListItem) {
-        TODO("Not yet implemented")
+
+    }
+
+    override fun regenerateOneMealToHome(meal: FoodSummery) {
+
     }
 }

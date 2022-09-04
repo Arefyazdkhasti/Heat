@@ -35,7 +35,7 @@ data class FoodSummery(
     @SerializedName("imageLink")
     val imageLink: String,
     @SerializedName("localDate")
-    val localDate: String,
+    var localDate: String,
     @SerializedName("mealTypes")
     val mealTypes: List<String>,
     @SerializedName("protein")
