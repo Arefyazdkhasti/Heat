@@ -15,7 +15,10 @@ import com.example.heat.data.datamodel.user.LoginRequest
 import com.example.heat.data.datamodel.user.RegisterRequest
 import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.data.datamodel.user.UserRelatedResponse
+import com.example.heat.util.ErrorHandling
 import retrofit2.HttpException
+import java.net.ConnectException
+import java.net.SocketTimeoutException
 
 class NetworkDataSourceImpl(
     private val heatApiService: HeatApiService
@@ -40,13 +43,30 @@ class NetworkDataSourceImpl(
     override val searchFood: LiveData<List<FoodSummery>>
         get() = _searchFood
 
-    override suspend fun fetchSearchFood(searchQuery: SearchQuery) {
+    override suspend fun fetchSearchFood(searchQuery: SearchQuery, errorHandling: ErrorHandling) {
         try {
             val fetchSearchFoods = heatApiService.searchFoodsAsync(searchQuery).await()
             _searchFood.postValue(fetchSearchFoods)
 
-        } catch (e: NoConnectivityException) {
-            Log.e("Connectivity", "No internet connection", e)
+        } catch (e: Exception) {
+            when (e) {
+                is NoConnectivityException -> {
+                    Log.e("Connectivity", "No internet connection", e)
+                    errorHandling.noConnectionEvent()
+                }
+                is SocketTimeoutException -> {
+                    Log.e("Connectivity", "Socket time out", e)
+                    errorHandling.socketTimeOutEvent()
+                }
+                is ConnectException -> {
+                    Log.e("Connectivity", "connect exception", e)
+                    errorHandling.socketTimeOutEvent()
+                }
+                else ->{
+                    Log.e("Connectivity", "other error happens", e)
+                    errorHandling.otherErrorEvent()
+                }
+            }
         }
     }
 
@@ -73,7 +93,7 @@ class NetworkDataSourceImpl(
                     when (e.code()) {
                         404 -> _login.postValue(UserRelatedResponse(404))
                         406 -> _login.postValue(UserRelatedResponse(406))
-                        else ->  _login.postValue(UserRelatedResponse(408))
+                        else -> _login.postValue(UserRelatedResponse(408))
                     }
                 }
             }
@@ -95,7 +115,7 @@ class NetworkDataSourceImpl(
                 is HttpException -> {
                     when (e.code()) {
                         409 -> _login.postValue(UserRelatedResponse(409))
-                        else ->  _login.postValue(UserRelatedResponse(408))
+                        else -> _login.postValue(UserRelatedResponse(408))
                     }
                 }
             }
@@ -112,8 +132,10 @@ class NetworkDataSourceImpl(
             val fetchSaveUserPreference =
                 heatApiService.saveUserPreferencesAsync(userPreferences).await()
             _saveUserPreferences.postValue(fetchSaveUserPreference)
-        } catch (e: NoConnectivityException) {
-            Log.e("Connectivity", "No internet connection", e)
+        } catch (e: Exception) {
+            when (e) {
+                is NoConnectivityException -> Log.e("Connectivity", "No internet connection", e)
+            }
         }
     }
 
@@ -140,8 +162,13 @@ class NetworkDataSourceImpl(
         try {
             val fetchSaveUserPlan = heatApiService.generatePlanAsync(userID, day).await()
             _getUserPlan.postValue(fetchSaveUserPlan)
-        } catch (e: NoConnectivityException) {
-            Log.e("Connectivity", "No internet connection", e)
+        } catch (e: Exception) {
+            when (e) {
+                is NoConnectivityException -> Log.e("Connectivity", "No internet connection", e)
+                is SocketTimeoutException -> {
+                    Log.e("Connectivity", "Socket time out", e)
+                }
+            }
         }
     }
 
@@ -151,12 +178,29 @@ class NetworkDataSourceImpl(
         get() = _getUserLikedFoods
 
 
-    override suspend fun fetchUserLikedFoods(id: Int) {
+    override suspend fun fetchUserLikedFoods(id: Int, errorHandling: ErrorHandling) {
         try {
             val fetchUserLikedFoods = heatApiService.getLikedFoodsAsync(id).await()
             _getUserLikedFoods.postValue(fetchUserLikedFoods)
-        } catch (e: NoConnectivityException) {
-            Log.e("Connectivity", "No internet connection", e)
+        } catch (e: Exception) {
+            when (e) {
+                is NoConnectivityException -> {
+                    Log.e("Connectivity", "No internet connection", e)
+                    errorHandling.noConnectionEvent()
+                }
+                is SocketTimeoutException -> {
+                    Log.e("Connectivity", "Socket time out", e)
+                    errorHandling.socketTimeOutEvent()
+                }
+                is ConnectException -> {
+                    Log.e("Connectivity", "connect exception", e)
+                    errorHandling.socketTimeOutEvent()
+                }
+                else -> {
+                    Log.e("Connectivity", "other error happens", e)
+                    errorHandling.otherErrorEvent()
+                }
+            }
         }
     }
 

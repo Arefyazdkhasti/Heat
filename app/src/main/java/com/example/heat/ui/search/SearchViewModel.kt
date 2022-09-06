@@ -7,12 +7,14 @@ import androidx.lifecycle.switchMap
 import com.example.heat.data.network.repository.HeatRepository
 import com.example.heat.data.datamodel.SearchQuery
 import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
+import com.example.heat.util.ErrorHandling
 import com.example.heat.util.enumerian.Cuisine
 import com.example.heat.util.enumerian.DietType
 import com.example.heat.util.enumerian.MealType
 import com.example.heat.util.lazyDeferred
 
 class SearchViewModel(
+    private val errorHandling: ErrorHandling,
     private val heatRepository: HeatRepository
 ) : ViewModel() {
 
@@ -26,7 +28,8 @@ class SearchViewModel(
                 1700,
                 MealType.NONE,
                 0
-            )
+            ),
+            errorHandling
         )
     }
 
@@ -39,7 +42,8 @@ class SearchViewModel(
     val recipesListFiltered = currentSearchQuery.switchMap { searchQuery ->
         liveData<List<FoodSummery>> {
             heatRepository.searchFoods(
-                searchQuery
+                searchQuery,
+                errorHandling
             )
         }
     }

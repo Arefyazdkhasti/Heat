@@ -32,6 +32,7 @@ import com.example.heat.ui.setting.personalData.PersonalDataViewModelFactory
 import com.example.heat.ui.splash.SplashScreenViewModelFactory
 import com.example.heat.ui.survey.SurveyViewModelFactory
 import com.example.heat.ui.trackFood.TrackFoodsViewModelFactory
+import com.example.heat.util.ErrorHandling
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
@@ -54,8 +55,8 @@ class HeatApplication: Application(),KodeinAware{
         bind() from provider { RegisterViewModelFactory(instance()) }
         bind() from provider { SplashScreenViewModelFactory() }
         bind() from provider { ProfileViewModelFactory(instance(),instance()) }
-        bind() from provider { SearchViewModelFactory(instance()) }
-        bind() from provider { LikedFoodsViewModelFactory(instance()) }
+        bind() from factory { errorHandling: ErrorHandling -> SearchViewModelFactory(errorHandling,instance()) }
+        bind() from factory { errorHandling: ErrorHandling -> LikedFoodsViewModelFactory(errorHandling,instance()) }
         bind() from provider { SurveyViewModelFactory(instance()) }
         bind() from provider { TrackFoodsViewModelFactory(instance(),instance()) }
         bind() from factory { recipeID:Int -> RecipeDetailViewModelFactory(recipeID,instance()) }

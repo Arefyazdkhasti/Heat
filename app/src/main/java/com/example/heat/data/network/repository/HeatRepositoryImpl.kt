@@ -12,6 +12,7 @@ import com.example.heat.data.datamodel.user.LoginRequest
 import com.example.heat.data.datamodel.user.RegisterRequest
 import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.data.datamodel.user.UserRelatedResponse
+import com.example.heat.util.ErrorHandling
 
 class HeatRepositoryImpl(
     private val networkDataSource: NetworkDataSource
@@ -26,14 +27,15 @@ class HeatRepositoryImpl(
         networkDataSource.fetchFoodDetail(id)
     }
 
-    override suspend fun searchFoods(searchQuery: SearchQuery): LiveData<List<FoodSummery>> {
-        fetchSearchFoods(searchQuery)
+    override suspend fun searchFoods(searchQuery: SearchQuery, errorHandling: ErrorHandling): LiveData<List<FoodSummery>> {
+        fetchSearchFoods(searchQuery, errorHandling)
         return networkDataSource.searchFood
     }
     private suspend fun fetchSearchFoods(
-        searchQuery: SearchQuery
+        searchQuery: SearchQuery,
+        errorHandling: ErrorHandling
     ) {
-        networkDataSource.fetchSearchFood(searchQuery)
+        networkDataSource.fetchSearchFood(searchQuery,errorHandling)
     }
 
     override suspend fun login(userLogin: LoginRequest): LiveData<UserRelatedResponse> {
@@ -86,14 +88,15 @@ class HeatRepositoryImpl(
         networkDataSource.generateUserPlan(userID,day)
     }
 
-    override suspend fun getUserLikedFoods(id: Int): LiveData<List<FoodSummery>> {
-        fetchUserLikedFoods(id)
+    override suspend fun getUserLikedFoods(id: Int, errorHandling: ErrorHandling): LiveData<List<FoodSummery>> {
+        fetchUserLikedFoods(id, errorHandling)
         return networkDataSource.getUserLikedFoods
     }
     private suspend fun fetchUserLikedFoods(
-        id: Int
+        id: Int,
+        errorHandling: ErrorHandling
     ) {
-        networkDataSource.fetchUserLikedFoods(id)
+        networkDataSource.fetchUserLikedFoods(id,errorHandling)
     }
 
     override suspend fun likeFood(userID: Int, foodID: Int): LiveData<LikeStatus> {

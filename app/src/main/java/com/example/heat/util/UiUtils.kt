@@ -243,3 +243,9 @@ interface SendEvent {
     fun regenerateOneMealToHome(meal: FoodSummery)
     fun regenerateWholePlan(plan: DayListItem)
 }
+
+interface ErrorHandling{
+    fun socketTimeOutEvent()
+    fun noConnectionEvent()
+    fun otherErrorEvent()
+}

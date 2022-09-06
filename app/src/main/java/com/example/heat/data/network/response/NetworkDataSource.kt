@@ -11,6 +11,7 @@ import com.example.heat.data.datamodel.user.LoginRequest
 import com.example.heat.data.datamodel.user.RegisterRequest
 import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.data.datamodel.user.UserRelatedResponse
+import com.example.heat.util.ErrorHandling
 
 interface NetworkDataSource {
 /*
@@ -38,7 +39,7 @@ interface NetworkDataSource {
 
     //search
     val searchFood: LiveData<List<FoodSummery>>
-    suspend fun fetchSearchFood(searchQuery: SearchQuery)
+    suspend fun fetchSearchFood(searchQuery: SearchQuery,  errorHandling: ErrorHandling)
 
     //login
     val login: LiveData<UserRelatedResponse>
@@ -62,7 +63,7 @@ interface NetworkDataSource {
 
     //get liked foods
     val getUserLikedFoods: LiveData<List<FoodSummery>>
-    suspend fun fetchUserLikedFoods(id: Int)
+    suspend fun fetchUserLikedFoods(id: Int, errorHandling: ErrorHandling)
 
     //like/unlike food
     val likeFood: LiveData<LikeStatus>

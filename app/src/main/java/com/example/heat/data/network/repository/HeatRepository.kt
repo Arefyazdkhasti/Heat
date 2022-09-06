@@ -11,12 +11,13 @@ import com.example.heat.data.datamodel.user.LoginRequest
 import com.example.heat.data.datamodel.user.RegisterRequest
 import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.data.datamodel.user.UserRelatedResponse
+import com.example.heat.util.ErrorHandling
 
 interface HeatRepository {
 
     suspend fun getFoodDetail(id :Int) : LiveData<FoodDetail>
 
-    suspend fun searchFoods(searchQuery: SearchQuery): LiveData<List<FoodSummery>>
+    suspend fun searchFoods(searchQuery: SearchQuery, errorHandling: ErrorHandling): LiveData<List<FoodSummery>>
 
     suspend fun login(userLogin: LoginRequest): LiveData<UserRelatedResponse>
 
@@ -28,7 +29,7 @@ interface HeatRepository {
 
     suspend fun generatePlan(userID:Int, day:Int) : LiveData<List<DayListItem>>
 
-    suspend fun getUserLikedFoods(id: Int): LiveData<List<FoodSummery>>
+    suspend fun getUserLikedFoods(id: Int, errorHandling: ErrorHandling): LiveData<List<FoodSummery>>
 
     suspend fun likeFood(userID: Int, foodID: Int) : LiveData<LikeStatus>
 

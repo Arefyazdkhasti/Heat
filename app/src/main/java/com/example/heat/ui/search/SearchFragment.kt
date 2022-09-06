@@ -6,47 +6,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView
+import com.example.heat.R
+import com.example.heat.data.datamodel.SearchQuery
+import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
+import com.example.heat.databinding.FilterBottomSheetDialogBinding
 import com.example.heat.databinding.FragmentSearchBinding
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.itemRecyclerView.RecipeItemRecyclerView
+import com.example.heat.util.*
+import com.example.heat.util.enumerian.Cuisine
+import com.example.heat.util.enumerian.DietType
+import com.example.heat.util.enumerian.MealType
+import com.example.heat.util.enumerian.RecipeViewType
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
-import org.kodein.di.generic.instance
-
-import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.observe
-import com.example.heat.data.datamodel.SearchQuery
-import com.example.heat.util.enumerian.DietType
-import com.example.heat.util.enumerian.MealType
-
-import com.example.heat.util.*
-
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.heat.R
-import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
-import com.example.heat.databinding.FilterBottomSheetDialogBinding
-import com.example.heat.util.UiUtils.Companion.checkForInternet
-import com.example.heat.util.UiUtils.Companion.dataStore
-import com.example.heat.util.UiUtils.Companion.showToast
-import com.example.heat.util.enumerian.Cuisine
-import com.example.heat.util.enumerian.RecipeViewType
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import org.kodein.di.generic.factory
 
 
-class SearchFragment : ScopedFragment(), KodeinAware {
+class SearchFragment : ScopedFragment(), KodeinAware, ErrorHandling {
 
     override val kodein by closestKodein()
-    private val viewModelFactory: SearchViewModelFactory by instance()
+    private val viewModelFactoryInstanceFactory: ((ErrorHandling) -> SearchViewModelFactory) by factory()
 
     private lateinit var viewModel: SearchViewModel
 
@@ -66,12 +59,15 @@ class SearchFragment : ScopedFragment(), KodeinAware {
         super.onViewCreated(view, savedInstanceState)
 
         //if(checkForInternet(requireActivity(),lifecycle))
-            bindUI()
+        bindUI()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this, viewModelFactory)[SearchViewModel::class.java]
+        viewModel = ViewModelProvider(
+            this,
+            viewModelFactoryInstanceFactory(this@SearchFragment)
+        )[SearchViewModel::class.java]
     }
 
     //TODO change the logics to mvvm style with sealed class in viewModel
@@ -108,7 +104,7 @@ class SearchFragment : ScopedFragment(), KodeinAware {
 
     private fun getMealType(text: String?): MealType {
         return when (text) {
-            getString(R.string.filter_meal_type_all)-> MealType.NONE
+            getString(R.string.filter_meal_type_all) -> MealType.NONE
             getString(R.string.filter_meal_type_breakfast) -> MealType.BREAKFAST
             getString(R.string.filter_meal_type_main_course) -> MealType.MAIN_COURSE
             getString(R.string.filter_meal_type_dessert) -> MealType.DESSERT
@@ -155,7 +151,8 @@ class SearchFragment : ScopedFragment(), KodeinAware {
                     UiUtils.getUserIDFromDataStore(
                         requireContext(),
                         viewLifecycleOwner
-                    ), recipeSwiped.id)
+                    ), recipeSwiped.id
+                )
                 sendLikeRequest()
             }
         }
@@ -178,7 +175,7 @@ class SearchFragment : ScopedFragment(), KodeinAware {
         recyclerView.hideShimmerAdapter()
     }
 
-    private fun sendLikeRequest() = launch{
+    private fun sendLikeRequest() = launch {
         viewModel.likeFood.await()?.observe(viewLifecycleOwner, Observer {
             Log.i("LIKE_FROM_SEARCH", "food liked -> ${it.status}")
         })
@@ -196,7 +193,7 @@ class SearchFragment : ScopedFragment(), KodeinAware {
     private fun bindSearchResult() {
         viewModel.recipesListFiltered.observe(viewLifecycleOwner, Observer { list ->
             if (list == null) return@Observer
-            if(list.isNotEmpty())
+            if (list.isNotEmpty())
                 initRecyclerView(binding.searchedRecipesRecyclerView, list)
             else
                 binding.animationNoResult.visibility = View.VISIBLE
@@ -233,7 +230,8 @@ class SearchFragment : ScopedFragment(), KodeinAware {
             mealType.setAdapter(arrayAdapterMeal)
 
             val _cuisineType = resources.getStringArray(R.array.cuisine_type)
-            val arrayAdapterCuisine = ArrayAdapter(requireContext(), R.layout.dropdown_item, _cuisineType)
+            val arrayAdapterCuisine =
+                ArrayAdapter(requireContext(), R.layout.dropdown_item, _cuisineType)
             cuisineType.setAdapter(arrayAdapterCuisine)
 
             //no pop up keyboard on focus
@@ -265,5 +263,35 @@ class SearchFragment : ScopedFragment(), KodeinAware {
         dialog.show()
 
         return searchQuery
+    }
+
+    override fun socketTimeOutEvent() {
+        handleErrors("Socket time out. Try again.")
+    }
+
+    override fun noConnectionEvent() {
+        handleErrors("No Connection. Try again.")
+    }
+
+    override fun otherErrorEvent() {
+        handleErrors("Some error occurred.  Try again.")
+    }
+
+    private fun handleErrors(msg: String) {
+        requireActivity().runOnUiThread {
+            binding.animationNoResult.visibility = View.VISIBLE
+            binding.searchedRecipesRecyclerView.visibility = View.INVISIBLE
+        }
+
+        Snackbar.make(binding.root, msg, Snackbar.LENGTH_INDEFINITE)
+            .apply {
+                setAction("Try again") {
+                    binding.animationNoResult.visibility = View.GONE
+                    binding.searchedRecipesRecyclerView.visibility = View.VISIBLE
+                    bindUI()
+                }
+                anchorView = binding.filterSearch
+                show()
+            }
     }
 }
