@@ -124,9 +124,9 @@
     <string name="filter_meal_type_side_dish">side dish</string>
 
     <string name="filter_diet_type_hint">Diet Type</string>
-    <string name="filter_diet_type_all">NONE</string>
-    <string name="filter_diet_type_vegetarian">VEGETARIAN</string>
-    <string name="filter_diet_type_vegan">VEGAN</string>
+    <string name="filter_diet_type_all">all</string>
+    <string name="filter_diet_type_vegetarian">vegetarian</string>
+    <string name="filter_diet_type_vegan">vegan</string>
     <string name="filter_diet_type_very_healthy">veryHealthy</string>
     <string name="filter_diet_type_glutenFree">glutenFree</string>
     <string name="filter_diet_type_diaryFree">diaryFree</string>
@@ -247,9 +247,8 @@
         <item>@string/filter_diet_type_all</item>
         <item>@string/filter_diet_type_vegetarian</item>
         <item>@string/filter_diet_type_vegan</item>
-        <!--<item>@string/filter_diet_type_very_healthy</item>
         <item>@string/filter_diet_type_glutenFree</item>
-        <item>@string/filter_diet_type_diaryFree</item>-->
+        <item>@string/filter_diet_type_diaryFree</item>
     </string-array>
 
     <string-array name="cuisine_type">
@@ -288,7 +287,7 @@
     <string name="developers_emails">aligoli079@gmail.com\naref.yazdkhasti@gmail.com</string>
 
 
-    <string name="upgrade_to_premium_title">Upgrade To PREMIUM</string>
+    <string name="upgrade_to_premium_title">Upgrade To <b>PREMIUM</b></string>
     <string name="premium_freature_one">Unlock Cook Mode</string>
     <string name="premium_freature_two">Unlock Food Diary</string>
     <string name="premium_freature_three">Get awesome analytics for your diet</string>

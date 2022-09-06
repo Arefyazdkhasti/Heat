@@ -128,13 +128,11 @@ class SearchFragment : ScopedFragment(), KodeinAware {
 
     private fun getDietType(text: String?): DietType {
         return when (text) {
-            DietType.NONE.toString() -> DietType.NONE
-            DietType.VEGETARIAN.toString() -> DietType.VEGETARIAN
-            DietType.VEGAN.toString() -> DietType.VEGAN
-            DietType.NOT_HALAL.toString() -> DietType.NOT_HALAL
-            DietType.NOT_KOSHER.toString() -> DietType.NOT_KOSHER
-            DietType.DAIRY_FREE.toString() -> DietType.DAIRY_FREE
-            DietType.GLUTEN_FREE.toString() -> DietType.GLUTEN_FREE
+            getString(R.string.filter_diet_type_all) -> DietType.NONE
+            getString(R.string.filter_diet_type_vegetarian) -> DietType.VEGETARIAN
+            getString(R.string.filter_diet_type_vegan) -> DietType.VEGAN
+            getString(R.string.filter_diet_type_diaryFree) -> DietType.DAIRY_FREE
+            getString(R.string.filter_diet_type_glutenFree) -> DietType.GLUTEN_FREE
             else -> DietType.NONE
         }
     }

@@ -77,6 +77,8 @@
     <string name="Sixth_page_kidney_disease">بیماری کلیه</string>
     <string name="Sixth_page_anemia">کم خونی</string>
 
+    <string name="Seventh_page_text">پیشنهاد ما برای میزان مصرف روزانه مواد مغذی</string>
+
     <!--Bottom Nav-->
     <string name="home">خانه</string>
     <string name="search">جستوجو</string>
@@ -91,6 +93,7 @@
     <string name="weeks_progress">آنالیز هفته</string>
     <string name="current">current</string>
     <string name="carbohydrates">کربوهیدارت</string>
+    <string name="carbo">کربوهیدرات</string>
     <string name="fat">چربی</string>
     <string name="protein">پروتئین</string>
     <string name="calories">کالری</string>
@@ -119,6 +122,8 @@
     <string name="filter_meal_type_sauce">سس</string>
     <string name="filter_meal_type_finger_food">غذای انگشتی</string>
     <string name="filter_meal_type_drink">نوشتیدنی</string>
+    <string name="filter_meal_type_snack">میان وعده</string>
+    <string name="filter_meal_type_side_dish">وعده کنار غذا</string>
 
     <string name="filter_diet_type_hint">نوع رژیم</string>
     <string name="filter_diet_type_all">همه</string>
@@ -166,7 +171,8 @@
     <string name="disease">بیماری</string>
     <string name="daily_nutrition">مواد مغذی روزانه</string>
     <string name="your_Account">اکانت شما</string>
-    <string name="upgrade_to_premium_title">ارتقا به پلن ویژه جهت بهره مندی از همه قابلیت ها</string>
+    <string name="contact_us">ارتباط با ما</string>
+    <string name="upgrade_to_premium">ارتقا به پلن طلایی برای قابلیت های بیشتر</string>
     <string name="Logout">خروج از حساب کاربری</string>
     <string name="general_setting">تتظیمات کلی</string>
 
@@ -187,9 +193,11 @@
     <string name="next">بعدی</string>
     <string name="previous">قبلی</string>
     <string name="finish">اتمام</string>
+    <string name="get_started">شروع</string>
 
     <string name="complete_all_parts">همه پارت ها را کامل کنید</string>
     <string name="save">ذخیره</string>
+    <string name="filter_recipes">فیلتر دستورات غذایی</string>
     <string name="calories_range">رنچ کالری</string>
     <string name="filter_search_result">فیلتر</string>
     <string name="generate_your_plan">برنامه خودت رو ایجاد کن</string>
@@ -210,9 +218,27 @@
     <string name="lunch_notification">اعلان ناهار</string>
     <string name="dinner_notification">اعلان شام</string>
     <string name="snack_notification">اعلان میان وعده</string>
+    <string name="water_reminder">یادآور خوردن آب</string>
+
+    <string name="set">قراردادن</string>
+    <string name="cancel">کنسل کردن</string>
 
     <string name="meal_plan">تعداد برنامه غذایی</string>
     <string name="one_day_plan">یک روزه</string>
     <string name="one_week_plan">یک هفته</string>
     <string name="liked_recipes">Liked Recipes</string>
+
+    <string name="phone_number">شماره همراه</string>
+    <string name="email">ایمیل</string>
+    <string name="developers_phone">+989010118193 / +989901876797</string>
+    <string name="developers_emails">aligoli079@gmail.com\naref.yazdkhasti@gmail.com</string>
+
+
+    <string name="upgrade_to_premium_title">ارتقا به نسخه طلایی</string>
+    <string name="premium_freature_one">باز کردن حالت پخت و پز</string>
+    <string name="premium_freature_two">باز کردن دفترچه خاطرات غذایی</string>
+    <string name="premium_freature_three">دریافت آنالیز غذاهای خورده شده</string>
+    <string name="premium_freature_four">ایجاد مجدد وعده های غذایی در هر روز به تعداد نامحدود</string>
+    <string name="premium_freature_cost">شروع از ماهی 50 هزار توما</string>
+    <string name="updgare_now">همین الان ارتقا بده!</string>
 </resources>
