@@ -184,13 +184,13 @@ class DailyNutritionFragment : ScopedFragment(), KodeinAware {
                 setUsePercentValues(true)
                 description.text = ""
                 //hollow pie chart
-                isDrawHoleEnabled = false
-                setTouchEnabled(false)
+                isDrawHoleEnabled = true
+                setTouchEnabled(true)
                 setDrawEntryLabels(false)
                 //adding padding
                 setExtraOffsets(20f, 0f, 20f, 20f)
                 setUsePercentValues(true)
-                isRotationEnabled = false
+                isRotationEnabled = true
                 setDrawEntryLabels(false)
                 legend.orientation = Legend.LegendOrientation.VERTICAL
                 legend.isWordWrapEnabled = true

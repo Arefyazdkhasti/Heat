@@ -36,10 +36,14 @@ import java.time.format.DateTimeFormatter
 import androidx.core.content.ContextCompat.getSystemService
 
 import android.net.ConnectivityManager
+import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.observe
 import com.example.heat.util.UiUtils.Companion.dataStore
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlin.system.exitProcess
 
 
 class UiUtils {
@@ -231,6 +235,34 @@ class UiUtils {
                 })
             }
             return id
+        }
+
+
+        fun onBackPressedExitApplication(activity: FragmentActivity, context: Context, viewLifecycleOwner: LifecycleOwner) {
+            activity.onBackPressedDispatcher.addCallback(
+                viewLifecycleOwner,
+                object : OnBackPressedCallback(true) {
+                    override fun handleOnBackPressed() {
+                        val dialog = MaterialAlertDialogBuilder(context, R.style.AlertDialogTheme)
+                        dialog.apply {
+                            setTitle("Exit")
+                            setIcon(R.drawable.ic_warning)
+                            setMessage("Do you really want to exit HEAT application?")
+                            setPositiveButton(
+                                "Yes"
+                            ) { dialogInterface, i ->
+                                dialogInterface.dismiss()
+                                exitProcess(0);
+                            }
+                            setNeutralButton(
+                                "No"
+                            ) { dialogInterface, i ->
+                                dialogInterface.dismiss()
+                            }
+                            show()
+                        }
+                    }
+                })
         }
     }
 }

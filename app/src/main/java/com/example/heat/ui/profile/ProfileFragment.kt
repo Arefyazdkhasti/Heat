@@ -27,6 +27,8 @@ import java.lang.Exception
 import android.content.Context.ACTIVITY_SERVICE
 import android.app.ActivityManager
 import android.os.Build
+import com.example.heat.util.UiUtils
+import com.example.heat.util.UiUtils.Companion.onBackPressedExitApplication
 
 
 class ProfileFragment : ScopedFragment(), KodeinAware {
@@ -56,9 +58,13 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindUI()
+        onBackPressedExitApplication(
+            requireActivity(),
+            requireContext(),
+            viewLifecycleOwner
+        )
     }
 
-    @DelicateCoroutinesApi
     private fun bindUI() = launch {
 
         var userPreference = UserPreferences(

@@ -88,7 +88,7 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
             viewModel.transactionEvent.collect { event ->
                 when (event) {
                     is TrackFoodsViewModel.TrackFoodsTransactionsEvents.ShowToastMessage -> {
-                        showToast(requireContext(),event.msg)
+                        showToast(requireContext(), event.msg)
                     }
                 }
             }
@@ -102,36 +102,19 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
                 "one_week_plan"
             ) -> {
                 viewModel.getWeekMeals.await().observe(viewLifecycleOwner, Observer {
-                    val data: ArrayList<DayListItem> = arrayListOf()
-
-                    var i = 0
-                    var index = 0
-                    while (i + 3 < it.size) {
-                        val list: ArrayList<FoodSummery> = arrayListOf()
-
-                        list.addAll(it.slice(i..i + 3))
-                        data.add(DayListItem(list[0], list[1], list[2], list[3]))
-                        i += 4
-                        index++
+                    if(it!= null) {
+                        if (it.isNotEmpty()) {
+                            val data = organizeData(it)
+                            initRecyclerView(binding.mealRecyclerView, data)
+                        }
                     }
-                    initRecyclerView(binding.mealRecyclerView, data)
                 })
             }
             else -> {
                 viewModel.getDayMeals.await().observe(viewLifecycleOwner, Observer {
                     if (it != null) {
                         if (it.isNotEmpty()) {
-                            val data: ArrayList<DayListItem> = arrayListOf()
-                            var i = 0
-                            var index = 0
-                            while (i + 3 < it.size) {
-                                val list: ArrayList<FoodSummery> = arrayListOf()
-
-                                list.addAll(it.slice(i..i + 3))
-                                data.add(DayListItem(list[0], list[1], list[2], list[3]))
-                                i += 4
-                                index++
-                            }
+                            val data = organizeData(it)
                             if (data.isNotEmpty())
                                 initRecyclerView(binding.mealRecyclerView, listOf(data[0]))
                         }
@@ -141,10 +124,65 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
         }
     }
 
+    private fun organizeData(it: List<FoodSummery>): List<DayListItem> {
+        val data: ArrayList<DayListItem> = arrayListOf()
+
+        var i = 0
+        var index = 0
+        while (i + 3 < it.size) {
+            //val list: MutableList<FoodSummery> = mutableListOf()
+
+            val foodLists = it.slice(i..i + 3)
+            /*for (j in foodLists.indices) {
+                if (foodLists[j].mealLabel == "Breakfast")
+                    list.add(it[j])
+            }
+            for (j in foodLists.indices) {
+                if (foodLists[j].mealLabel == "Lunch")
+                    list.add(it[j])
+            }
+            for (j in foodLists.indices) {
+                if (foodLists[j].mealLabel == "Snack")
+                    list.add(it[j])
+            }
+            for (j in foodLists.indices) {
+                if (foodLists[j].mealLabel == "Dinner")
+                    list.add(it[j])
+            }
+            println(list.toString())*/
+
+            val _breakFast: FoodSummery = foodLists.find { foodSummery ->
+                foodSummery.mealLabel == "Breakfast"
+            }!!
+            val _lunch: FoodSummery = foodLists.find { foodSummery ->
+                foodSummery.mealLabel == "Lunch"
+            }!!
+            val _snack: FoodSummery = foodLists.find { foodSummery ->
+                foodSummery.mealLabel == "Snack"
+            }!!
+            val _dinner: FoodSummery = foodLists.find { foodSummery ->
+                foodSummery.mealLabel == "Dinner"
+            }!!
+            data.add(
+                DayListItem(
+                    breakFast = _breakFast,
+                    lunch = _lunch,
+                    snack = _snack,
+                    dinner = _dinner
+                )
+            )
+            i += 4
+            index++
+        }
+
+        return data
+    }
+
     private fun initRecyclerView(
         recyclerView: ShimmerRecyclerView,
         data: List<DayListItem>
     ) {
+
 
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
             addAll(data.toDayListItems())
@@ -208,6 +246,12 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
     }
 
     private fun showConfirmReGenerateOneRecipeDialog(meal: FoodSummery) {
+        if (numberOfTimes != 0) {
+            viewModel.showToast(
+                "You can only regenerate your meal one time per day. Upgrade to premium to unlock more features"
+            )
+            return
+        }
         val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
         dialog.apply {
             setTitle("ReGenerate Plan")

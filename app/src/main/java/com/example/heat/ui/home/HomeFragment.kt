@@ -1,16 +1,14 @@
 package com.example.heat.ui.home
 
+import android.app.Activity
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.example.heat.R
@@ -38,6 +36,13 @@ import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
+import android.content.DialogInterface
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.*
+import com.example.heat.util.UiUtils.Companion.onBackPressedExitApplication
+import kotlin.system.exitProcess
+
 
 @RequiresApi(Build.VERSION_CODES.O)
 class HomeFragment : ScopedFragment(), KodeinAware {
@@ -67,6 +72,7 @@ class HomeFragment : ScopedFragment(), KodeinAware {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindUI()
+        onBackPressedExitApplication(requireActivity(),requireContext(),viewLifecycleOwner)
     }
 
     private fun bindUI() = launch {
@@ -112,12 +118,10 @@ class HomeFragment : ScopedFragment(), KodeinAware {
     private fun getUserPreferenceFromServer() = launch {
         viewModel.getUserPreferences.await()?.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                Log.wtf("TESTPASHM", it.toString())
 
                 if (it.disease == null) it.disease = arrayListOf()
                 if (it.ingredientsAllergy == null) it.ingredientsAllergy = arrayListOf()
 
-                Log.wtf("TESTPASHM2", it.toString())
                 viewModel.saveUserPreferences(it)
             }
         })
@@ -130,7 +134,7 @@ class HomeFragment : ScopedFragment(), KodeinAware {
                 getDayOrWeekFromSetting(requireContext()) == "One Day" -> {
                     processTitle.text = "Day Prcocess"
                     viewModel.userDayMeal.await().observe(viewLifecycleOwner, Observer { list ->
-                        if(list.isNotEmpty()) {
+                        if (list.isNotEmpty()) {
                             var eatenCalories = 0.0
                             var allCalories = 0.0
                             for (item in list) {
@@ -381,5 +385,4 @@ class HomeFragment : ScopedFragment(), KodeinAware {
         super.onDestroyView()
         _binding = null
     }
-
 }

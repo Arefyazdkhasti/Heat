@@ -22,6 +22,7 @@ import com.example.heat.databinding.FragmentSearchBinding
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.itemRecyclerView.RecipeItemRecyclerView
 import com.example.heat.util.*
+import com.example.heat.util.UiUtils.Companion.onBackPressedExitApplication
 import com.example.heat.util.enumerian.Cuisine
 import com.example.heat.util.enumerian.DietType
 import com.example.heat.util.enumerian.MealType
@@ -60,6 +61,12 @@ class SearchFragment : ScopedFragment(), KodeinAware, ErrorHandling {
 
         //if(checkForInternet(requireActivity(),lifecycle))
         bindUI()
+        onBackPressedExitApplication(
+            requireActivity(),
+            requireContext(),
+            viewLifecycleOwner
+        )
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

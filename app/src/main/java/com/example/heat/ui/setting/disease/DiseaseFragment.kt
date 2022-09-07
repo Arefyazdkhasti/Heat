@@ -75,12 +75,12 @@ class DiseaseFragment : ScopedFragment(), KodeinAware {
     private fun setData(userPreferences: UserPreferences) {
         binding.apply {
             val diseases = userPreferences.disease
-            if (diseases.contains(Disease.Diabetes.toString())) diseaseChipGroup.check(R.id.chip_diabetes)
-            if (diseases.contains(Disease.Osteoporosis.toString())) diseaseChipGroup.check(R.id.chip_osteoporosis)
-            if (diseases.contains(Disease.HeartDisease.toString())) diseaseChipGroup.check(R.id.chip_heart_disease)
-            if (diseases.contains(Disease.HighBloodPressure.toString())) diseaseChipGroup.check(R.id.chip_high_blood_pressure)
-            if (diseases.contains(Disease.KidneyDisease.toString())) diseaseChipGroup.check(R.id.chip_kidney_disease)
-            if (diseases.contains(Disease.Anemia.toString())) diseaseChipGroup.check(R.id.chip_anemia)
+            if (diseases.contains(Disease.DIABETES.toString())) diseaseChipGroup.check(R.id.chip_diabetes)
+            if (diseases.contains(Disease.OSTEOPOROSIS.toString())) diseaseChipGroup.check(R.id.chip_osteoporosis)
+            if (diseases.contains(Disease.HEART_DISEASE.toString())) diseaseChipGroup.check(R.id.chip_heart_disease)
+            if (diseases.contains(Disease.HIGH_BLOOD_PRESSURE.toString())) diseaseChipGroup.check(R.id.chip_high_blood_pressure)
+            if (diseases.contains(Disease.KIDNEY_DISEASE.toString())) diseaseChipGroup.check(R.id.chip_kidney_disease)
+            if (diseases.contains(Disease.ANEMIA.toString())) diseaseChipGroup.check(R.id.chip_anemia)
         }
     }
 
@@ -110,8 +110,8 @@ class DiseaseFragment : ScopedFragment(), KodeinAware {
 
                     //send updated user pref to server
                     //TODO update disease to server
-                    //if(UiUtils.isNetworkConnected(requireActivity()))
-                        //viewModel.updateUserPreferencesToServer(user)
+                    if(UiUtils.isNetworkConnected(requireActivity()))
+                        viewModel.updateUserPreferencesToServer(user)
                 }
             } else {
                 finish.setOnClickListener {
@@ -174,12 +174,12 @@ class DiseaseFragment : ScopedFragment(), KodeinAware {
                 val selectedItems = arrayListOf<Disease>()
                 userPreference.disease.clear()
 
-                if (chipDiabetes.isChecked) selectedItems.add(Disease.Diabetes)
-                if (chipOsteoporosis.isChecked) selectedItems.add(Disease.Osteoporosis)
-                if (chipHeartDisease.isChecked) selectedItems.add(Disease.HeartDisease)
-                if (chipHighBloodPressure.isChecked) selectedItems.add(Disease.HighBloodPressure)
-                if (chipKidneyDisease.isChecked) selectedItems.add(Disease.KidneyDisease)
-                if (chipAnemia.isChecked) selectedItems.add(Disease.Anemia)
+                if (chipDiabetes.isChecked) selectedItems.add(Disease.DIABETES)
+                if (chipOsteoporosis.isChecked) selectedItems.add(Disease.OSTEOPOROSIS)
+                if (chipHeartDisease.isChecked) selectedItems.add(Disease.HEART_DISEASE)
+                if (chipHighBloodPressure.isChecked) selectedItems.add(Disease.HIGH_BLOOD_PRESSURE)
+                if (chipKidneyDisease.isChecked) selectedItems.add(Disease.KIDNEY_DISEASE)
+                if (chipAnemia.isChecked) selectedItems.add(Disease.ANEMIA)
 
                 for (item in selectedItems) {
                     if (!userPreference.disease.contains(item.toString()))

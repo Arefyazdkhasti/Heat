@@ -95,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/mega_margin"
             android:layout_marginTop="@dimen/large_margin"
-            android:textColor="@color/gray100"
+            android:textColor="@color/gray500"
             android:textSize="@dimen/large_font"
             android:fontFamily="@font/kanit_font_family"
             android:textFontWeight="300"

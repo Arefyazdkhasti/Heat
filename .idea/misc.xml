@@ -17,6 +17,7 @@
         <entry key="..\:/Android/Heat/app/src/main/res/drawable/circle_fat.xml" value="0.34479166666666666" />
         <entry key="..\:/Android/Heat/app/src/main/res/drawable/circle_protein.xml" value="0.34479166666666666" />
         <entry key="..\:/Android/Heat/app/src/main/res/drawable/ic_arrow_back.xml" value="0.3458333333333333" />
+        <entry key="..\:/Android/Heat/app/src/main/res/drawable/ic_arrow_back_black.xml" value="0.21979166666666666" />
         <entry key="..\:/Android/Heat/app/src/main/res/drawable/ic_arrow_forward.xml" value="0.3458333333333333" />
         <entry key="..\:/Android/Heat/app/src/main/res/drawable/ic_arrow_left.xml" value="0.3458333333333333" />
         <entry key="..\:/Android/Heat/app/src/main/res/drawable/ic_arrow_right.xml" value="0.3458333333333333" />
@@ -52,6 +53,7 @@
         <entry key="..\:/Android/Heat/app/src/main/res/layout/activity_my_custom_app_intro.xml" value="0.3151041666666667" />
         <entry key="..\:/Android/Heat/app/src/main/res/layout/activity_onboarding_example1.xml" value="0.3151041666666667" />
         <entry key="..\:/Android/Heat/app/src/main/res/layout/activity_starter.xml" value="0.22418478260869565" />
+        <entry key="..\:/Android/Heat/app/src/main/res/layout/bg_chip_not_selected.xml" value="0.2171875" />
         <entry key="..\:/Android/Heat/app/src/main/res/layout/dialog_about_us.xml" value="0.3074074074074074" />
         <entry key="..\:/Android/Heat/app/src/main/res/layout/dialog_contact_us.xml" value="0.3296875" />
         <entry key="..\:/Android/Heat/app/src/main/res/layout/dialog_upgrade_to_premium.xml" value="0.6" />
@@ -70,13 +72,13 @@
         <entry key="..\:/Android/Heat/app/src/main/res/layout/fragment_login.xml" value="0.4" />
         <entry key="..\:/Android/Heat/app/src/main/res/layout/fragment_personal_data.xml" value="0.264" />
         <entry key="..\:/Android/Heat/app/src/main/res/layout/fragment_profile.xml" value="0.4" />
-        <entry key="..\:/Android/Heat/app/src/main/res/layout/fragment_recipe_detail.xml" value="0.536" />
+        <entry key="..\:/Android/Heat/app/src/main/res/layout/fragment_recipe_detail.xml" value="0.2681755829903978" />
         <entry key="..\:/Android/Heat/app/src/main/res/layout/fragment_recipes.xml" value="0.24682971014492755" />
         <entry key="..\:/Android/Heat/app/src/main/res/layout/fragment_register.xml" value="0.3296875" />
         <entry key="..\:/Android/Heat/app/src/main/res/layout/fragment_search.xml" value="0.3296875" />
         <entry key="..\:/Android/Heat/app/src/main/res/layout/fragment_search2.xml" value="0.3296875" />
         <entry key="..\:/Android/Heat/app/src/main/res/layout/fragment_see_all_recipes.xml" value="0.3296875" />
-        <entry key="..\:/Android/Heat/app/src/main/res/layout/fragment_splash_screen.xml" value="0.22" />
+        <entry key="..\:/Android/Heat/app/src/main/res/layout/fragment_splash_screen.xml" value="0.6" />
         <entry key="..\:/Android/Heat/app/src/main/res/layout/fragment_survay.xml" value="0.3296875" />
         <entry key="..\:/Android/Heat/app/src/main/res/layout/fragment_track_foods.xml" value="0.4" />
         <entry key="..\:/Android/Heat/app/src/main/res/layout/ingredient_item.xml" value="0.67" />

@@ -16,7 +16,6 @@ class InstructionItemRecyclerView(val instruction: InstructionStep) : Item<Group
 
         val binding = InstructionItemBinding.bind(viewHolder.itemView)
 
-        Log.e("PASHM", instruction.toString())
 
         binding.apply {
             instructionNumber.text = instruction.number.toInt().toString()

@@ -70,12 +70,12 @@ class IngredientAllergyFragment : ScopedFragment(), KodeinAware {
     private fun setData(userPreferences: UserPreferences) {
         binding.apply {
             val ingredients = userPreferences.ingredientsAllergy
-            if (ingredients.contains(IngredientAllergy.Gluten.toString())) allergyChipGroup.check(R.id.chip_gluten)
-            if (ingredients.contains(IngredientAllergy.Peanuts.toString())) allergyChipGroup.check(R.id.chip_peanut)
-            if (ingredients.contains(IngredientAllergy.Egg.toString())) allergyChipGroup.check(R.id.chip_egg)
-            if (ingredients.contains(IngredientAllergy.Fish.toString())) allergyChipGroup.check(R.id.chip_fish)
-            if (ingredients.contains(IngredientAllergy.Shellfish.toString())) allergyChipGroup.check(R.id.chip_shellfish)
-            if (ingredients.contains(IngredientAllergy.Diary.toString())) allergyChipGroup.check(R.id.chip_diary)
+            if (ingredients.contains(IngredientAllergy.GLUTEN.toString())) allergyChipGroup.check(R.id.chip_gluten)
+            if (ingredients.contains(IngredientAllergy.PEANUTS.toString())) allergyChipGroup.check(R.id.chip_peanut)
+            if (ingredients.contains(IngredientAllergy.EGG.toString())) allergyChipGroup.check(R.id.chip_egg)
+            if (ingredients.contains(IngredientAllergy.FISH.toString())) allergyChipGroup.check(R.id.chip_fish)
+            if (ingredients.contains(IngredientAllergy.SHELLFISH.toString())) allergyChipGroup.check(R.id.chip_shellfish)
+            if (ingredients.contains(IngredientAllergy.DIARY.toString())) allergyChipGroup.check(R.id.chip_diary)
         }
     }
 
@@ -105,8 +105,8 @@ class IngredientAllergyFragment : ScopedFragment(), KodeinAware {
 
                     //send updated user pref to server
                     //TODO update ingredient allergy to server
-                    //if(UiUtils.isNetworkConnected(requireActivity()))
-                       //viewModel.updateUserPreferencesToServer(user)
+                    if(UiUtils.isNetworkConnected(requireActivity()))
+                       viewModel.updateUserPreferencesToServer(user)
                 }
             } else {
                 next.setOnClickListener {
@@ -175,12 +175,12 @@ class IngredientAllergyFragment : ScopedFragment(), KodeinAware {
             val selectedItems = arrayListOf<IngredientAllergy>()
             userPreference.ingredientsAllergy.clear()
 
-            if (chipGluten.isChecked) selectedItems.add(IngredientAllergy.Gluten)
-            if (chipPeanut.isChecked) selectedItems.add(IngredientAllergy.Peanuts)
-            if (chipEgg.isChecked) selectedItems.add(IngredientAllergy.Egg)
-            if (chipFish.isChecked) selectedItems.add(IngredientAllergy.Fish)
-            if (chipShellfish.isChecked) selectedItems.add(IngredientAllergy.Shellfish)
-            if (chipDiary.isChecked) selectedItems.add(IngredientAllergy.Diary)
+            if (chipGluten.isChecked) selectedItems.add(IngredientAllergy.GLUTEN)
+            if (chipPeanut.isChecked) selectedItems.add(IngredientAllergy.PEANUTS)
+            if (chipEgg.isChecked) selectedItems.add(IngredientAllergy.EGG)
+            if (chipFish.isChecked) selectedItems.add(IngredientAllergy.FISH)
+            if (chipShellfish.isChecked) selectedItems.add(IngredientAllergy.SHELLFISH)
+            if (chipDiary.isChecked) selectedItems.add(IngredientAllergy.DIARY)
 
             for (item in selectedItems){
                 if(!userPreference.ingredientsAllergy.contains(item.toString()))

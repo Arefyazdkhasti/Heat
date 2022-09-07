@@ -1,5 +1,11 @@
 package com.example.heat.util.enumerian
 
 enum class IngredientAllergy {
-    Gluten, Peanuts, Egg, Fish, Shellfish, Diary
+    GLUTEN,
+    PEANUTS,
+    EGG,
+    FISH,
+    SHELLFISH,
+    DIARY,
+    NONE
 }

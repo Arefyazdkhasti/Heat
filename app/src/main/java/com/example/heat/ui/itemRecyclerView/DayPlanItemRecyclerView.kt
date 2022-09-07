@@ -10,7 +10,6 @@ import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 import com.example.heat.databinding.ItemDayPlanBinding
 import com.example.heat.ui.trackFood.TrackFoodsFragmentDirections
 import com.example.heat.util.SendEvent
-import com.example.heat.util.UiUtils.Companion.showToast
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
@@ -37,7 +36,7 @@ class DayPlanItemRecyclerView(val list: DayListItem, val sendEvent: SendEvent) :
                 sendEvent.regenerateWholePlan(list)
             }
             checkboxTickAllDay.setOnCheckedChangeListener { compoundButton, checked ->
-                if(!compoundButton.isPressed) {
+                if (!compoundButton.isPressed) {
                     return@setOnCheckedChangeListener;
                 }
                 sendEvent.sendWholeCheckedStatus(checked, list)
@@ -46,16 +45,16 @@ class DayPlanItemRecyclerView(val list: DayListItem, val sendEvent: SendEvent) :
                     list.apply {
                         breakFast.eaten = true
                         lunch.eaten = true
-                        dinner.eaten = true
                         snack.eaten = true
+                        dinner.eaten = true
                     }
                 } else {
                     refreshWholeDayPlan.visibility = View.VISIBLE
                     list.apply {
                         breakFast.eaten = false
                         lunch.eaten = false
-                        dinner.eaten = false
                         snack.eaten = false
+                        dinner.eaten = false
                     }
                 }
                 initRecyclerView(dayPlanRecyclerView, list)
@@ -69,7 +68,7 @@ class DayPlanItemRecyclerView(val list: DayListItem, val sendEvent: SendEvent) :
         recyclerView: ShimmerRecyclerView,
         data: DayListItem,
     ) {
-        val listOfFoodSummery = listOf(data.breakFast, data.lunch, data.dinner, data.snack)
+        val listOfFoodSummery = listOf(data.breakFast, data.lunch, data.snack, data.dinner)
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
             addAll(listOfFoodSummery.toRecipeListItems())
         }
