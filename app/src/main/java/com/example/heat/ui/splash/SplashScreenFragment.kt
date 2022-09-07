@@ -99,5 +99,9 @@ class SplashScreenFragment : ScopedFragment(), KodeinAware {
 
 
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 }

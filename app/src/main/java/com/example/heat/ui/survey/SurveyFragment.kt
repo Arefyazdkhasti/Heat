@@ -52,4 +52,10 @@ class SurveyFragment : ScopedFragment(), KodeinAware {
             viewPager.adapter = myAdapter
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

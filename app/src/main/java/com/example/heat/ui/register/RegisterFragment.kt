@@ -106,7 +106,6 @@ class RegisterFragment : ScopedFragment(), KodeinAware {
             binding.usernameRegisterEt.text.toString(),
         )
         viewModel.setRegisterUser(user)
-        //TODO send server request
         viewModel.registerRequest.await()?.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 binding.loading.visibility = View.GONE
@@ -141,4 +140,10 @@ class RegisterFragment : ScopedFragment(), KodeinAware {
             return isEmailValid(emailRegisterEt.text.toString())
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

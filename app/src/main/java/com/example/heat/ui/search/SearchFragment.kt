@@ -89,7 +89,6 @@ class SearchFragment : ScopedFragment(), KodeinAware, ErrorHandling {
         })
 
         binding.apply {
-            //TODO make change when submit query instead of while typing
             floatingSearchView.setOnQueryChangeListener { oldQuery, newQuery ->
                 searchQuery.keyword = newQuery
                 updaterSearchQuery(searchQuery)
@@ -294,4 +293,10 @@ class SearchFragment : ScopedFragment(), KodeinAware, ErrorHandling {
                 show()
             }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

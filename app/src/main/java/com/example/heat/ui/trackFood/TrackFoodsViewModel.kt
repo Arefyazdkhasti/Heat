@@ -9,10 +9,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.heat.data.datamodel.DayListItem
 import com.example.heat.data.network.repository.HeatRepository
 import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
+import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.data.local.repository.RoomRepository
+import com.example.heat.ui.setting.disease.DiseaseViewModel
 import com.example.heat.util.UiUtils.Companion.getCurrentDate
 import com.example.heat.util.lazyDeferred
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -72,4 +76,18 @@ class TrackFoodsViewModel(
             roomRepository.insertMeal(item.snack)
         }
 
+    private val transactionsEventChannel = Channel<TrackFoodsTransactionsEvents>()
+    val transactionEvent = transactionsEventChannel.receiveAsFlow()
+
+    fun showToast(msg: String) = viewModelScope.launch {
+        transactionsEventChannel.send(
+            TrackFoodsViewModel.TrackFoodsTransactionsEvents.ShowToastMessage(
+                msg
+            )
+        )
+    }
+
+    sealed class TrackFoodsTransactionsEvents{
+        data class ShowToastMessage(val msg: String): TrackFoodsTransactionsEvents()
+    }
 }

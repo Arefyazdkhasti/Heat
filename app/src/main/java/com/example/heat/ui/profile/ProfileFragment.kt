@@ -250,4 +250,9 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
         builder.setView(view)
         builder.show()
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

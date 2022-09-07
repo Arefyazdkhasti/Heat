@@ -22,9 +22,8 @@ class MealItemRecyclerView(val mealItem: FoodSummery, val sendEvent: SendEvent) 
             mealName.text = mealItem.title
 
             mealType.text = mealItem.mealLabel
-            //TODO make cuisine right
-            var cuisines = ""
 
+            var cuisines = ""
             for (item in mealItem.cuisines) {
                 cuisines += "$item "
             }

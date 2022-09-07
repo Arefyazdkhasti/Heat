@@ -152,5 +152,10 @@ class LikedFoodsFragment : ScopedFragment(), KodeinAware, ErrorHandling {
                 show()
             }
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 
 }

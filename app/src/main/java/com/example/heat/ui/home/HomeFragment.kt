@@ -377,4 +377,9 @@ class HomeFragment : ScopedFragment(), KodeinAware {
             NutritionChartItemRecyclerView(it)
         }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.os.HandlerCompat.postDelayed
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView
@@ -82,6 +83,17 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
         viewModel.setUserID(getUserIDFromDataStore(requireContext(), viewLifecycleOwner))
 
         loadDataFromRoom()
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.transactionEvent.collect { event ->
+                when (event) {
+                    is TrackFoodsViewModel.TrackFoodsTransactionsEvents.ShowToastMessage -> {
+                        showToast(requireContext(),event.msg)
+                    }
+                }
+            }
+
+        }
     }
 
     private fun loadDataFromRoom() = launch {
@@ -183,8 +195,7 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
         if (isNetworkConnected(requireActivity())) {
             showConfirmReGenerateOneRecipeDialog(meal)
         } else {
-            //TODO make it mvvm style with sealed class instead
-            showToast(requireContext(), "Can not generate new Meal Plan without internet!")
+            viewModel.showToast("Can not generate new Meal without internet!")
         }
     }
 
@@ -192,8 +203,7 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
         if (isNetworkConnected(requireActivity())) {
             showConfirmReGenerateDialog(plan)
         } else {
-            //TODO make it mvvm style with sealed class instead
-            showToast(requireContext(), "Can not generate new Meal Plan without internet!")
+            viewModel.showToast("Can not generate new Meal Plan without internet!")
         }
     }
 
@@ -209,23 +219,24 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
                 viewModel.setDate(meal.localDate)
 
                 launch {
-                    viewModel.generatePlanRequest.await()?.observe(viewLifecycleOwner, Observer {
-                        if (it != null)
-                            if (it.isNotEmpty()) {
-                                val itemToAdd = when (meal.mealLabel) {
-                                    "Breakfast" -> it[0].breakFast
-                                    "Lunch" -> it[0].lunch
-                                    "Dinner" -> it[0].dinner
-                                    "Snack" -> it[0].snack
-                                    else -> it[0].breakFast
+                    viewModel.generatePlanRequest.await()
+                        ?.observe(viewLifecycleOwner, Observer {
+                            if (it != null)
+                                if (it.isNotEmpty()) {
+                                    val itemToAdd = when (meal.mealLabel) {
+                                        "Breakfast" -> it[0].breakFast
+                                        "Lunch" -> it[0].lunch
+                                        "Dinner" -> it[0].dinner
+                                        "Snack" -> it[0].snack
+                                        else -> it[0].breakFast
+                                    }
+                                    saveNewlyGeneratedMealToRoom(
+                                        meal.localDate,
+                                        meal.mealLabel,
+                                        itemToAdd
+                                    )
                                 }
-                                saveNewlyGeneratedMealToRoom(
-                                    meal.localDate,
-                                    meal.mealLabel,
-                                    itemToAdd
-                                )
-                            }
-                    })
+                        })
                 }
             }
             setNeutralButton(
@@ -247,11 +258,15 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
             ) { dialogInterface, i ->
                 dialogInterface.dismiss()
                 launch {
-                    viewModel.generatePlanRequest.await()?.observe(viewLifecycleOwner, Observer {
-                        if (it != null)
-                            if (it.isNotEmpty())
-                                saveNewlyGeneratedDayPlanToRoom(plan.breakFast.localDate, it[0])
-                    })
+                    viewModel.generatePlanRequest.await()
+                        ?.observe(viewLifecycleOwner, Observer {
+                            if (it != null)
+                                if (it.isNotEmpty())
+                                    saveNewlyGeneratedDayPlanToRoom(
+                                        plan.breakFast.localDate,
+                                        it[0]
+                                    )
+                        })
                 }
             }
             setNeutralButton(
@@ -288,59 +303,79 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
             newMeal.localDate = oldMealDate
             newMeal.mealLabel = oldMealLabel
             val newDayPlan =
-                DayListItem(breakFast = newMeal, lunch = newMeal, dinner = newMeal, snack = newMeal)
+                DayListItem(
+                    breakFast = newMeal,
+                    lunch = newMeal,
+                    dinner = newMeal,
+                    snack = newMeal
+                )
             val dayListSorted =
-                DayListItem(breakFast = newMeal, lunch = newMeal, dinner = newMeal, snack = newMeal)
+                DayListItem(
+                    breakFast = newMeal,
+                    lunch = newMeal,
+                    dinner = newMeal,
+                    snack = newMeal
+                )
 
-            viewModel.getSpecificDayMeal.await()?.observe(viewLifecycleOwner, Observer { dayList ->
-                if (dayList != null) {
-                    if (dayList.isNotEmpty()) {
+            viewModel.getSpecificDayMeal.await()
+                ?.observe(viewLifecycleOwner, Observer { dayList ->
+                    if (dayList != null) {
+                        if (dayList.isNotEmpty()) {
 
-                        for (item in dayList) {
-                            when (item.mealLabel) {
-                                "Breakfast" -> dayListSorted.breakFast = item
-                                "Lunch" -> dayListSorted.lunch = item
-                                "Dinner" -> dayListSorted.dinner = item
-                                "Snack" -> dayListSorted.snack = item
-                            }
-                        }
-
-                        if (numberOfTimes == 0) {
-                            newDayPlan.apply {
-                                when (oldMealLabel) {
-                                    "Breakfast" -> {
-                                        lunch = dayListSorted.lunch
-                                        dinner = dayListSorted.dinner
-                                        snack = dayListSorted.snack
-                                    }
-                                    "Lunch" -> {
-                                        breakFast = dayListSorted.breakFast
-                                        dinner = dayListSorted.dinner
-                                        snack = dayListSorted.snack
-                                    }
-                                    "Dinner" -> {
-                                        breakFast = dayListSorted.breakFast
-                                        lunch = dayListSorted.lunch
-                                        snack = dayListSorted.snack
-                                    }
-                                    "Snack" -> {
-                                        breakFast = dayListSorted.breakFast
-                                        lunch = dayListSorted.lunch
-                                        dinner = dayListSorted.dinner
-                                    }
-                                    else -> {
-
-                                    }
+                            for (item in dayList) {
+                                when (item.mealLabel) {
+                                    "Breakfast" -> dayListSorted.breakFast = item
+                                    "Lunch" -> dayListSorted.lunch = item
+                                    "Dinner" -> dayListSorted.dinner = item
+                                    "Snack" -> dayListSorted.snack = item
                                 }
                             }
 
-                            viewModel.saveNewlyGeneratedDayPlanToRoom(oldMealDate, newDayPlan)
+                            if (numberOfTimes == 0) {
+                                newDayPlan.apply {
+                                    when (oldMealLabel) {
+                                        "Breakfast" -> {
+                                            lunch = dayListSorted.lunch
+                                            dinner = dayListSorted.dinner
+                                            snack = dayListSorted.snack
+                                        }
+                                        "Lunch" -> {
+                                            breakFast = dayListSorted.breakFast
+                                            dinner = dayListSorted.dinner
+                                            snack = dayListSorted.snack
+                                        }
+                                        "Dinner" -> {
+                                            breakFast = dayListSorted.breakFast
+                                            lunch = dayListSorted.lunch
+                                            snack = dayListSorted.snack
+                                        }
+                                        "Snack" -> {
+                                            breakFast = dayListSorted.breakFast
+                                            lunch = dayListSorted.lunch
+                                            dinner = dayListSorted.dinner
+                                        }
+                                        else -> {
 
-                            numberOfTimes = 1
-                            loadDataFromRoom()
+                                        }
+                                    }
+                                }
+
+                                viewModel.saveNewlyGeneratedDayPlanToRoom(
+                                    oldMealDate,
+                                    newDayPlan
+                                )
+
+                                numberOfTimes = 1
+                                loadDataFromRoom()
+                            }
                         }
                     }
-                }
-            })
+                })
         }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

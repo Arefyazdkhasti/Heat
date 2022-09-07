@@ -30,7 +30,6 @@ import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.factory
 
 
-//TODO Save data when slide with viewPager
 class PersonalDataFragment : ScopedFragment(), KodeinAware {
     override val kodein by closestKodein()
     private val viewModelFactoryInstanceFactory: ((UserPreferences?) -> PersonalDataViewModelFactory) by factory()
@@ -211,4 +210,10 @@ class PersonalDataFragment : ScopedFragment(), KodeinAware {
             }
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

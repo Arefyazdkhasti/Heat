@@ -195,4 +195,8 @@ class IngredientAllergyFragment : ScopedFragment(), KodeinAware {
         return userPreference
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

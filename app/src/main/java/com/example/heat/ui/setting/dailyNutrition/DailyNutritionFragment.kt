@@ -244,4 +244,10 @@ class DailyNutritionFragment : ScopedFragment(), KodeinAware {
                 viewModel.onGetStartedClicked(userPreference)
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

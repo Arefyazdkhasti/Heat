@@ -123,7 +123,6 @@ class LoginFragment : ScopedFragment(), KodeinAware {
             binding.emailLoginEt.text.toString(),
         )
         viewModel.setRegisterUser(user)
-        //TODO send server request
         viewModel.loginRequest.await()?.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 when (it.id) {
@@ -165,6 +164,10 @@ class LoginFragment : ScopedFragment(), KodeinAware {
         binding.apply {
             return /*isEmailValid(emailLoginEt.text.toString())*/ true
         }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

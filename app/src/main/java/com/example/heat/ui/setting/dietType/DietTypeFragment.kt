@@ -107,57 +107,16 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
         binding.apply {
 
             val selectColor = getColor(requireContext(), R.color.gray)
-            val disselectColor = getColor(requireContext(), R.color.pure_white)
-            var selectedDietType = UserDietType.ANY_THING
+            val disSelectColor = getColor(requireContext(), R.color.pure_white)
 
-            //TODO move to a separate function
-            anythingCardView.setOnClickListener {
-                selectedDietType = UserDietType.ANY_THING
-                anythingCardView.setBackgroundColor(selectColor)
-                veganCardView.setBackgroundColor(disselectColor)
-                vegetarianCardView.setBackgroundColor(disselectColor)
-                muslimCardView.setBackgroundColor(disselectColor)
-                kosherCardView.setBackgroundColor(disselectColor)
-            }
-            vegetarianCardView.setOnClickListener {
-                selectedDietType = UserDietType.VEGETARIAN
-                anythingCardView.setBackgroundColor(disselectColor)
-                veganCardView.setBackgroundColor(disselectColor)
-                vegetarianCardView.setBackgroundColor(selectColor)
-                muslimCardView.setBackgroundColor(disselectColor)
-                kosherCardView.setBackgroundColor(disselectColor)
-            }
-            veganCardView.setOnClickListener {
-                selectedDietType = UserDietType.VEGAN
-                anythingCardView.setBackgroundColor(disselectColor)
-                veganCardView.setBackgroundColor(selectColor)
-                vegetarianCardView.setBackgroundColor(disselectColor)
-                muslimCardView.setBackgroundColor(disselectColor)
-                kosherCardView.setBackgroundColor(disselectColor)
-            }
-            muslimCardView.setOnClickListener {
-                selectedDietType = UserDietType.HALAL
-                anythingCardView.setBackgroundColor(disselectColor)
-                veganCardView.setBackgroundColor(disselectColor)
-                vegetarianCardView.setBackgroundColor(disselectColor)
-                muslimCardView.setBackgroundColor(selectColor)
-                kosherCardView.setBackgroundColor(disselectColor)
-            }
-            kosherCardView.setOnClickListener {
-                selectedDietType = UserDietType.KOSHER
-                anythingCardView.setBackgroundColor(disselectColor)
-                veganCardView.setBackgroundColor(disselectColor)
-                vegetarianCardView.setBackgroundColor(disselectColor)
-                muslimCardView.setBackgroundColor(disselectColor)
-                kosherCardView.setBackgroundColor(selectColor)
-            }
+            val selectedDietType = selectionDecision(selectColor, disSelectColor)
 
             if (isFromProfile) {
                 toolbarLayout.save.setOnClickListener {
                     val user = saveData(binding, userPreference, it, selectedDietType)
 
                     //send updated user pref to server
-                    if(UiUtils.isNetworkConnected(requireActivity()))
+                    if (UiUtils.isNetworkConnected(requireActivity()))
                         viewModel.updateUserPreferencesToServer(user)
                 }
             } else {
@@ -213,11 +172,52 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
         }.exhaustive
     }
 
-    /*private fun selectDietType() : DietType{
-
-            return selectedDietType
+    private fun selectionDecision(selectColor: Int, disSelectColor: Int): UserDietType {
+        var selectedDietType = UserDietType.ANY_THING
+        binding.apply {
+            anythingCardView.setOnClickListener {
+                selectedDietType = UserDietType.ANY_THING
+                anythingCardView.setBackgroundColor(selectColor)
+                veganCardView.setBackgroundColor(disSelectColor)
+                vegetarianCardView.setBackgroundColor(disSelectColor)
+                muslimCardView.setBackgroundColor(disSelectColor)
+                kosherCardView.setBackgroundColor(disSelectColor)
+            }
+            vegetarianCardView.setOnClickListener {
+                selectedDietType = UserDietType.VEGETARIAN
+                anythingCardView.setBackgroundColor(disSelectColor)
+                veganCardView.setBackgroundColor(disSelectColor)
+                vegetarianCardView.setBackgroundColor(selectColor)
+                muslimCardView.setBackgroundColor(disSelectColor)
+                kosherCardView.setBackgroundColor(disSelectColor)
+            }
+            veganCardView.setOnClickListener {
+                selectedDietType = UserDietType.VEGAN
+                anythingCardView.setBackgroundColor(disSelectColor)
+                veganCardView.setBackgroundColor(selectColor)
+                vegetarianCardView.setBackgroundColor(disSelectColor)
+                muslimCardView.setBackgroundColor(disSelectColor)
+                kosherCardView.setBackgroundColor(disSelectColor)
+            }
+            muslimCardView.setOnClickListener {
+                selectedDietType = UserDietType.HALAL
+                anythingCardView.setBackgroundColor(disSelectColor)
+                veganCardView.setBackgroundColor(disSelectColor)
+                vegetarianCardView.setBackgroundColor(disSelectColor)
+                muslimCardView.setBackgroundColor(selectColor)
+                kosherCardView.setBackgroundColor(disSelectColor)
+            }
+            kosherCardView.setOnClickListener {
+                selectedDietType = UserDietType.KOSHER
+                anythingCardView.setBackgroundColor(disSelectColor)
+                veganCardView.setBackgroundColor(disSelectColor)
+                vegetarianCardView.setBackgroundColor(disSelectColor)
+                muslimCardView.setBackgroundColor(disSelectColor)
+                kosherCardView.setBackgroundColor(selectColor)
+            }
         }
-    }*/
+        return selectedDietType
+    }
 
     private fun saveData(
         binding: FragmentDietTypeBinding,
@@ -239,6 +239,11 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
             }
         }
         return userPreference
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
 
