@@ -128,15 +128,15 @@ class LoginFragment : ScopedFragment(), KodeinAware {
                 when (it.id) {
                     404 ->{
                         binding.loading.visibility = View.GONE
-                        showToast(requireContext(), "Username Not Found!")
+                        showToast(requireContext(), getString(R.string.username_not_found) )
                     }
                     406 -> {
                         binding.loading.visibility = View.GONE
-                        showToast(requireContext(), "Your Password is not correct!")
+                        showToast(requireContext(), getString(R.string.incorrect_password))
                     }
                     408 -> {
                         binding.loading.visibility = View.GONE
-                        showToast(requireContext(), "Something went wrong in login. Try again later.")
+                        showToast(requireContext(), getString(R.string.something_went_wrong_login))
                     }
                     else -> {
                         viewModel.setUserIDLogin(it.id)

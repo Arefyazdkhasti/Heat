@@ -295,4 +295,23 @@
     <string name="premium_freature_cost">start from 50.000 tomans per month</string>
     <string name="updgare_now">Upgrade Now!</string>
     <string name="todo">TODO</string>
+
+    <!--Toasts-->
+    <string name="username_not_found">Username Not Found!</string>
+    <string name="incorrect_password">Your Password is not correct!</string>
+    <string name="something_went_wrong_login">Something went wrong in login. Try again later.</string>
+    <string name="like_recipe">Added to your liked recipes</string>
+    <string name="unlike_recipe">Removed form your liked recipes</string>
+    <string name="already_taken_username">Username already taken. Choose a new one.</string>
+    <string name="something_went_wrong_register">Something went wrong in Register. Try again later.</string>
+    <string name="exit">Exit</string>
+    <string name="exit_confirm">Do you really want to exit HEAT application?</string>
+    <string name="logout">Logout</string>
+    <string name="logout_confirm">Do you really want to logout of your account? This action will delete all your local data.</string>
+    <string name="RegenaratePlan">ReGenerate Plan</string>
+    <string name="RegenaratePlan_dsc">Do you want to re-generate your meal plan for %1$s! at %2$s!</string>
+    <string name="RegenarateWholeMeal_dsc">Do you want to re-generate your meal plan for %1$s!</string>
+    <string name="forget_it">Forget it</string>
+    <string name="cannot_generate_without_internet">Can not generate new Meal without internet!</string>
+    <string name="cannot_regenerate_more_than_once">You can only regenerate your meal one time per day. Upgrade to premium to unlock more features</string>
 </resources>

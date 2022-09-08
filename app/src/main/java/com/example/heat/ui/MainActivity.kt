@@ -92,22 +92,4 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNav.visibility = View.GONE
     }
 
-    /*override fun onBackPressed() {
-        val dialog = MaterialAlertDialogBuilder(this, R.style.AlertDialogTheme)
-        dialog.apply {
-            setTitle("Exit")
-            setMessage("Do you want to exit HEAT?")
-            setPositiveButton(
-                "Yes"
-            ) { dialogInterface, i ->
-                exitProcess(0)
-            }
-            setNeutralButton(
-                "No"
-            ) { dialogInterface, i ->
-                dialogInterface.dismiss()
-            }
-            show()
-        }
-    }*/
 }

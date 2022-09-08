@@ -111,10 +111,10 @@ class RegisterFragment : ScopedFragment(), KodeinAware {
                 binding.loading.visibility = View.GONE
                 when (it.id){
                     409 -> {
-                        showToast(requireContext(), "Username already taken. Choose a new one.")
+                        showToast(requireContext(), getString(R.string.already_taken_username))
                     }
                     408 -> {
-                        showToast(requireContext(), "Something went wrong in Register. Try again later.")
+                        showToast(requireContext(), getString(R.string.something_went_wrong_register))
                     }
                     else ->{
                         viewModel.navigateToSurveyScreen()

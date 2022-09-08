@@ -233,7 +233,7 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
         if (isNetworkConnected(requireActivity())) {
             showConfirmReGenerateOneRecipeDialog(meal)
         } else {
-            viewModel.showToast("Can not generate new Meal without internet!")
+            viewModel.showToast(getString(R.string.cannot_generate_without_internet))
         }
     }
 
@@ -241,23 +241,23 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
         if (isNetworkConnected(requireActivity())) {
             showConfirmReGenerateDialog(plan)
         } else {
-            viewModel.showToast("Can not generate new Meal Plan without internet!")
+            viewModel.showToast(getString(R.string.cannot_generate_without_internet))
         }
     }
 
     private fun showConfirmReGenerateOneRecipeDialog(meal: FoodSummery) {
         if (numberOfTimes != 0) {
             viewModel.showToast(
-                "You can only regenerate your meal one time per day. Upgrade to premium to unlock more features"
+                getString(R.string.cannot_regenerate_more_than_once)
             )
             return
         }
         val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
         dialog.apply {
-            setTitle("ReGenerate Plan")
-            setMessage("Do you want to re-generate your meal plan for ${meal.mealLabel} at ${meal.localDate}?")
+            setTitle(getString(R.string.RegenaratePlan))
+            setMessage(String.format(getString(R.string.RegenaratePlan_dsc),meal.mealLabel, meal.localDate))
             setPositiveButton(
-                "OK"
+                getString(R.string.ok)
             ) { dialogInterface, i ->
                 dialogInterface.dismiss()
                 viewModel.setDate(meal.localDate)
@@ -284,7 +284,7 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
                 }
             }
             setNeutralButton(
-                "Forget it"
+                getString(R.string.forget_it)
             ) { dialogInterface, i ->
                 dialogInterface.dismiss()
             }
@@ -295,10 +295,10 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
     private fun showConfirmReGenerateDialog(plan: DayListItem) {
         val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
         dialog.apply {
-            setTitle("ReGenerate Plan")
-            setMessage("Do you want to re-generate your meal plan for ${plan.breakFast.localDate}?")
+            setTitle(getString(R.string.RegenaratePlan))
+            setMessage(String.format(getString(R.string.RegenarateWholeMeal_dsc),plan.breakFast.localDate))
             setPositiveButton(
-                "OK"
+                getString(R.string.ok)
             ) { dialogInterface, i ->
                 dialogInterface.dismiss()
                 launch {
@@ -314,7 +314,7 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
                 }
             }
             setNeutralButton(
-                "Forget it"
+                getString(R.string.forget_it)
             ) { dialogInterface, i ->
                 dialogInterface.dismiss()
             }

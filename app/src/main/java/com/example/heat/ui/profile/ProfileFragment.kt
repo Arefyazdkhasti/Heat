@@ -219,9 +219,9 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
     private fun showConfirmLogoutDialog() {
         val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
         dialog.apply {
-            setTitle("Logout")
+            setTitle(getString(R.string.logout))
             setIcon(R.drawable.ic_logout)
-            setMessage("Do you really want to logout of your account? This action will delete all your local data.")
+            setMessage(getString(R.string.logout_confirm))
             setPositiveButton(
                 "Yes"
             ) { dialogInterface, i ->

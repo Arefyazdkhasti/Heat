@@ -226,7 +226,7 @@
     <string name="meal_plan">تعداد برنامه غذایی</string>
     <string name="one_day_plan">یک روزه</string>
     <string name="one_week_plan">یک هفته</string>
-    <string name="liked_recipes">Liked Recipes</string>
+    <string name="liked_recipes">غذاهای محبوب</string>
 
     <string name="phone_number">شماره همراه</string>
     <string name="email">ایمیل</string>
@@ -242,4 +242,24 @@
     <string name="premium_freature_cost">شروع از ماهی 50 هزار توما</string>
     <string name="updgare_now">همین الان ارتقا بده!</string>
     <string name="todo">TODO</string>
+
+    <!--Toasts-->
+    <string name="username_not_found">نام کاربری یافت نشد</string>
+    <string name="incorrect_password">رمز عبور نادرست است.</string>
+    <string name="something_went_wrong_login">مشکلی در ورود پیش آمده. دوباره تلاش کنید.</string>
+    <string name="like_recipe">به لیست علاقه مندی های شما افزوده شد.</string>
+    <string name="unlike_recipe">از لیست علاقه مندی های شما حذف شد.</string>
+    <string name="already_taken_username">این نام کاربری موجود است. وارد شودید یا یک نام کاربری جدید انتخاب کنید.</string>
+    <string name="something_went_wrong_register">مشکلی در ثبت نام پیش آمده. دوباره تلاش کنید.</string>
+    <string name="exit">خروج</string>
+    <string name="exit_confirm">آیا واقعا میخواهید از هیت خارج شوید؟</string>
+    <string name="logout">خروج</string>
+    <string name="logout_confirm">آیا میخواهید از اکانت خود خارج شوید؟ اطلاعات ذخیره شده در تلفن همراه شما حذف خواهد شد.</string>
+    <string name="RegenaratePlan">بازسازی برنامه غذایی</string>
+    <string name="RegenaratePlan_dsc">آیا میخواهید غذای وعده %1$s! خود را در تایخ %2$s! تعویض کنید </string>
+    <string name="RegenarateWholeMeal_dsc">آیا میخواهید برنامه غذایی روزانه خود در تاریخ %1$s! را تغییر دهید؟</string>
+    <string name="forget_it">فراموش کن</string>
+    <string name="cannot_generate_without_internet">بدون اتصال به اینترنت امکان ایجاد وعده غذایی یا تغییر آن نیست.</string>
+    <string name="cannot_regenerate_more_than_once">تنها یکبار امکان  تغییر برنامه غذایی را دارید. برای بارهای بیشتر به پلن طلایی ارتقا دهید.</string>
+
 </resources>

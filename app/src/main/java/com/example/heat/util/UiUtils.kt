@@ -245,9 +245,9 @@ class UiUtils {
                     override fun handleOnBackPressed() {
                         val dialog = MaterialAlertDialogBuilder(context, R.style.AlertDialogTheme)
                         dialog.apply {
-                            setTitle("Exit")
+                            setTitle(context.getString(R.string.exit))
                             setIcon(R.drawable.ic_warning)
-                            setMessage("Do you really want to exit HEAT application?")
+                            setMessage(context.getString(R.string.exit_confirm))
                             setPositiveButton(
                                 "Yes"
                             ) { dialogInterface, i ->

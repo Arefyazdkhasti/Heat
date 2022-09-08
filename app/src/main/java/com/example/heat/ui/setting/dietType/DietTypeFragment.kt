@@ -116,8 +116,8 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
                     val user = saveData(binding, userPreference, it, selectedDietType)
 
                     //send updated user pref to server
-                    if (UiUtils.isNetworkConnected(requireActivity()))
-                        viewModel.updateUserPreferencesToServer(user)
+                    /*if (UiUtils.isNetworkConnected(requireActivity()))
+                        viewModel.updateUserPreferencesToServer(user)*/
                 }
             } else {
                 next.setOnClickListener {
@@ -217,6 +217,8 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
             }
         }
         return selectedDietType
+
+        //TODO selectedDietType did not update in ROOM!
     }
 
     private fun saveData(

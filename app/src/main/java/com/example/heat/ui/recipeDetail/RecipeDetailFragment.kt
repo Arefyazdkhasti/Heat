@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView
+import com.example.heat.R
 import com.example.heat.data.datamodel.food.foodDetail.Ingredient
 import com.example.heat.data.datamodel.food.foodDetail.InstructionStep
 import com.example.heat.data.datamodel.food.foodDetail.Nutrient
@@ -79,7 +80,7 @@ class RecipeDetailFragment : ScopedFragment(), KodeinAware {
         }
 
         viewModel.isFoodLiked.await()?.observe(viewLifecycleOwner, Observer {
-            if( it != null){
+            if (it != null) {
                 binding.recipeLikeIcon.isChecked = it.isLiked
             }
         })
@@ -116,9 +117,12 @@ class RecipeDetailFragment : ScopedFragment(), KodeinAware {
         })
     }
 
-    private fun sendLikeRequest() = launch{
+    private fun sendLikeRequest() = launch {
         viewModel.likeFood.await()?.observe(viewLifecycleOwner, Observer {
-            showToast(requireContext(),"${it.status} the food ")
+            if (it.status == "liked!")
+                showToast(requireContext(), getString(R.string.like_recipe))
+            else
+                showToast(requireContext(), getString(R.string.unlike_recipe))
         })
     }
 
@@ -167,7 +171,7 @@ class RecipeDetailFragment : ScopedFragment(), KodeinAware {
         recyclerView: ShimmerRecyclerView,
         data: List<InstructionStep>
     ) {
-        val sorted :List<InstructionStep> = data.sortedBy { it.number}
+        val sorted: List<InstructionStep> = data.sortedBy { it.number }
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
             addAll(sorted.toInstructionListItems())
         }
