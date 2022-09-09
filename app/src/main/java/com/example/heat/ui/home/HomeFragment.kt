@@ -1,18 +1,14 @@
 package com.example.heat.ui.home
 
-import android.app.Activity
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.example.heat.R
-import com.example.heat.data.datamodel.DayListItem
 import com.example.heat.data.datamodel.NutritionType
 import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 import com.example.heat.databinding.FragmentHomeBinding
@@ -20,28 +16,24 @@ import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.itemRecyclerView.NutritionChartItemRecyclerView
 import com.example.heat.ui.recipes.ALL
 import com.example.heat.util.UiUtils
-import com.example.heat.util.UiUtils.Companion.dataStore
 import com.example.heat.util.UiUtils.Companion.getAheadDate
 import com.example.heat.util.UiUtils.Companion.getCurrentDate
 import com.example.heat.util.UiUtils.Companion.getDayOrWeekFromSetting
 import com.example.heat.util.UiUtils.Companion.getUserIDFromDataStore
-import com.example.heat.util.UiUtils.Companion.showToast
-import com.example.heat.util.UserIDManager
 import com.example.heat.util.enumerian.NavigateAction
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
-import android.content.DialogInterface
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.*
+import com.example.heat.util.UiUtils.Companion.dataStore
 import com.example.heat.util.UiUtils.Companion.onBackPressedExitApplication
-import kotlin.system.exitProcess
+import com.example.heat.util.UiUtils.Companion.showBubbleHelp
+import com.example.heat.util.manager.ShowCaseManager
+import kotlinx.coroutines.GlobalScope
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -72,7 +64,7 @@ class HomeFragment : ScopedFragment(), KodeinAware {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindUI()
-        onBackPressedExitApplication(requireActivity(),requireContext(),viewLifecycleOwner)
+        onBackPressedExitApplication(requireActivity(), requireContext(), viewLifecycleOwner)
     }
 
     private fun bindUI() = launch {
@@ -90,6 +82,7 @@ class HomeFragment : ScopedFragment(), KodeinAware {
                     nutritionChartsRecyclerView.visibility = View.GONE
                     layoutGenerateFood.visibility = View.VISIBLE
                     todayMealsTitleWhenNoPlan.visibility = View.VISIBLE
+                    showGenerateMealGuide()
                     layoutGenerateFood.setOnClickListener {
                         showConfirmDialog()
                     }
@@ -113,6 +106,53 @@ class HomeFragment : ScopedFragment(), KodeinAware {
             })
 
         }
+
+
+    }
+
+    private fun showNutritionChartGuide() {
+        if(shouldShowNutritionChartGuide()){
+            showBubbleHelp(requireContext(),"Nutrition Charts","Here you can see your eaten amount of nutrition out of total amount.",binding.nutritionChartsRecyclerView)
+            val dataStore = requireContext().dataStore
+            val chart = ShowCaseManager(dataStore)
+            GlobalScope.launch {
+                chart.storeHomeNutritionChartsKeyShowCase(false)
+            }
+        }
+    }
+
+    private fun showGenerateMealGuide() {
+        if(shouldShowGenerateGuide()){
+            showBubbleHelp(requireContext(),"Generate New Plan","You can generate new food plan by clicking here",binding.layoutGenerateFood)
+            val dataStore = requireContext().dataStore
+            val home = ShowCaseManager(dataStore)
+            GlobalScope.launch {
+                home.storeHomeGenerateFoodKeyShowCase(false)
+            }
+        }
+    }
+
+    private fun shouldShowGenerateGuide():Boolean {
+        val dataStore = requireContext().dataStore
+        var shouldShowGuide = true
+        val show = ShowCaseManager(dataStore)
+        show.getHomeGenerateFoodKeyShowCase.asLiveData().observe(viewLifecycleOwner, Observer {
+            if (it !=null){
+                shouldShowGuide = it
+            }
+        })
+        return shouldShowGuide
+    }
+    private fun shouldShowNutritionChartGuide():Boolean {
+        val dataStore = requireContext().dataStore
+        var shouldShowGuide = true
+        val show = ShowCaseManager(dataStore)
+        show.getHomeNutritionChartFoodKeyShowCase.asLiveData().observe(viewLifecycleOwner, Observer {
+            if (it !=null){
+                shouldShowGuide = it
+            }
+        })
+        return shouldShowGuide
     }
 
     private fun getUserPreferenceFromServer() = launch {
@@ -199,7 +239,7 @@ class HomeFragment : ScopedFragment(), KodeinAware {
                             }
 
                             if (result.isEmpty()) {
-                                layout.visibility = View.GONE
+                                chartsLayout.visibility = View.GONE
                                 nutritionChartsRecyclerView.visibility = View.GONE
                             }
                             initRecyclerViewNutritionChart(nutritionChartsRecyclerView, result)
@@ -274,7 +314,7 @@ class HomeFragment : ScopedFragment(), KodeinAware {
                         }
 
                         if (result.isEmpty()) {
-                            layout.visibility = View.GONE
+                            chartsLayout.visibility = View.GONE
                             nutritionChartsRecyclerView.visibility = View.GONE
                         }
                         initRecyclerViewNutritionChart(nutritionChartsRecyclerView, result)
@@ -374,6 +414,8 @@ class HomeFragment : ScopedFragment(), KodeinAware {
         }
 
         recyclerView.hideShimmerAdapter()
+
+        //showNutritionChartGuide()
     }
 
     private fun List<NutritionType>.toNutritionTypeItems(): List<NutritionChartItemRecyclerView> =

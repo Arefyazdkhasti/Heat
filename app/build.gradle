@@ -144,4 +144,6 @@ dependencies {
 
     //splash
     implementation 'androidx.core:core-splashscreen:1.0.0'
+
+    implementation 'com.github.mreram:showcaseview:1.4.1'
 }

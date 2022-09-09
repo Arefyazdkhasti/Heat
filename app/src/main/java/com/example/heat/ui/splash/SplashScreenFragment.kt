@@ -1,10 +1,8 @@
 package com.example.heat.ui.splash
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,17 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.heat.R
-import com.example.heat.databinding.FragmentLoginBinding
 import com.example.heat.databinding.FragmentSplashScreenBinding
-import com.example.heat.ui.MainActivity
 import com.example.heat.ui.base.ScopedFragment
-import com.example.heat.ui.login.LoginFragmentDirections
-import com.example.heat.ui.login.LoginViewModel
-import com.example.heat.ui.login.LoginViewModelFactory
-import com.example.heat.ui.setting.disease.DiseaseFragmentDirections
 import com.example.heat.util.UiUtils.Companion.dataStore
-import com.example.heat.util.UserManager
+import com.example.heat.util.manager.UserManager
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.heat.R
@@ -15,11 +14,8 @@ import com.example.heat.databinding.FragmentDietTypeBinding
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.setting.activeLevel.ActiveLevelFragmentArgs
 import com.example.heat.util.UiUtils
-import com.example.heat.util.UiUtils.Companion.dataStore
 import com.example.heat.util.UiUtils.Companion.getColor
-import com.example.heat.util.UserIDManager
 import com.example.heat.util.enumerian.ComeFrom
-import com.example.heat.util.enumerian.DietType
 import com.example.heat.util.enumerian.UserDietType
 import com.example.heat.util.exhaustive
 import kotlinx.coroutines.launch
@@ -109,15 +105,56 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
             val selectColor = getColor(requireContext(), R.color.gray)
             val disSelectColor = getColor(requireContext(), R.color.pure_white)
 
-            val selectedDietType = selectionDecision(selectColor, disSelectColor)
-
+            var selectedDietType = UserDietType.ANY_THING
+            binding.apply {
+                anythingCardView.setOnClickListener {
+                    selectedDietType = UserDietType.ANY_THING
+                    anythingCardView.setBackgroundColor(selectColor)
+                    veganCardView.setBackgroundColor(disSelectColor)
+                    vegetarianCardView.setBackgroundColor(disSelectColor)
+                    muslimCardView.setBackgroundColor(disSelectColor)
+                    kosherCardView.setBackgroundColor(disSelectColor)
+                }
+                vegetarianCardView.setOnClickListener {
+                    selectedDietType = UserDietType.VEGETARIAN
+                    anythingCardView.setBackgroundColor(disSelectColor)
+                    veganCardView.setBackgroundColor(disSelectColor)
+                    vegetarianCardView.setBackgroundColor(selectColor)
+                    muslimCardView.setBackgroundColor(disSelectColor)
+                    kosherCardView.setBackgroundColor(disSelectColor)
+                }
+                veganCardView.setOnClickListener {
+                    selectedDietType = UserDietType.VEGAN
+                    anythingCardView.setBackgroundColor(disSelectColor)
+                    veganCardView.setBackgroundColor(selectColor)
+                    vegetarianCardView.setBackgroundColor(disSelectColor)
+                    muslimCardView.setBackgroundColor(disSelectColor)
+                    kosherCardView.setBackgroundColor(disSelectColor)
+                }
+                muslimCardView.setOnClickListener {
+                    selectedDietType = UserDietType.HALAL
+                    anythingCardView.setBackgroundColor(disSelectColor)
+                    veganCardView.setBackgroundColor(disSelectColor)
+                    vegetarianCardView.setBackgroundColor(disSelectColor)
+                    muslimCardView.setBackgroundColor(selectColor)
+                    kosherCardView.setBackgroundColor(disSelectColor)
+                }
+                kosherCardView.setOnClickListener {
+                    selectedDietType = UserDietType.KOSHER
+                    anythingCardView.setBackgroundColor(disSelectColor)
+                    veganCardView.setBackgroundColor(disSelectColor)
+                    vegetarianCardView.setBackgroundColor(disSelectColor)
+                    muslimCardView.setBackgroundColor(disSelectColor)
+                    kosherCardView.setBackgroundColor(selectColor)
+                }
+            }
             if (isFromProfile) {
                 toolbarLayout.save.setOnClickListener {
                     val user = saveData(binding, userPreference, it, selectedDietType)
 
                     //send updated user pref to server
-                    /*if (UiUtils.isNetworkConnected(requireActivity()))
-                        viewModel.updateUserPreferencesToServer(user)*/
+                    if (UiUtils.isNetworkConnected(requireActivity()))
+                        viewModel.updateUserPreferencesToServer(user)
                 }
             } else {
                 next.setOnClickListener {
@@ -170,55 +207,6 @@ class DietTypeFragment : ScopedFragment(), KodeinAware {
                 }
             }
         }.exhaustive
-    }
-
-    private fun selectionDecision(selectColor: Int, disSelectColor: Int): UserDietType {
-        var selectedDietType = UserDietType.ANY_THING
-        binding.apply {
-            anythingCardView.setOnClickListener {
-                selectedDietType = UserDietType.ANY_THING
-                anythingCardView.setBackgroundColor(selectColor)
-                veganCardView.setBackgroundColor(disSelectColor)
-                vegetarianCardView.setBackgroundColor(disSelectColor)
-                muslimCardView.setBackgroundColor(disSelectColor)
-                kosherCardView.setBackgroundColor(disSelectColor)
-            }
-            vegetarianCardView.setOnClickListener {
-                selectedDietType = UserDietType.VEGETARIAN
-                anythingCardView.setBackgroundColor(disSelectColor)
-                veganCardView.setBackgroundColor(disSelectColor)
-                vegetarianCardView.setBackgroundColor(selectColor)
-                muslimCardView.setBackgroundColor(disSelectColor)
-                kosherCardView.setBackgroundColor(disSelectColor)
-            }
-            veganCardView.setOnClickListener {
-                selectedDietType = UserDietType.VEGAN
-                anythingCardView.setBackgroundColor(disSelectColor)
-                veganCardView.setBackgroundColor(selectColor)
-                vegetarianCardView.setBackgroundColor(disSelectColor)
-                muslimCardView.setBackgroundColor(disSelectColor)
-                kosherCardView.setBackgroundColor(disSelectColor)
-            }
-            muslimCardView.setOnClickListener {
-                selectedDietType = UserDietType.HALAL
-                anythingCardView.setBackgroundColor(disSelectColor)
-                veganCardView.setBackgroundColor(disSelectColor)
-                vegetarianCardView.setBackgroundColor(disSelectColor)
-                muslimCardView.setBackgroundColor(selectColor)
-                kosherCardView.setBackgroundColor(disSelectColor)
-            }
-            kosherCardView.setOnClickListener {
-                selectedDietType = UserDietType.KOSHER
-                anythingCardView.setBackgroundColor(disSelectColor)
-                veganCardView.setBackgroundColor(disSelectColor)
-                vegetarianCardView.setBackgroundColor(disSelectColor)
-                muslimCardView.setBackgroundColor(disSelectColor)
-                kosherCardView.setBackgroundColor(selectColor)
-            }
-        }
-        return selectedDietType
-
-        //TODO selectedDietType did not update in ROOM!
     }
 
     private fun saveData(

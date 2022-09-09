@@ -97,6 +97,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
         android:layout_marginStart="@dimen/mega_margin"
         android:layout_marginEnd ="@dimen/mega_margin"
         android:layout_marginBottom="@dimen/standard_margin"

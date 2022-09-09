@@ -1,6 +1,5 @@
 package com.example.heat.ui.setting.disease
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,19 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.heat.R
 import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.databinding.FragmentDiseaseBinding
-import com.example.heat.ui.MainActivity
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.setting.activeLevel.ActiveLevelFragmentArgs
 import com.example.heat.util.UiUtils
-import com.example.heat.util.UiUtils.Companion.dataStore
-import com.example.heat.util.UiUtils.Companion.showToast
-import com.example.heat.util.UserIDManager
 import com.example.heat.util.enumerian.ComeFrom
 import com.example.heat.util.enumerian.Disease
 import com.example.heat.util.exhaustive

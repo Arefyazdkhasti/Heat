@@ -75,7 +75,8 @@ class MainActivity : AppCompatActivity() {
                 destination.id == R.id.activeLevelFragment ||
                 destination.id == R.id.settingsFragment ||
                 destination.id == R.id.recipeDetailFragment ||
-                destination.id == R.id.surveyFragment
+                destination.id == R.id.surveyFragment ||
+                destination.id == R.id.trackFoodsFragment
             ) {
                 hideBottomNavigation()
             } else {

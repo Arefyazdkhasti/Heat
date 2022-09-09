@@ -15,6 +15,8 @@ import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 import com.example.heat.ui.home.HomeFragmentDirections
 import com.example.heat.ui.itemRecyclerView.RecipeItemRecyclerView
 import com.example.heat.ui.recipes.RecipesFragmentDirections
+import com.example.heat.util.UiUtils
+import com.example.heat.util.UiUtils.Companion.showBubbleHelp
 import com.example.heat.util.enumerian.NavigateAction
 import com.example.heat.util.enumerian.RecipeViewType
 import com.xwray.groupie.GroupAdapter
@@ -51,6 +53,12 @@ class RecipeView(
         recipeRecycleView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
 
+        /*showBubbleHelp(
+            context,
+            "track your foods",
+            "You can track your \ngenerated foods \nby clicking here.",
+            seeAll
+        )*/
     }
 
     private fun List<FoodSummery>.toRecipeListItems(): List<RecipeItemRecyclerView> = this.map {

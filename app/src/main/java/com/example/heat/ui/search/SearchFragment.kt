@@ -143,6 +143,7 @@ class SearchFragment : ScopedFragment(), KodeinAware, ErrorHandling {
         recyclerView: ShimmerRecyclerView,
         data: List<FoodSummery>
     ) {
+        binding.progressbar.visibility = View.INVISIBLE
 
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
             addAll(data.toRecipeListItems())
@@ -197,12 +198,15 @@ class SearchFragment : ScopedFragment(), KodeinAware, ErrorHandling {
     }
 
     private fun bindSearchResult() {
+        binding.progressbar.visibility = View.VISIBLE
         viewModel.recipesListFiltered.observe(viewLifecycleOwner, Observer { list ->
             if (list == null) return@Observer
             if (list.isNotEmpty())
                 initRecyclerView(binding.searchedRecipesRecyclerView, list)
-            else
+            else{
                 binding.animationNoResult.visibility = View.VISIBLE
+                binding.progressbar.visibility = View.INVISIBLE
+            }
         })
     }
 

@@ -13,18 +13,33 @@
         app:layout_constraintStart_toStartOf="parent"
         />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/title_ingredient_allergy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/mega_margin"
+        android:layout_marginEnd="@dimen/mega_margin"
+        android:layout_marginTop="@dimen/large_margin"
+        android:text="@string/Forth_page_text"
+        android:textColor="@color/black"
+        android:textSize="@dimen/big_font"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_layout"
+        android:fontFamily="@font/kanit_font_family"
+        android:textFontWeight="500"/>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/anything_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/mega_margin"
-        android:layout_marginTop="@dimen/mega_margin"
+        android:layout_marginTop="@dimen/large_margin"
         android:layout_marginEnd="@dimen/mega_margin"
         app:cardCornerRadius="@dimen/small_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_layout"
+        app:layout_constraintTop_toBottomOf="@id/title_ingredient_allergy"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -326,6 +341,7 @@
         android:id="@+id/navigation_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

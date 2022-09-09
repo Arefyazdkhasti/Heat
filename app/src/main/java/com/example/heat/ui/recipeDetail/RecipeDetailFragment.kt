@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -17,19 +16,15 @@ import com.example.heat.data.datamodel.food.foodDetail.Ingredient
 import com.example.heat.data.datamodel.food.foodDetail.InstructionStep
 import com.example.heat.data.datamodel.food.foodDetail.Nutrient
 import com.example.heat.databinding.FragmentRecipeDetailBinding
-import com.example.heat.ui.MainActivity
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.itemRecyclerView.IngredientItemRecyclerView
 import com.example.heat.ui.itemRecyclerView.InstructionItemRecyclerView
 import com.example.heat.ui.itemRecyclerView.NutritionItemRecyclerView
 import com.example.heat.util.UiUtils
-import com.example.heat.util.UiUtils.Companion.dataStore
 import com.example.heat.util.UiUtils.Companion.getUserIDFromDataStore
 import com.example.heat.util.UiUtils.Companion.showToast
-import com.example.heat.util.UserIDManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein

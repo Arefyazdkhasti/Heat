@@ -22,10 +22,10 @@
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/_30sdp"
         android:layout_marginStart="@dimen/standard_margin"
         android:layout_marginTop="@dimen/standard_margin"
-        android:layout_marginEnd="@dimen/standard_margin">
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:minHeight="@dimen/_30sdp">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/recipe_type"
@@ -33,11 +33,11 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_margin="@dimen/small_margin"
+            android:fontFamily="@font/kanit_font_family"
             android:textColor="@color/black"
+            android:textFontWeight="500"
             android:textSize="@dimen/extra_font"
             android:textStyle="bold"
-            android:fontFamily="@font/kanit_font_family"
-            android:textFontWeight="500"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -50,11 +50,11 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_margin="@dimen/small_margin"
+            android:fontFamily="@font/kanit_font_family"
             android:text="@string/see_all"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/large_font"
-            android:fontFamily="@font/kanit_font_family"
             android:textFontWeight="400"
+            android:textSize="@dimen/large_font"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

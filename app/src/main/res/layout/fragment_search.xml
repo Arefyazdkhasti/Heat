@@ -106,6 +106,15 @@
         tools:itemCount="5"
         tools:listitem="@layout/recipe_item_horizontal" />
 
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/floating_search_view"
+        app:layout_constraintTop_toTopOf="@+id/searched_recipes_recyclerView" />
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_no_result"
         android:layout_width="0dp"

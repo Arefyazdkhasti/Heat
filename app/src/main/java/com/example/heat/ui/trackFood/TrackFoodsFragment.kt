@@ -102,7 +102,7 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
                 "one_week_plan"
             ) -> {
                 viewModel.getWeekMeals.await().observe(viewLifecycleOwner, Observer {
-                    if(it!= null) {
+                    if (it != null) {
                         if (it.isNotEmpty()) {
                             val data = organizeData(it)
                             initRecyclerView(binding.mealRecyclerView, data)
@@ -151,24 +151,24 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
             }
             println(list.toString())*/
 
-            val _breakFast: FoodSummery = foodLists.find { foodSummery ->
+            val _breakFast: FoodSummery? = foodLists.find { foodSummery ->
                 foodSummery.mealLabel == "Breakfast"
-            }!!
-            val _lunch: FoodSummery = foodLists.find { foodSummery ->
+            }
+            val _lunch: FoodSummery? = foodLists.find { foodSummery ->
                 foodSummery.mealLabel == "Lunch"
-            }!!
-            val _snack: FoodSummery = foodLists.find { foodSummery ->
+            }
+            val _snack: FoodSummery? = foodLists.find { foodSummery ->
                 foodSummery.mealLabel == "Snack"
-            }!!
-            val _dinner: FoodSummery = foodLists.find { foodSummery ->
+            }
+            val _dinner: FoodSummery? = foodLists.find { foodSummery ->
                 foodSummery.mealLabel == "Dinner"
-            }!!
+            }
             data.add(
                 DayListItem(
-                    breakFast = _breakFast,
-                    lunch = _lunch,
-                    snack = _snack,
-                    dinner = _dinner
+                    breakFast = _breakFast ?: foodLists[0],
+                    lunch = _lunch ?: foodLists[1],
+                    snack = _snack ?: foodLists[2],
+                    dinner = _dinner ?: foodLists[3]
                 )
             )
             i += 4
@@ -255,7 +255,13 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
         val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
         dialog.apply {
             setTitle(getString(R.string.RegenaratePlan))
-            setMessage(String.format(getString(R.string.RegenaratePlan_dsc),meal.mealLabel, meal.localDate))
+            setMessage(
+                String.format(
+                    getString(R.string.RegenaratePlan_dsc),
+                    meal.mealLabel,
+                    meal.localDate
+                )
+            )
             setPositiveButton(
                 getString(R.string.ok)
             ) { dialogInterface, i ->
@@ -296,7 +302,12 @@ class TrackFoodsFragment : ScopedFragment(), KodeinAware, SendEvent {
         val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
         dialog.apply {
             setTitle(getString(R.string.RegenaratePlan))
-            setMessage(String.format(getString(R.string.RegenarateWholeMeal_dsc),plan.breakFast.localDate))
+            setMessage(
+                String.format(
+                    getString(R.string.RegenarateWholeMeal_dsc),
+                    plan.breakFast.localDate
+                )
+            )
             setPositiveButton(
                 getString(R.string.ok)
             ) { dialogInterface, i ->

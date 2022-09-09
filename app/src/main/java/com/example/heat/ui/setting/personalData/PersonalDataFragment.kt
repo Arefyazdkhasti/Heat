@@ -5,9 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.heat.R
@@ -15,13 +13,10 @@ import com.example.heat.data.datamodel.user.UserPreferences
 import com.example.heat.databinding.FragmentPersonalDataBinding
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.survey.SurveyFragmentDirections
-import com.example.heat.util.UiUtils.Companion.dataStore
 import com.example.heat.util.UiUtils.Companion.getUserIDFromDataStore
 import com.example.heat.util.UiUtils.Companion.isEditTextEmpty
 import com.example.heat.util.UiUtils.Companion.isNetworkConnected
 import com.example.heat.util.UiUtils.Companion.showSimpleSnackBar
-import com.example.heat.util.UserIDManager
-import com.example.heat.util.UserManager
 import com.example.heat.util.enumerian.*
 import com.example.heat.util.exhaustive
 import kotlinx.coroutines.launch

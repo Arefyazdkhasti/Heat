@@ -1,4 +1,4 @@
-package com.example.heat.util
+package com.example.heat.util.manager
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*

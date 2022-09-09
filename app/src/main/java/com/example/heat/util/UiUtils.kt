@@ -33,7 +33,6 @@ import org.imaginativeworld.oopsnointernet.dialogs.pendulum.NoInternetDialogPend
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import androidx.core.content.ContextCompat.getSystemService
 
 import android.net.ConnectivityManager
 import androidx.activity.OnBackPressedCallback
@@ -41,14 +40,21 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.observe
-import com.example.heat.util.UiUtils.Companion.dataStore
+import com.example.heat.util.manager.UserIDManager
+import com.example.heat.util.manager.UserManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.system.exitProcess
+import smartdevelop.ir.eram.showcaseviewlib.config.DismissType
+import smartdevelop.ir.eram.showcaseviewlib.GuideView
+import smartdevelop.ir.eram.showcaseviewlib.config.Gravity
+import smartdevelop.ir.eram.showcaseviewlib.config.PointerType
 
 
 class UiUtils {
-    companion object {
+    companion object{
 
+        const val CHECK_MEAL= "PREFERENCE_CHECK_NAME"
+        const val CHECK_MEAL_GUIDE_SHOLD_SHOW_KEY= "is_meal_check_box_guide_shown"
 
         val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_prefs")
 
@@ -85,8 +91,6 @@ class UiUtils {
                 .placeholder(R.drawable.healthy_food_placeholder)
                 .into(imageView)
         }
-
-        //fun getStringFromResource( path:Int):String =  ContextCompat.getS
 
         // extension function to get a string resource by resource name
         fun Context.stringFromResourcesByName(resourceName: String): String {
@@ -263,6 +267,18 @@ class UiUtils {
                         }
                     }
                 })
+        }
+
+        fun showBubbleHelp(context:Context, title:String, content:String, targetView:View, ){
+            GuideView.Builder(context)
+                .setTitle(title)
+                .setGravity(Gravity.center)
+                .setPointerType(PointerType.circle)
+                .setContentText(content)
+                .setTargetView(targetView)
+                .setDismissType(DismissType.anywhere) //optional - default dismissible by TargetView
+                .build()
+                .show()
         }
     }
 }

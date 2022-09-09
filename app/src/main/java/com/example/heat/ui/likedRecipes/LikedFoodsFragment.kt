@@ -2,34 +2,21 @@ package com.example.heat.ui.likedRecipes
 
 import android.os.Bundle
 import android.os.Handler
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.observe
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.example.heat.R
 import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 import com.example.heat.databinding.FragmentLikedFoodsBinding
-import com.example.heat.databinding.FragmentSearchBinding
 import com.example.heat.ui.base.ScopedFragment
 import com.example.heat.ui.itemRecyclerView.RecipeItemRecyclerView
-import com.example.heat.ui.search.SearchFragmentDirections
-import com.example.heat.ui.search.SearchViewModel
-import com.example.heat.ui.search.SearchViewModelFactory
 import com.example.heat.util.ErrorHandling
-import com.example.heat.util.SwipeToLikeCallback
 import com.example.heat.util.UiUtils
-import com.example.heat.util.UiUtils.Companion.checkForInternet
-import com.example.heat.util.UiUtils.Companion.dataStore
-import com.example.heat.util.UserIDManager
 import com.example.heat.util.enumerian.RecipeViewType
 import com.google.android.material.snackbar.Snackbar
 import com.xwray.groupie.GroupAdapter
@@ -38,7 +25,6 @@ import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.factory
-import org.kodein.di.generic.instance
 
 class LikedFoodsFragment : ScopedFragment(), KodeinAware, ErrorHandling {
 

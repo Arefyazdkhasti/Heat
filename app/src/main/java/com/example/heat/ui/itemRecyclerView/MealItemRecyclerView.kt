@@ -1,13 +1,23 @@
 package com.example.heat.ui.itemRecyclerView
 
+import android.app.Activity
+import android.content.Context
 import android.view.View
+import androidx.lifecycle.asLiveData
 import com.example.heat.R
 import com.example.heat.data.datamodel.food.foodSummery.FoodSummery
 import com.example.heat.databinding.MealItemBinding
 import com.example.heat.util.SendEvent
+import com.example.heat.util.UiUtils
+import com.example.heat.util.UiUtils.Companion.CHECK_MEAL
+import com.example.heat.util.UiUtils.Companion.CHECK_MEAL_GUIDE_SHOLD_SHOW_KEY
+import com.example.heat.util.UiUtils.Companion.dataStore
 import com.example.heat.util.UiUtils.Companion.setImageWithGlideWithView
+import com.example.heat.util.manager.ShowCaseManager
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class MealItemRecyclerView(val mealItem: FoodSummery, val sendEvent: SendEvent) :
@@ -50,5 +60,4 @@ class MealItemRecyclerView(val mealItem: FoodSummery, val sendEvent: SendEvent) 
             }
         }
     }
-
 }
