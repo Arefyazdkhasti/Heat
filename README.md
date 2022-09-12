@@ -31,7 +31,7 @@ Model-View-ViewModel
 
 ### Sruvey
 <p align = "left" >
-  <img width="750" height="500" src="images/SURVEY.jpg">
+  <img width="750" height="250" src="images/SURVEY.jpg">
 </p>
 
 ### Register and HomePager
