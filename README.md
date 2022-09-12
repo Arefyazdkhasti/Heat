@@ -33,7 +33,7 @@ Model-View-ViewModel
 <p align = "left" >
   <img width="250" height="500" src="images/register.jpg">
   <img width="250" height="500" src="images/home.jpg">
-  <img width="250" height="500"  src="images/home_2.jpn">
+  <img width="250" height="500"  src="images/home_2.jpg">
 </p>
 
 
