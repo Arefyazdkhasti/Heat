@@ -29,6 +29,11 @@ Model-View-ViewModel
 
 ## Screenshots
 
+### Sruvey
+<p align = "left" >
+  <img width="750" height="500" src="images/SURVEY.jpg">
+</p>
+
 ### Register and HomePager
 <p align = "left" >
   <img width="250" height="500" src="images/register.jpg">
@@ -41,6 +46,7 @@ Model-View-ViewModel
 <p align = "left" >
   <img width="250" height="500" src="images/daily_nutrition.jpg">
   <img width="250" height="500" src="images/track_foods.jpg">
+  <img width="250" height="500" src="images/recipe_detail.jpg">
 </p>
 
 
