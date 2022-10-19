@@ -1,0 +1,34 @@
+stages:
+  - stage: Build
+
+    jobs:
+    - job: Test_Build
+      pool:
+        vmImage: 'wibndows-latest'
+      steps:
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'build'
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'pack'
+          packagesToPack: '**/*.csproj'
+          versioningScheme: 'off'
+      - task: Docker@2
+        inputs:
+         command: 'buildAndPush'
+         Dockerfile: '**/Dockerfile'
+
+  - stage: Deploy
+
+    jobs:
+    - job: Deployment
+      pool:
+        vmImage: 'wibndows-latest'
+      steps:
+      - task: AzureRmWebAppDeployment@4
+        inputs:
+          ConnectionType: 'AzureRM'
+          appType: 'mobileApp'
+          WebAppName: 
+          packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
